@@ -34,6 +34,10 @@ class ViewListFragment : Fragment() {
             bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback(){
                 override fun onSlide(view: View, positionFloat: Float) {
                     Log.i("TAG", "positionFloat: " + positionFloat)
+                    if (positionFloat < 0.45)
+                        animateConstraint(BottomSheetBehavior.STATE_COLLAPSED)
+                    else if (positionFloat > 0.46)
+                        animateConstraint(BottomSheetBehavior.STATE_EXPANDED)
                 }
 
                 override fun onStateChanged(view: View, positionState: Int) {
