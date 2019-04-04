@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.layout_video_view_expanded.*
 
 class ViewListFragment : Fragment() {
     lateinit var mView : View
+    lateinit var bottomSheetBehavior : BottomSheetBehavior<View>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mView = inflater.inflate(R.layout.fragment_view_list, container, false)
@@ -26,7 +27,7 @@ class ViewListFragment : Fragment() {
 
 
         mView.card1.setOnClickListener {
-            val bottomSheetBehavior = BottomSheetBehavior.from(mView.bottomSheetVideo)
+            bottomSheetBehavior = BottomSheetBehavior.from(mView.bottomSheetVideo)
             bottomSheetBehavior.isHideable = false
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             bottomSheetBehavior.peekHeight = 670
@@ -50,6 +51,11 @@ class ViewListFragment : Fragment() {
                 }
 
             })
+        }
+
+        mView.imageView.setOnClickListener {
+            bottomSheetBehavior.isHideable = true
+            bottomSheetBehavior.state =BottomSheetBehavior.STATE_HIDDEN
         }
 
         return mView
