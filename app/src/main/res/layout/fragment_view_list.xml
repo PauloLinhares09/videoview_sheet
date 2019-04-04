@@ -27,6 +27,17 @@
 
     <include layout="@layout/content_view_list_fragment"/>
 
+    <FrameLayout
+            android:id="@+id/bottomSheetVideo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/Widget.MaterialComponents.BottomSheet.Modal"
+            app:behavior_peekHeight="0dp"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <include layout="@layout/activity_scrolling"/>
+    </FrameLayout>
+
 
     <!--<com.google.android.material.floatingactionbutton.FloatingActionButton-->
     <!--android:id="@+id/fab"-->
