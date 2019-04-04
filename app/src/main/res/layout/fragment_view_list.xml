@@ -4,6 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         tools:context=".ViewListFragment">
@@ -27,6 +28,8 @@
 
     <include layout="@layout/content_view_list_fragment"/>
 
+
+    <!--### BottomSheet ###-->
     <FrameLayout
             android:id="@+id/bottomSheetVideo"
             android:layout_width="match_parent"

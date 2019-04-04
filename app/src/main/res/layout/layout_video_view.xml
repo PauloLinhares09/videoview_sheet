@@ -14,19 +14,7 @@
             android:layout_width="match_parent"
             android:theme="@style/AppTheme.AppBarOverlay">
 
-            <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="210dp"
-                    android:text="TEST"
-                    android:background="#000000">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@android:drawable/ic_media_play"
-                    android:layout_gravity="center"/>
-
-            </FrameLayout>
+            <include layout="@layout/area_video_expanded"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

@@ -8,15 +8,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.transition.TransitionManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.android.synthetic.main.layout_video_view_expanded.*
 
 
 class VideoBottomSheetFragment : BottomSheetDialogFragment() {
+    lateinit var mView : View
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.layout_video_view, container, false)
+        mView =  inflater.inflate(R.layout.layout_video_view, container, false)
+
+
+        return mView
     }
 
 
@@ -35,6 +43,11 @@ class VideoBottomSheetFragment : BottomSheetDialogFragment() {
 
         return d
     }
+
+
+    private var set: Boolean = false
+
+
 
 
 }
