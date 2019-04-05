@@ -1,10 +1,12 @@
 package com.packapps.videoview
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.MediaController
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
@@ -51,12 +53,22 @@ class ViewListFragment : Fragment() {
                 }
 
             })
+
+            //Video
+            val v = mView.videoView
+            v.setMediaController(MediaController(context))
+            val parse = Uri.parse("android.resource://" + context?.applicationContext?.packageName +"/"+ R.raw.video_iron_man)
+            v.setVideoURI(parse)
+            v.start()
         }
 
         mView.imageView.setOnClickListener {
             bottomSheetBehavior.isHideable = true
             bottomSheetBehavior.state =BottomSheetBehavior.STATE_HIDDEN
         }
+
+
+
 
         return mView
     }
