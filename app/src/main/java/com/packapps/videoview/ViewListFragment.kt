@@ -34,7 +34,7 @@ class ViewListFragment : Fragment() {
             bottomSheetBehavior = BottomSheetBehavior.from(mView.bottomSheetVideo)
             bottomSheetBehavior.isHideable = false
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-            bottomSheetBehavior.peekHeight = 450
+            bottomSheetBehavior.peekHeight = 500
 
             bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback(){
                 override fun onSlide(view: View, positionFloat: Float) {

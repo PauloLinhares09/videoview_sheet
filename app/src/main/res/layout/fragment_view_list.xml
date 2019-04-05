@@ -36,7 +36,8 @@
             android:layout_height="match_parent"
             style="@style/Widget.MaterialComponents.BottomSheet.Modal"
             app:behavior_peekHeight="0dp"
-            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+            android:fitsSystemWindows="true">
 
         <include layout="@layout/layout_video_view"/>
     </FrameLayout>
