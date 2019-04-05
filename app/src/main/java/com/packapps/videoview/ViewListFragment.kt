@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.MediaController
+import android.widget.VideoView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
@@ -22,6 +23,7 @@ import kotlinx.android.synthetic.main.layout_video_view_expanded.*
 class ViewListFragment : Fragment() {
     lateinit var mView : View
     lateinit var bottomSheetBehavior : BottomSheetBehavior<View>
+    lateinit var v : VideoView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mView = inflater.inflate(R.layout.fragment_view_list, container, false)
@@ -55,7 +57,7 @@ class ViewListFragment : Fragment() {
             })
 
             //Video
-            val v = mView.videoView
+            v = mView.videoView
             v.setMediaController(MediaController(context))
             val parse = Uri.parse("android.resource://" + context?.applicationContext?.packageName +"/"+ R.raw.video_iron_man)
             v.setVideoURI(parse)
@@ -63,6 +65,8 @@ class ViewListFragment : Fragment() {
         }
 
         mView.imageView.setOnClickListener {
+            v.stopPlayback()
+            v.clearFocus()
             bottomSheetBehavior.isHideable = true
             bottomSheetBehavior.state =BottomSheetBehavior.STATE_HIDDEN
         }

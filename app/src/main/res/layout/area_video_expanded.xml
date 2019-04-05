@@ -11,6 +11,7 @@
             android:layout_width="0dp"
             android:layout_height="210dp"
             android:elevation="1dp"
+            android:keepScreenOn="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/videoView" app:layout_constraintEnd_toEndOf="parent">
