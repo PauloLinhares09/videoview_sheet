@@ -1,5 +1,6 @@
 package com.packapps.videoview
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -7,16 +8,22 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.VideoView
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.area_video_expanded.*
 import kotlinx.android.synthetic.main.area_video_expanded.view.*
+import kotlinx.android.synthetic.main.content_video_bottomsheet_emp.*
+import kotlinx.android.synthetic.main.content_video_bottomsheet_emp.view.*
 import kotlinx.android.synthetic.main.content_view_list_fragment.view.*
 import kotlinx.android.synthetic.main.fragment_view_list.view.*
+import kotlinx.android.synthetic.main.item_card.view.*
 
 
 class VideoSheetFragment : Fragment() {
@@ -27,6 +34,7 @@ class VideoSheetFragment : Fragment() {
     var SMALL_DELAY_CONTROLLERS : Long = 1000
 
 
+    @SuppressLint("WrongConstant")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mView = inflater.inflate(R.layout.fragment_view_list, container, false)
 
@@ -70,6 +78,15 @@ class VideoSheetFragment : Fragment() {
             managerClickPlayPause()
             managerClickIbClose()
         }
+
+
+        //Adapter list playlist on sheet
+        mView.rvPlaylist.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        mView.rvPlaylist.adapter = PlaylistAdapter()
+
+//        rvPlaylist.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+//        rvPlaylist.adapter = PlaylistAdapter()
+
 
 
 
