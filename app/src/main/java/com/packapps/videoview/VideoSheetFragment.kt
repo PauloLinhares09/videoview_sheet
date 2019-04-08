@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.content_view_list_fragment.view.*
 import kotlinx.android.synthetic.main.fragment_view_list.view.*
 
 
-class ViewListFragment : Fragment() {
+class VideoSheetFragment : Fragment() {
     lateinit var mView : View
     lateinit var bottomSheetBehavior : BottomSheetBehavior<View>
     lateinit var v : VideoView
@@ -156,7 +156,7 @@ class ViewListFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance() =
-            ViewListFragment()
+            VideoSheetFragment()
 
     }
 }

@@ -1,11 +1,9 @@
 package com.packapps.videoview
 
 import android.os.Bundle
-import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun openHome() {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container, ViewListFragment.newInstance())
+        transaction.replace(R.id.container, VideoSheetFragment.newInstance())
         transaction.commit()
     }
 
