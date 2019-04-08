@@ -2,14 +2,14 @@ package com.packapps.videoview
 
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.MediaController
 import android.widget.VideoView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.transition.TransitionManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -17,13 +17,14 @@ import kotlinx.android.synthetic.main.area_video_expanded.*
 import kotlinx.android.synthetic.main.area_video_expanded.view.*
 import kotlinx.android.synthetic.main.content_view_list_fragment.view.*
 import kotlinx.android.synthetic.main.fragment_view_list.view.*
-import kotlinx.android.synthetic.main.layout_video_view_expanded.*
 
 
 class ViewListFragment : Fragment() {
     lateinit var mView : View
     lateinit var bottomSheetBehavior : BottomSheetBehavior<View>
     lateinit var v : VideoView
+    var handler : Handler? = null
+    var runnable : Runnable? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mView = inflater.inflate(R.layout.fragment_view_list, container, false)
@@ -62,6 +63,16 @@ class ViewListFragment : Fragment() {
             val parse = Uri.parse("android.resource://" + context?.applicationContext?.packageName +"/"+ R.raw.video_iron_man)
             v.setVideoURI(parse)
             v.start()
+            doneAfterSometime()
+
+            mView.frameVideoView.setOnClickListener {
+                if (mView.constraintControllers.isVisible) {
+                    mView.constraintControllers.visibility = View.GONE
+                } else {
+                    mView.constraintControllers.visibility = View.VISIBLE
+                    doneAfterSometime()
+                }
+            }
         }
 
         mView.imageView.setOnClickListener {
@@ -75,6 +86,20 @@ class ViewListFragment : Fragment() {
 
 
         return mView
+    }
+
+    private fun doneAfterSometime() {
+        if (handler == null)
+            handler =  Handler()
+        else
+            handler?.removeCallbacks(runnable)
+
+        runnable = Runnable {
+            mView.constraintControllers.visibility = View.GONE
+        }
+
+        handler?.postDelayed(runnable, 3000)
+
     }
 
     private var set: Boolean = false
