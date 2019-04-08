@@ -12,9 +12,7 @@ class MainActivity : AppCompatActivity() {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
-                val transaction = supportFragmentManager.beginTransaction()
-                transaction.replace(R.id.container, ViewListFragment.newInstance())
-                transaction.commit()
+                openHome()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
@@ -31,6 +29,12 @@ class MainActivity : AppCompatActivity() {
         false
     }
 
+    private fun openHome() {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.container, ViewListFragment.newInstance())
+        transaction.commit()
+    }
+
     private fun testOpenBlankFragment() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.container, BlankFragment.newInstance())
@@ -42,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        openHome()
 
     }
 
