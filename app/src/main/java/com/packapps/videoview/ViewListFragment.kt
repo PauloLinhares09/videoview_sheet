@@ -66,37 +66,59 @@ class ViewListFragment : Fragment() {
             v.start()
             goneAfterSometime(LONG_DELAY_CONTROLLERS)
 
-            mView.frameVideoView.setOnClickListener {
-                if (mView.constraintControllers.isVisible) {
-                    mView.constraintControllers.visibility = View.GONE
-                } else {
-                    mView.constraintControllers.visibility = View.VISIBLE
-                    goneAfterSometime(LONG_DELAY_CONTROLLERS)
-                }
-            }
+            managerClickOnFrameControllers()
+            managerClickPlayPause()
+            managerClickIbClose()
         }
 
-        mView.ibPlayPause.setOnClickListener {
-            if (v.isPlaying){
-                handler?.removeCallbacks(runnable)//Make play controller is alweys visible
-                v.pause()
-                mView.ibPlayPause.setImageDrawable(resources.getDrawable(android.R.drawable.ic_media_play, activity?.theme))
-            }else{
-                goneAfterSometime(SMALL_DELAY_CONTROLLERS)
-                v.start()
-                mView.ibPlayPause.setImageDrawable(resources.getDrawable(android.R.drawable.ic_media_pause, activity?.theme))
-            }
-        }
 
+
+
+        return mView
+    }
+
+    private fun managerClickIbClose() {
         mView.imageView.setOnClickListener {
             v.stopPlayback()
             v.clearFocus()
             bottomSheetBehavior.isHideable = true
-            bottomSheetBehavior.state =BottomSheetBehavior.STATE_HIDDEN
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         }
+    }
 
+    private fun managerClickPlayPause() {
+        mView.ibPlayPause.setOnClickListener {
+            if (v.isPlaying) {
+                handler?.removeCallbacks(runnable)//Make play controller is alweys visible
+                v.pause()
+                mView.ibPlayPause.setImageDrawable(
+                    resources.getDrawable(
+                        android.R.drawable.ic_media_play,
+                        activity?.theme
+                    )
+                )
+            } else {
+                goneAfterSometime(SMALL_DELAY_CONTROLLERS)
+                v.start()
+                mView.ibPlayPause.setImageDrawable(
+                    resources.getDrawable(
+                        android.R.drawable.ic_media_pause,
+                        activity?.theme
+                    )
+                )
+            }
+        }
+    }
 
-        return mView
+    private fun managerClickOnFrameControllers() {
+        mView.frameVideoView.setOnClickListener {
+            if (mView.constraintControllers.isVisible) {
+                mView.constraintControllers.visibility = View.GONE
+            } else {
+                mView.constraintControllers.visibility = View.VISIBLE
+                goneAfterSometime(LONG_DELAY_CONTROLLERS)
+            }
+        }
     }
 
     var handler : Handler? = null
