@@ -23,6 +23,8 @@ class ViewListFragment : Fragment() {
     lateinit var mView : View
     lateinit var bottomSheetBehavior : BottomSheetBehavior<View>
     lateinit var v : VideoView
+    var LONG_DELAY_CONTROLLERS : Long = 3000
+    var SMALL_DELAY_CONTROLLERS : Long = 1000
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -62,23 +64,25 @@ class ViewListFragment : Fragment() {
             val parse = Uri.parse("android.resource://" + context?.applicationContext?.packageName +"/"+ R.raw.video_iron_man)
             v.setVideoURI(parse)
             v.start()
-            goneAfterSometime()
+            goneAfterSometime(LONG_DELAY_CONTROLLERS)
 
             mView.frameVideoView.setOnClickListener {
                 if (mView.constraintControllers.isVisible) {
                     mView.constraintControllers.visibility = View.GONE
                 } else {
                     mView.constraintControllers.visibility = View.VISIBLE
-                    goneAfterSometime()
+                    goneAfterSometime(LONG_DELAY_CONTROLLERS)
                 }
             }
         }
 
         mView.ibPlayPause.setOnClickListener {
             if (v.isPlaying){
+                handler?.removeCallbacks(runnable)//Make play controller is alweys visible
                 v.pause()
                 mView.ibPlayPause.setImageDrawable(resources.getDrawable(android.R.drawable.ic_media_play, activity?.theme))
             }else{
+                goneAfterSometime(SMALL_DELAY_CONTROLLERS)
                 v.start()
                 mView.ibPlayPause.setImageDrawable(resources.getDrawable(android.R.drawable.ic_media_pause, activity?.theme))
             }
@@ -97,7 +101,7 @@ class ViewListFragment : Fragment() {
 
     var handler : Handler? = null
     var runnable : Runnable? = null
-    private fun goneAfterSometime() {
+    private fun goneAfterSometime(delay : Long) {
         if (handler == null)
             handler =  Handler()
         else
@@ -105,7 +109,7 @@ class ViewListFragment : Fragment() {
         runnable = Runnable {
             mView.constraintControllers.visibility = View.GONE
         }
-        handler?.postDelayed(runnable, 3000)
+        handler?.postDelayed(runnable, delay)
     }
 
     private var set: Boolean = false
