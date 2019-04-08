@@ -58,7 +58,7 @@ class ViewListFragment : Fragment() {
 
             //Video
             v = mView.videoView
-            v.setMediaController(MediaController(context))
+//            v.setMediaController(MediaController(context))
             val parse = Uri.parse("android.resource://" + context?.applicationContext?.packageName +"/"+ R.raw.video_iron_man)
             v.setVideoURI(parse)
             v.start()
