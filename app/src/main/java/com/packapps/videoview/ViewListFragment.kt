@@ -23,8 +23,7 @@ class ViewListFragment : Fragment() {
     lateinit var mView : View
     lateinit var bottomSheetBehavior : BottomSheetBehavior<View>
     lateinit var v : VideoView
-    var handler : Handler? = null
-    var runnable : Runnable? = null
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mView = inflater.inflate(R.layout.fragment_view_list, container, false)
@@ -63,15 +62,25 @@ class ViewListFragment : Fragment() {
             val parse = Uri.parse("android.resource://" + context?.applicationContext?.packageName +"/"+ R.raw.video_iron_man)
             v.setVideoURI(parse)
             v.start()
-            doneAfterSometime()
+            goneAfterSometime()
 
             mView.frameVideoView.setOnClickListener {
                 if (mView.constraintControllers.isVisible) {
                     mView.constraintControllers.visibility = View.GONE
                 } else {
                     mView.constraintControllers.visibility = View.VISIBLE
-                    doneAfterSometime()
+                    goneAfterSometime()
                 }
+            }
+        }
+
+        mView.ibPlayPause.setOnClickListener {
+            if (v.isPlaying){
+                v.pause()
+                mView.ibPlayPause.setImageDrawable(resources.getDrawable(android.R.drawable.ic_media_play, activity?.theme))
+            }else{
+                v.start()
+                mView.ibPlayPause.setImageDrawable(resources.getDrawable(android.R.drawable.ic_media_pause, activity?.theme))
             }
         }
 
@@ -83,23 +92,20 @@ class ViewListFragment : Fragment() {
         }
 
 
-
-
         return mView
     }
 
-    private fun doneAfterSometime() {
+    var handler : Handler? = null
+    var runnable : Runnable? = null
+    private fun goneAfterSometime() {
         if (handler == null)
             handler =  Handler()
         else
             handler?.removeCallbacks(runnable)
-
         runnable = Runnable {
             mView.constraintControllers.visibility = View.GONE
         }
-
         handler?.postDelayed(runnable, 3000)
-
     }
 
     private var set: Boolean = false
