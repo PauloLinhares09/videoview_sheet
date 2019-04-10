@@ -123,7 +123,7 @@ class PlayerViewSheetFragment : Fragment() {
     }
 
     private fun buildMediaSource(uri: Uri): MediaSource {
-        return ExtractorMediaSource.Factory(DefaultHttpDataSourceFactory("exoplayer-codelab"))
+        return ExtractorMediaSource.Factory(DefaultHttpDataSourceFactory("exoplayer-empiricus"))
             .createMediaSource(uri)
     }
 
