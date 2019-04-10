@@ -3,7 +3,6 @@ package com.packapps.videoview
 import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -29,8 +28,6 @@ import kotlinx.android.synthetic.main.fragment_view_list.view.*
 
 
 
-
-
 class PlayerViewSheetFragment : Fragment() {
     lateinit var mView : View
     lateinit var bottomSheetBehavior : BottomSheetBehavior<View>
@@ -41,6 +38,13 @@ class PlayerViewSheetFragment : Fragment() {
     private var playWhenReady : Boolean = true
     private var playbackPosition : Long = 0
     private var currentWindow : Int = 0
+    private lateinit var playerListener : MyComponentPlayerListener
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        playerListener = MyComponentPlayerListener()
+    }
 
 
 
@@ -113,6 +117,10 @@ class PlayerViewSheetFragment : Fragment() {
             DefaultRenderersFactory(context!!),
             DefaultTrackSelector(), DefaultLoadControl())
 
+        //Add listner
+        player?.addListener(playerListener)
+        player?.addAnalyticsListener(playerListener)
+
         //Vicule the player with the playerView
         playerView.setPlayer(player)
 
@@ -169,6 +177,9 @@ class PlayerViewSheetFragment : Fragment() {
             playbackPosition = player?.getCurrentPosition()!!
             currentWindow = player?.getCurrentWindowIndex()!!
             playWhenReady = player?.getPlayWhenReady()!!
+            //Remove listners
+            player?.removeAnalyticsListener(playerListener)
+            player?.removeListener(playerListener)
             player?.release()
             player = null
         }
