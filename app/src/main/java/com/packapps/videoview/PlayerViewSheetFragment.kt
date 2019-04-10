@@ -124,8 +124,10 @@ class PlayerViewSheetFragment : Fragment() {
         //File media
         val mediaSource = buildMediaSource(Uri.parse(getString(R.string.media_url_mp4)))
 
+        //Play / prepare
         player?.prepare(mediaSource, true, false)
     }
+
 
     private fun buildMediaSource(uri: Uri): MediaSource {
         return ExtractorMediaSource.Factory(DefaultHttpDataSourceFactory("exoplayer-empiricus"))
@@ -142,7 +144,7 @@ class PlayerViewSheetFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        hideSystemUi()
+//        hideSystemUi()
         if ((Util.SDK_INT <= 23 || player == null)) {
 //            initializePlayer()
         }
