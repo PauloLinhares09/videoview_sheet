@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun openHome() {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container, VideoSheetFragment.newInstance())
+        transaction.replace(R.id.container, PlayerViewSheetFragment.newInstance())
         transaction.commit()
     }
 

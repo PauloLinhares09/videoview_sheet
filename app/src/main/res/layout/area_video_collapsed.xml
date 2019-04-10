@@ -14,62 +14,63 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
     >
 
-        <VideoView
+        <com.google.android.exoplayer2.ui.PlayerView
+                android:id="@+id/playerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:elevation="1dp"
                 android:keepScreenOn="true"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-                android:id="@+id/videoView" app:layout_constraintEnd_toEndOf="parent">
-        </VideoView>
+                app:layout_constraintEnd_toEndOf="parent">
+        </com.google.android.exoplayer2.ui.PlayerView>
 
-        <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:elevation="1dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-                android:id="@+id/frameVideoView" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.0">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+        <!--<FrameLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:elevation="1dp"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--android:id="@+id/frameVideoView" app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.0">-->
+            <!--<androidx.constraintlayout.widget.ConstraintLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent">-->
 
 
-                <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@android:drawable/ic_media_pause"
-                        android:background="@android:color/transparent"
-                        android:id="@+id/ibPlayPause" android:layout_marginTop="8dp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/imageButton4" android:layout_marginEnd="8dp"
-                        app:layout_constraintStart_toEndOf="@+id/imageButton3" android:layout_marginStart="8dp"/>
-                <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        app:srcCompat="@android:drawable/ic_media_rew"
-                        android:id="@+id/imageButton3" app:layout_constraintStart_toStartOf="parent"
-                        android:layout_marginStart="16dp"
-                        android:visibility="invisible"
-                        app:layout_constraintTop_toTopOf="@+id/ibPlayPause"
-                        app:layout_constraintBottom_toBottomOf="@+id/ibPlayPause"/>
-                <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        app:srcCompat="@android:drawable/ic_media_ff"
-                        android:id="@+id/imageButton4" app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginEnd="16dp"
-                        android:visibility="invisible"
-                        app:layout_constraintTop_toTopOf="@+id/ibPlayPause"
-                        app:layout_constraintBottom_toBottomOf="@+id/ibPlayPause"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <!--<ImageButton-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--app:srcCompat="@android:drawable/ic_media_pause"-->
+                        <!--android:background="@android:color/transparent"-->
+                        <!--android:id="@+id/ibPlayPause" android:layout_marginTop="8dp"-->
+                        <!--app:layout_constraintTop_toTopOf="parent"-->
+                        <!--android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"-->
+                        <!--app:layout_constraintEnd_toStartOf="@+id/imageButton4" android:layout_marginEnd="8dp"-->
+                        <!--app:layout_constraintStart_toEndOf="@+id/imageButton3" android:layout_marginStart="8dp"/>-->
+                <!--<ImageButton-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:background="@android:color/transparent"-->
+                        <!--app:srcCompat="@android:drawable/ic_media_rew"-->
+                        <!--android:id="@+id/imageButton3" app:layout_constraintStart_toStartOf="parent"-->
+                        <!--android:layout_marginStart="16dp"-->
+                        <!--android:visibility="invisible"-->
+                        <!--app:layout_constraintTop_toTopOf="@+id/ibPlayPause"-->
+                        <!--app:layout_constraintBottom_toBottomOf="@+id/ibPlayPause"/>-->
+                <!--<ImageButton-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:background="@android:color/transparent"-->
+                        <!--app:srcCompat="@android:drawable/ic_media_ff"-->
+                        <!--android:id="@+id/imageButton4" app:layout_constraintEnd_toEndOf="parent"-->
+                        <!--android:layout_marginEnd="16dp"-->
+                        <!--android:visibility="invisible"-->
+                        <!--app:layout_constraintTop_toTopOf="@+id/ibPlayPause"-->
+                        <!--app:layout_constraintBottom_toBottomOf="@+id/ibPlayPause"/>-->
+            <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
 
-        </FrameLayout>
+        <!--</FrameLayout>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <TextView

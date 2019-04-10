@@ -40,51 +40,51 @@ class VideoSheetFragment : Fragment() {
 
 
 
-        mView.card1.setOnClickListener {
-            bottomSheetBehavior = BottomSheetBehavior.from(mView.bottomSheetVideo)
-            bottomSheetBehavior.isHideable = false
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-            bottomSheetBehavior.peekHeight = 500
-
-            bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback(){
-                override fun onSlide(view: View, positionFloat: Float) {
-                    Log.i("TAG", "positionFloat: " + positionFloat)
-                    if (positionFloat < 0.45)
-                        animateConstraint(BottomSheetBehavior.STATE_COLLAPSED)
-                    else if (positionFloat > 0.46)
-                        animateConstraint(BottomSheetBehavior.STATE_EXPANDED)
-                }
-
-                override fun onStateChanged(view: View, positionState: Int) {
-                    Log.i("TAG", "state: " + positionState)
-                    if (positionState == BottomSheetBehavior.STATE_COLLAPSED){
-                        animateConstraint(positionState)
-                    }else if (positionState == BottomSheetBehavior.STATE_EXPANDED) {
-                        animateConstraint(positionState)
-                    }
-                }
-
-            })
-
-            //Video
-            v = mView.videoView
-//            v.setMediaController(MediaController(context))
-            val parse = Uri.parse("android.resource://" + context?.applicationContext?.packageName +"/"+ R.raw.video_iron_man)
-            v.setVideoURI(parse)
-            v.start()
-            goneAfterSometime(LONG_DELAY_CONTROLLERS)
-
-            managerClickOnFrameControllers()
-            managerClickPlayPause()
-            managerClickIbClose()
-
-
-            //Adapter list playlist on sheet
-            mView.rvPlaylist.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            mView.rvPlaylist.adapter = PlaylistAdapter()
-
-
-        }
+//        mView.card1.setOnClickListener {
+//            bottomSheetBehavior = BottomSheetBehavior.from(mView.bottomSheetVideo)
+//            bottomSheetBehavior.isHideable = false
+//            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+//            bottomSheetBehavior.peekHeight = 500
+//
+//            bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback(){
+//                override fun onSlide(view: View, positionFloat: Float) {
+//                    Log.i("TAG", "positionFloat: " + positionFloat)
+//                    if (positionFloat < 0.45)
+//                        animateConstraint(BottomSheetBehavior.STATE_COLLAPSED)
+//                    else if (positionFloat > 0.46)
+//                        animateConstraint(BottomSheetBehavior.STATE_EXPANDED)
+//                }
+//
+//                override fun onStateChanged(view: View, positionState: Int) {
+//                    Log.i("TAG", "state: " + positionState)
+//                    if (positionState == BottomSheetBehavior.STATE_COLLAPSED){
+//                        animateConstraint(positionState)
+//                    }else if (positionState == BottomSheetBehavior.STATE_EXPANDED) {
+//                        animateConstraint(positionState)
+//                    }
+//                }
+//
+//            })
+//
+//            //Video
+//            playerView = mView.videoView
+////            playerView.setMediaController(MediaController(context))
+//            val parse = Uri.parse("android.resource://" + context?.applicationContext?.packageName +"/"+ R.raw.video_iron_man)
+//            playerView.setVideoURI(parse)
+//            playerView.start()
+//            goneAfterSometime(LONG_DELAY_CONTROLLERS)
+//
+//            managerClickOnFrameControllers()
+//            managerClickPlayPause()
+//            managerClickIbClose()
+//
+//
+//            //Adapter list playlist on sheet
+//            mView.rvPlaylist.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+//            mView.rvPlaylist.adapter = PlaylistAdapter()
+//
+//
+//        }
 
 
 
@@ -103,53 +103,53 @@ class VideoSheetFragment : Fragment() {
         }
     }
 
-    private fun managerClickPlayPause() {
-        mView.ibPlayPause.setOnClickListener {
-            if (v.isPlaying) {
-                handler?.removeCallbacks(runnable)//Make play controller is alweys visible
-                v.pause()
-                mView.ibPlayPause.setImageDrawable(
-                    resources.getDrawable(
-                        android.R.drawable.ic_media_play,
-                        activity?.theme
-                    )
-                )
-            } else {
-                goneAfterSometime(SMALL_DELAY_CONTROLLERS)
-                v.start()
-                mView.ibPlayPause.setImageDrawable(
-                    resources.getDrawable(
-                        android.R.drawable.ic_media_pause,
-                        activity?.theme
-                    )
-                )
-            }
-        }
-    }
-
-    private fun managerClickOnFrameControllers() {
-        mView.frameVideoView.setOnClickListener {
-            if (mView.constraintControllers.isVisible) {
-                mView.constraintControllers.visibility = View.GONE
-            } else {
-                mView.constraintControllers.visibility = View.VISIBLE
-                goneAfterSometime(LONG_DELAY_CONTROLLERS)
-            }
-        }
-    }
-
-    var handler : Handler? = null
-    var runnable : Runnable? = null
-    private fun goneAfterSometime(delay : Long) {
-        if (handler == null)
-            handler =  Handler()
-        else
-            handler?.removeCallbacks(runnable)
-        runnable = Runnable {
-            mView.constraintControllers.visibility = View.GONE
-        }
-        handler?.postDelayed(runnable, delay)
-    }
+//    private fun managerClickPlayPause() {
+//        mView.ibPlayPause.setOnClickListener {
+//            if (v.isPlaying) {
+//                handler?.removeCallbacks(runnable)//Make play controller is alweys visible
+//                v.pause()
+//                mView.ibPlayPause.setImageDrawable(
+//                    resources.getDrawable(
+//                        android.R.drawable.ic_media_play,
+//                        activity?.theme
+//                    )
+//                )
+//            } else {
+//                goneAfterSometime(SMALL_DELAY_CONTROLLERS)
+//                v.start()
+//                mView.ibPlayPause.setImageDrawable(
+//                    resources.getDrawable(
+//                        android.R.drawable.ic_media_pause,
+//                        activity?.theme
+//                    )
+//                )
+//            }
+//        }
+//    }
+//
+//    private fun managerClickOnFrameControllers() {
+//        mView.frameVideoView.setOnClickListener {
+//            if (mView.constraintControllers.isVisible) {
+//                mView.constraintControllers.visibility = View.GONE
+//            } else {
+//                mView.constraintControllers.visibility = View.VISIBLE
+//                goneAfterSometime(LONG_DELAY_CONTROLLERS)
+//            }
+//        }
+//    }
+//
+//    var handler : Handler? = null
+//    var runnable : Runnable? = null
+//    private fun goneAfterSometime(delay : Long) {
+//        if (handler == null)
+//            handler =  Handler()
+//        else
+//            handler?.removeCallbacks(runnable)
+//        runnable = Runnable {
+//            mView.constraintControllers.visibility = View.GONE
+//        }
+//        handler?.postDelayed(runnable, delay)
+//    }
 
     private var set: Boolean = false
     private fun animateConstraint(state : Int) {
