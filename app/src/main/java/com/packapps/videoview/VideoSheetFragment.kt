@@ -77,15 +77,15 @@ class VideoSheetFragment : Fragment() {
             managerClickOnFrameControllers()
             managerClickPlayPause()
             managerClickIbClose()
+
+
+            //Adapter list playlist on sheet
+            mView.rvPlaylist.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            mView.rvPlaylist.adapter = PlaylistAdapter()
+
+
         }
 
-
-        //Adapter list playlist on sheet
-        mView.rvPlaylist.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        mView.rvPlaylist.adapter = PlaylistAdapter()
-
-//        rvPlaylist.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-//        rvPlaylist.adapter = PlaylistAdapter()
 
 
 
