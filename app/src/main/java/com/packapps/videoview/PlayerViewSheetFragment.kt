@@ -34,10 +34,9 @@ import kotlinx.android.synthetic.main.fragment_view_list.view.*
 class PlayerViewSheetFragment : Fragment() {
     lateinit var mView : View
     lateinit var bottomSheetBehavior : BottomSheetBehavior<View>
-    lateinit var playerView : PlayerView
-    var LONG_DELAY_CONTROLLERS : Long = 3000
-    var SMALL_DELAY_CONTROLLERS : Long = 1000
 
+    //ExoPlayer flow
+    lateinit var playerView : PlayerView
     private var player: SimpleExoPlayer? = null
     private var playWhenReady : Boolean = true
     private var playbackPosition : Long = 0
@@ -130,7 +129,7 @@ class PlayerViewSheetFragment : Fragment() {
 
 
     private fun buildMediaSource(uri: Uri): MediaSource {
-        return ExtractorMediaSource.Factory(DefaultHttpDataSourceFactory("exoplayer-empiricus"))
+        return ExtractorMediaSource.Factory(DefaultHttpDataSourceFactory("exoplayer-app"))
             .createMediaSource(uri)
     }
 
