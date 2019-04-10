@@ -55,49 +55,7 @@ class PlayerViewSheetFragment : Fragment() {
 
 
         mView.card1.setOnClickListener {
-            initializePlayer()
-            bottomSheetBehavior = BottomSheetBehavior.from(mView.bottomSheetVideo)
-            bottomSheetBehavior.isHideable = false
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-            bottomSheetBehavior.peekHeight = 500
-
-            bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback(){
-                override fun onSlide(view: View, positionFloat: Float) {
-                    Log.i("TAG", "positionFloat: " + positionFloat)
-                    if (positionFloat < 0.45)
-                        animateConstraint(BottomSheetBehavior.STATE_COLLAPSED)
-                    else if (positionFloat > 0.46)
-                        animateConstraint(BottomSheetBehavior.STATE_EXPANDED)
-                }
-
-                override fun onStateChanged(view: View, positionState: Int) {
-                    Log.i("TAG", "state: " + positionState)
-                    if (positionState == BottomSheetBehavior.STATE_COLLAPSED){
-                        animateConstraint(positionState)
-                    }else if (positionState == BottomSheetBehavior.STATE_EXPANDED) {
-                        animateConstraint(positionState)
-                    }
-                }
-
-            })
-
-////            playerView.setMediaController(MediaController(context))
-//            val parse = Uri.parse("android.resource://" + context?.applicationContext?.packageName +"/"+ R.raw.video_iron_man)
-//            playerView.setVideoURI(parse)
-//            playerView.start()
-
-
-//            goneAfterSometime(LONG_DELAY_CONTROLLERS)
-//            managerClickOnFrameControllers()
-//            managerClickPlayPause()
-            managerClickIbClose()
-
-
-            //Adapter list playlist on sheet
-            mView.rvPlaylist.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            mView.rvPlaylist.adapter = PlaylistAdapter()
-
-
+            initBottomSheetExpirience()
         }
 
         playerView = mView.playerView
@@ -107,7 +65,39 @@ class PlayerViewSheetFragment : Fragment() {
         return mView
     }
 
+    private fun initBottomSheetExpirience() {
+        initializePlayer()
+        bottomSheetBehavior = BottomSheetBehavior.from(mView.bottomSheetVideo)
+        bottomSheetBehavior.isHideable = false
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        bottomSheetBehavior.peekHeight = 500
 
+        bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onSlide(view: View, positionFloat: Float) {
+                Log.i("TAG", "positionFloat: " + positionFloat)
+                if (positionFloat < 0.45)
+                    animateConstraint(BottomSheetBehavior.STATE_COLLAPSED)
+                else if (positionFloat > 0.46)
+                    animateConstraint(BottomSheetBehavior.STATE_EXPANDED)
+            }
+
+            override fun onStateChanged(view: View, positionState: Int) {
+                Log.i("TAG", "state: " + positionState)
+                if (positionState == BottomSheetBehavior.STATE_COLLAPSED) {
+                    animateConstraint(positionState)
+                } else if (positionState == BottomSheetBehavior.STATE_EXPANDED) {
+                    animateConstraint(positionState)
+                }
+            }
+
+        })
+
+        managerClickIbClose()
+
+        //Adapter list playlist on sheet
+        mView.rvPlaylist.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        mView.rvPlaylist.adapter = PlaylistAdapter()
+    }
 
 
     private fun initializePlayer() {
@@ -154,6 +144,8 @@ class PlayerViewSheetFragment : Fragment() {
 //        hideSystemUi()
         if ((Util.SDK_INT <= 23 || player == null)) {
 //            initializePlayer()
+            if (playbackPosition > 0)
+                initBottomSheetExpirience()
         }
     }
 
