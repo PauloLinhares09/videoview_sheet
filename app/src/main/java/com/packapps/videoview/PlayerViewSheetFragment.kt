@@ -52,6 +52,7 @@ class PlayerViewSheetFragment : Fragment() {
 
 
         mView.card1.setOnClickListener {
+            initializePlayer()
             bottomSheetBehavior = BottomSheetBehavior.from(mView.bottomSheetVideo)
             bottomSheetBehavior.isHideable = false
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
@@ -86,7 +87,7 @@ class PlayerViewSheetFragment : Fragment() {
 //            goneAfterSometime(LONG_DELAY_CONTROLLERS)
 //            managerClickOnFrameControllers()
 //            managerClickPlayPause()
-//            managerClickIbClose()
+            managerClickIbClose()
 
 
             //Adapter list playlist on sheet
@@ -107,18 +108,22 @@ class PlayerViewSheetFragment : Fragment() {
 
 
     private fun initializePlayer() {
+        //A Simple instance
         player = ExoPlayerFactory.newSimpleInstance(
             context,
             DefaultRenderersFactory(context!!),
             DefaultTrackSelector(), DefaultLoadControl())
 
+        //Vicule the player with the playerView
         playerView.setPlayer(player)
 
+        //keep ready for the play when its ready
         player?.setPlayWhenReady(playWhenReady)
         player?.seekTo(currentWindow, playbackPosition)
 
         //File media
         val mediaSource = buildMediaSource(Uri.parse(getString(R.string.media_url_mp4)))
+
         player?.prepare(mediaSource, true, false)
     }
 
@@ -131,7 +136,7 @@ class PlayerViewSheetFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         if (Util.SDK_INT > 23) {
-            initializePlayer()
+//            initializePlayer()
         }
     }
 
@@ -139,7 +144,7 @@ class PlayerViewSheetFragment : Fragment() {
         super.onResume()
         hideSystemUi()
         if ((Util.SDK_INT <= 23 || player == null)) {
-            initializePlayer()
+//            initializePlayer()
         }
     }
 
@@ -179,14 +184,13 @@ class PlayerViewSheetFragment : Fragment() {
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
     }
 
-//    private fun managerClickIbClose() {
-//        mView.imageView.setOnClickListener {
-//            playerView.stopPlayback()
-//            playerView.clearFocus()
-//            bottomSheetBehavior.isHideable = true
-//            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-//        }
-//    }
+    private fun managerClickIbClose() {
+        mView.imageView.setOnClickListener {
+            releasePlayer()
+            bottomSheetBehavior.isHideable = true
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        }
+    }
 //
 //    private fun managerClickPlayPause() {
 //        mView.ibPlayPause.setOnClickListener {
