@@ -108,6 +108,7 @@ class PlayerViewSheetFragment : Fragment() {
 
     private fun initializePlayer() {
         player = ExoPlayerFactory.newSimpleInstance(
+            context,
             DefaultRenderersFactory(context!!),
             DefaultTrackSelector(), DefaultLoadControl())
 
@@ -117,12 +118,13 @@ class PlayerViewSheetFragment : Fragment() {
         player?.seekTo(currentWindow, playbackPosition)
 
         //File media
-        val uri = Uri.parse("http://storage.googleapis.com/exoplayer-test-media-0/play.mp3")
-        var mediaSource : MediaSource = buildMediaSource(uri)
+        val mediaSource = buildMediaSource(Uri.parse(getString(R.string.media_url_mp4)))
+        player?.prepare(mediaSource, true, false)
     }
 
-    private fun buildMediaSource(uri: Uri?): MediaSource {
-        return ExtractorMediaSource.Factory(DefaultHttpDataSourceFactory("exoplayer-codelab")).createMediaSource(uri)
+    private fun buildMediaSource(uri: Uri): MediaSource {
+        return ExtractorMediaSource.Factory(DefaultHttpDataSourceFactory("exoplayer-codelab"))
+            .createMediaSource(uri)
     }
 
 
