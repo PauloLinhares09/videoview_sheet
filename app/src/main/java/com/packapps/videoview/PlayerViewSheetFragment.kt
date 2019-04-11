@@ -7,8 +7,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionManager
 import com.google.android.exoplayer2.*
@@ -52,15 +54,17 @@ class PlayerViewSheetFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mView = inflater.inflate(R.layout.fragment_view_list, container, false)
 
-
-
         mView.card1.setOnClickListener {
             initBottomSheetExpirience()
         }
 
         playerView = mView.playerView
 
-
+        //Observer to player listener
+        val viewModelVideoPlayer = playerListener.getObservableViewModel()
+        viewModelVideoPlayer.stateVideo.observe(this, Observer {
+            Toast.makeText(context, "State: ${it}", Toast.LENGTH_SHORT).show()
+        })
 
         return mView
     }
