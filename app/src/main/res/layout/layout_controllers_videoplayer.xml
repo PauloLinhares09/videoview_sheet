@@ -26,7 +26,8 @@
     <ImageButton
             android:background="@android:color/transparent"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:srcCompat="@drawable/exo_controls_fullscreen_enter"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_fullscreen"
             android:id="@+id/imageButton9"
             app:layout_constraintEnd_toStartOf="@+id/imageButton8" android:layout_marginEnd="16dp"
             android:layout_marginTop="16dp" app:layout_constraintTop_toTopOf="parent"/>
@@ -75,7 +76,7 @@
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
             android:id="@+id/exo_position" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp" android:layout_marginBottom="8dp"
+            android:layout_marginStart="16dp"
             app:layout_constraintBottom_toTopOf="@+id/exo_progress"/>
     <TextView
             android:text="0:00"
@@ -83,7 +84,7 @@
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
             android:id="@+id/exo_duration" android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/exo_progress"/>
+            app:layout_constraintBottom_toTopOf="@+id/exo_progress"/>
     <ImageButton
             android:background="@android:color/transparent"
             android:layout_width="wrap_content"
