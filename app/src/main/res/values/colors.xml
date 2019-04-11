@@ -3,4 +3,5 @@
     <color name="colorPrimary">#355F5C</color>
     <color name="colorPrimaryDark">#024239</color>
     <color name="colorAccent">#F44336</color>
+    <color name="bg_video_controllers">#AE000000</color>
 </resources>
