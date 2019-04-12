@@ -21,6 +21,7 @@ import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlinx.android.synthetic.main.area_video_collapsed.view.*
 import kotlinx.android.synthetic.main.area_video_expanded.*
 import kotlinx.android.synthetic.main.area_video_expanded.view.*
 import kotlinx.android.synthetic.main.content_video_bottomsheet_emp.view.*
@@ -61,6 +62,8 @@ class PlayerViewSheetFragment : Fragment() {
 
         //Observer to player listener
         observerListenerVideoPlayer()
+
+        //TODO click buttons
 
         return mView
     }
