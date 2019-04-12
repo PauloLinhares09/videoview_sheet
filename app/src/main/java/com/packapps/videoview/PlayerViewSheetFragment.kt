@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,7 +22,6 @@ import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import kotlinx.android.synthetic.main.area_video_collapsed.view.*
 import kotlinx.android.synthetic.main.area_video_expanded.*
 import kotlinx.android.synthetic.main.area_video_expanded.view.*
 import kotlinx.android.synthetic.main.content_video_bottomsheet_emp.view.*
@@ -63,7 +63,21 @@ class PlayerViewSheetFragment : Fragment() {
         //Observer to player listener
         observerListenerVideoPlayer()
 
-        //TODO click buttons
+        mView.exo_play_aux.setOnClickListener {
+
+            playerView.exo_pause.performClick()
+
+//            if (playerView.exo_play.isVisible)
+//                playerView.exo_play.performClick()
+//            else
+//                playerView.exo_play.performClick()
+        }
+        mView.exo_prev_aux.setOnClickListener {
+            playerView.exo_prev.performClick()
+        }
+        mView.exo_nex_aux.setOnClickListener {
+            playerView.exo_next.performClick()
+        }
 
         return mView
     }
@@ -95,21 +109,21 @@ class PlayerViewSheetFragment : Fragment() {
                 Log.i("TAG", "positionFloat: " + positionFloat)
                 if (positionFloat < 0.45) {
                     animateConstraint(BottomSheetBehavior.STATE_COLLAPSED)
-                    mView.playerView.container_controllers_play.visibility = View.GONE
+                    playerView.container_controllers_play.visibility = View.GONE
                 }else if (positionFloat > 0.46) {
                     animateConstraint(BottomSheetBehavior.STATE_EXPANDED)
-                    mView.playerView.container_controllers_play.visibility = View.VISIBLE
+                    playerView.container_controllers_play.visibility = View.VISIBLE
                 }
             }
 
             override fun onStateChanged(view: View, positionState: Int) {
                 Log.i("TAG", "state: " + positionState)
                 if (positionState == BottomSheetBehavior.STATE_COLLAPSED) {
-                    mView.playerView.container_controllers_play.visibility = View.GONE
+                    playerView.container_controllers_play.visibility = View.GONE
                     animateConstraint(positionState)
                 } else if (positionState == BottomSheetBehavior.STATE_EXPANDED) {
                     animateConstraint(positionState)
-                    mView.playerView.container_controllers_play.visibility = View.VISIBLE
+                    playerView.container_controllers_play.visibility = View.VISIBLE
                 }
             }
 
