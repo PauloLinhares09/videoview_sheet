@@ -60,20 +60,24 @@ class PlayerViewSheetFragment : Fragment() {
         playerView = mView.playerView
 
         //Observer to player listener
+        observerListenerVideoPlayer()
+
+        return mView
+    }
+
+    private fun observerListenerVideoPlayer() {
         val viewModelVideoPlayer = playerListener.getObservableViewModel()
         viewModelVideoPlayer.stateVideo.observe(this, Observer {
             Toast.makeText(context, "State: ${it}", Toast.LENGTH_SHORT).show()
-            if (it == Player.STATE_IDLE || it == Player.STATE_BUFFERING){
+            if (it == Player.STATE_IDLE || it == Player.STATE_BUFFERING) {
                 mView.playerView.cardProgress.visibility = View.VISIBLE
-            }else if (it == Player.STATE_ENDED){
+            } else if (it == Player.STATE_ENDED) {
 
-            }else{
+            } else {
                 mView.playerView.cardProgress.visibility = View.GONE
             }
 
         })
-
-        return mView
     }
 
     private fun initBottomSheetExpirience() {
@@ -86,18 +90,23 @@ class PlayerViewSheetFragment : Fragment() {
         bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(view: View, positionFloat: Float) {
                 Log.i("TAG", "positionFloat: " + positionFloat)
-                if (positionFloat < 0.45)
+                if (positionFloat < 0.45) {
                     animateConstraint(BottomSheetBehavior.STATE_COLLAPSED)
-                else if (positionFloat > 0.46)
+                    mView.playerView.container_controllers_play.visibility = View.GONE
+                }else if (positionFloat > 0.46) {
                     animateConstraint(BottomSheetBehavior.STATE_EXPANDED)
+                    mView.playerView.container_controllers_play.visibility = View.VISIBLE
+                }
             }
 
             override fun onStateChanged(view: View, positionState: Int) {
                 Log.i("TAG", "state: " + positionState)
                 if (positionState == BottomSheetBehavior.STATE_COLLAPSED) {
+                    mView.playerView.container_controllers_play.visibility = View.GONE
                     animateConstraint(positionState)
                 } else if (positionState == BottomSheetBehavior.STATE_EXPANDED) {
                     animateConstraint(positionState)
+                    mView.playerView.container_controllers_play.visibility = View.VISIBLE
                 }
             }
 
