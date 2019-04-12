@@ -26,8 +26,7 @@ import kotlinx.android.synthetic.main.area_video_expanded.view.*
 import kotlinx.android.synthetic.main.content_video_bottomsheet_emp.view.*
 import kotlinx.android.synthetic.main.content_view_list_fragment.view.*
 import kotlinx.android.synthetic.main.fragment_view_list.view.*
-
-
+import kotlinx.android.synthetic.main.layout_controllers_videoplayer.view.*
 
 
 class PlayerViewSheetFragment : Fragment() {
@@ -64,6 +63,14 @@ class PlayerViewSheetFragment : Fragment() {
         val viewModelVideoPlayer = playerListener.getObservableViewModel()
         viewModelVideoPlayer.stateVideo.observe(this, Observer {
             Toast.makeText(context, "State: ${it}", Toast.LENGTH_SHORT).show()
+            if (it == Player.STATE_IDLE || it == Player.STATE_BUFFERING){
+                mView.playerView.cardProgress.visibility = View.VISIBLE
+            }else if (it == Player.STATE_ENDED){
+
+            }else{
+                mView.playerView.cardProgress.visibility = View.GONE
+            }
+
         })
 
         return mView
