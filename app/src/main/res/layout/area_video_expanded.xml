@@ -41,8 +41,8 @@
     <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/black"
-            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+            android:background="@drawable/bg_rounded"
+            app:srcCompat="@drawable/ic_close_small"
             android:id="@+id/imageView" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
     <ImageView
