@@ -64,6 +64,7 @@ class PlayerViewSheetFragment : Fragment() {
         observerListenerVideoPlayer()
         managerClicksControllesCollapsed()
 
+
         return mView
     }
 
@@ -91,6 +92,10 @@ class PlayerViewSheetFragment : Fragment() {
         playerView.ib_state_bottomsheet.setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         }
+        playerView.ibFullscreenEnable.setOnClickListener {
+            hideSystemUi()
+        }
+
     }
 
 
@@ -239,7 +244,8 @@ class PlayerViewSheetFragment : Fragment() {
 
     @SuppressLint("InlinedApi")
     private fun hideSystemUi() {
-        playerView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
+        playerView.systemUiVisibility = (
+                View.SYSTEM_UI_FLAG_LOW_PROFILE
                 or View.SYSTEM_UI_FLAG_FULLSCREEN
                 or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
@@ -254,54 +260,6 @@ class PlayerViewSheetFragment : Fragment() {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         }
     }
-//
-//    private fun managerClickPlayPause() {
-//        mView.ibPlayPause.setOnClickListener {
-//            if (playerView.isPlaying) {
-//                handler?.removeCallbacks(runnable)//Make play controller is alweys visible
-//                playerView.pause()
-//                mView.ibPlayPause.setImageDrawable(
-//                    resources.getDrawable(
-//                        android.R.drawable.ic_media_play,
-//                        activity?.theme
-//                    )
-//                )
-//            } else {
-//                goneAfterSometime(SMALL_DELAY_CONTROLLERS)
-//                playerView.start()
-//                mView.ibPlayPause.setImageDrawable(
-//                    resources.getDrawable(
-//                        android.R.drawable.ic_media_pause,
-//                        activity?.theme
-//                    )
-//                )
-//            }
-//        }
-//    }
-
-//    private fun managerClickOnFrameControllers() {
-//        mView.frameVideoView.setOnClickListener {
-//            if (mView.constraintControllers.isVisible) {
-//                mView.constraintControllers.visibility = View.GONE
-//            } else {
-//                mView.constraintControllers.visibility = View.VISIBLE
-//                goneAfterSometime(LONG_DELAY_CONTROLLERS)
-//            }
-//        }
-//    }
-
-//    var handler : Handler? = null
-//    var runnable : Runnable? = null
-//    private fun goneAfterSometime(delay : Long) {
-//        if (handler == null)
-//            handler =  Handler()
-//        else
-//            handler?.removeCallbacks(runnable)
-//        runnable = Runnable {
-//            mView.constraintControllers.visibility = View.GONE
-//        }
-//        handler?.postDelayed(runnable, delay)
-//    }
 
     private var set: Boolean = false
     private fun animateConstraint(state : Int) {
