@@ -7,8 +7,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
+import com.google.android.exoplayer2.*
+import com.google.android.exoplayer2.source.ExtractorMediaSource
+import com.google.android.exoplayer2.source.MediaSource
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.ui.PlayerView
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
+import kotlinx.android.synthetic.main.area_video_expanded.view.*
+import kotlinx.android.synthetic.main.layout_controllers_videoplayer.view.*
 
 
 private const val PLAYBACK_POSITION = "playbackPosition"
@@ -20,6 +29,9 @@ class FullscreenVideoFragment : DialogFragment() {
     private var currentWindow: Int = 0
     private var playWhenReady: Boolean = true
     lateinit var playerView : PlayerView
+    private var player: SimpleExoPlayer? = null
+    private lateinit var playerListener : MyComponentPlayerListener
+
     private var listener: OnFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +43,8 @@ class FullscreenVideoFragment : DialogFragment() {
             currentWindow     = it.getInt(CURRENT_WINDOW, 0)
             playWhenReady     = it.getBoolean(PLAY_WHEN_READY, true)
         }
+
+        playerListener = MyComponentPlayerListener()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -45,6 +59,11 @@ class FullscreenVideoFragment : DialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         hideSystemUi()
+
+        //Initialize PlayerView
+        initializePlayer()
+        observerListenerVideoPlayer()
+
     }
 
 
@@ -59,6 +78,65 @@ class FullscreenVideoFragment : DialogFragment() {
                         or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
     }
 
+    private fun observerListenerVideoPlayer() {
+        val viewModelVideoPlayer = playerListener.getObservableViewModel()
+        viewModelVideoPlayer.stateVideo.observe(this, Observer {
+            Toast.makeText(context, "State: ${it}", Toast.LENGTH_SHORT).show()
+            if (it == Player.STATE_IDLE || it == Player.STATE_BUFFERING) {
+                playerView.cardProgress.visibility = View.VISIBLE
+            } else if (it == Player.STATE_ENDED) {
+
+            } else {
+                playerView.cardProgress.visibility = View.GONE
+            }
+
+        })
+    }
+
+    private fun initializePlayer() {
+        //A Simple instance
+        player = ExoPlayerFactory.newSimpleInstance(
+            context,
+            DefaultRenderersFactory(context!!),
+            DefaultTrackSelector(), DefaultLoadControl()
+        )
+
+        //Add listner
+        player?.addListener(playerListener)
+        player?.addAnalyticsListener(playerListener)
+
+        //Vicule the player with the playerView
+        playerView.setPlayer(player)
+
+        //keep ready for the play when its ready
+        player?.setPlayWhenReady(playWhenReady)
+        player?.seekTo(currentWindow, playbackPosition)
+
+        //File media
+        val mediaSource = buildMediaSource(Uri.parse(getString(R.string.media_url_mp4)))
+
+        //Play / prepare
+        player?.prepare(mediaSource, false, false)
+    }
+
+    private fun buildMediaSource(uri: Uri): MediaSource {
+        return ExtractorMediaSource.Factory(DefaultHttpDataSourceFactory("exoplayer-app"))
+            .createMediaSource(uri)
+    }
+
+    private fun releasePlayer() {
+        if (player != null) {
+            playbackPosition = player?.getCurrentPosition()!!
+            currentWindow = player?.getCurrentWindowIndex()!!
+            playWhenReady = player?.getPlayWhenReady()!!
+            //Remove listners
+            player?.removeAnalyticsListener(playerListener)
+            player?.removeListener(playerListener)
+            player?.release()
+            player = null
+        }
+    }
+
 //    override fun onAttach(context: Context) {
 //        super.onAttach(context)
 //        if (context is OnFragmentInteractionListener) {
@@ -71,6 +149,7 @@ class FullscreenVideoFragment : DialogFragment() {
     override fun onDetach() {
         super.onDetach()
         listener = null
+        releasePlayer()
     }
 
 

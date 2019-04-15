@@ -93,7 +93,10 @@ class PlayerViewSheetFragment : Fragment() {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         }
         playerView.ibFullscreenEnable.setOnClickListener {
-            FullscreenVideoFragment.newInstance(playbackPosition, currentWindow, playWhenReady).show(fragmentManager, "FULLSCREEN_VIDEO")
+            if (player != null) {
+                FullscreenVideoFragment.newInstance(player?.currentPosition!!, player?.currentWindowIndex!!, playWhenReady).show(fragmentManager, "FULLSCREEN_VIDEO")
+                onPause()
+            }
         }
 
     }
