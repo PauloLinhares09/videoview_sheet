@@ -20,6 +20,8 @@ import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import kotlinx.android.synthetic.main.area_video_expanded.view.*
 import kotlinx.android.synthetic.main.layout_controllers_videoplayer.view.*
+import kotlinx.android.synthetic.main.layout_controllers_videoplayer.view.cardProgress
+import kotlinx.android.synthetic.main.layout_controllers_videoplayer_fullscreen.view.*
 
 
 private const val PLAYBACK_POSITION = "playbackPosition"
@@ -54,6 +56,9 @@ class FullscreenVideoFragment : DialogFragment() {
         val mView =  inflater.inflate(R.layout.fragment_fullscreen_video, container, false)
 
         playerView = mView.findViewById(R.id.playerView)
+        playerView.ibFullscreenDisable.setOnClickListener {
+            dismiss()
+        }
 
         return mView
     }
