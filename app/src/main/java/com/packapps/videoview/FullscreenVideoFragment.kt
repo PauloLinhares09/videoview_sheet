@@ -2,6 +2,7 @@ package com.packapps.videoview
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -140,11 +141,19 @@ class FullscreenVideoFragment : DialogFragment() {
     }
 
     override fun onDetach() {
-        super.onDetach()
         val objectVideo = ObjectVideo(player?.currentPosition?:0, player?.currentWindowIndex?:0)
         viewModelObservable.objectVideo.postValue(objectVideo)
         releasePlayer()
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+        super.onDetach()
     }
+
+    override fun onStart() {
+        super.onStart()
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+    }
+
+
 
 
     companion object {

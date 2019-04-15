@@ -26,7 +26,6 @@
 
         <!-- This is important! Don't forget to set window background -->
         <item name="android:windowBackground">@android:color/black</item>
-        <item name="android:screenOrientation">landscape</item>
 
         <!--&lt;!&ndash; Additionally if you want animations when dialog opening &ndash;&gt;-->
         <!--<item name="android:windowEnterAnimation">@anim/slide_up</item>-->
