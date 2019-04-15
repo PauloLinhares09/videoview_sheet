@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.source.MediaSource
@@ -31,12 +32,12 @@ class FullscreenVideoFragment : DialogFragment() {
     lateinit var playerView : PlayerView
     private var player: SimpleExoPlayer? = null
     private lateinit var playerListener : MyComponentPlayerListener
-
-    private var listener: OnFragmentInteractionListener? = null
+    private lateinit var viewModelObservable : ViewModelFullscreenObservable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.FullScreenDialogStyle)
+        viewModelObservable = ViewModelProvider.NewInstanceFactory().create(ViewModelFullscreenObservable::class.java)
 
         arguments?.let {
             playbackPosition  = it.getLong(PLAYBACK_POSITION, 0)
@@ -66,6 +67,7 @@ class FullscreenVideoFragment : DialogFragment() {
 
     }
 
+    fun getViewModelObservable() = viewModelObservable
 
     @SuppressLint("InlinedApi")
     private fun hideSystemUi() {
@@ -137,26 +139,13 @@ class FullscreenVideoFragment : DialogFragment() {
         }
     }
 
-//    override fun onAttach(context: Context) {
-//        super.onAttach(context)
-//        if (context is OnFragmentInteractionListener) {
-//            listener = context
-//        } else {
-//            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
-//        }
-//    }
-
     override fun onDetach() {
         super.onDetach()
-        listener = null
+        val objectVideo = ObjectVideo(player?.currentPosition?:0, player?.currentWindowIndex?:0)
+        viewModelObservable.objectVideo.postValue(objectVideo)
         releasePlayer()
     }
 
-
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
-    }
 
     companion object {
         @JvmStatic
