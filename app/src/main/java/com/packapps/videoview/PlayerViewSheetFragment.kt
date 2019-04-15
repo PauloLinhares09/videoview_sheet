@@ -62,15 +62,25 @@ class PlayerViewSheetFragment : Fragment() {
 
         //Observer to player listener
         observerListenerVideoPlayer()
+        managerClicksControllesCollapsed()
 
+        return mView
+    }
+
+    private fun managerClicksControllesCollapsed() {
         mView.exo_play_aux.setOnClickListener {
-
-            playerView.exo_pause.performClick()
-
-//            if (playerView.exo_play.isVisible)
-//                playerView.exo_play.performClick()
-//            else
-//                playerView.exo_play.performClick()
+            if (player?.playWhenReady == false) {
+                playerView.exo_play.performClick()
+                mView.exo_play_aux.setImageDrawable(
+                    resources.getDrawable(
+                        R.drawable.exo_controls_pause,
+                        context?.theme
+                    )
+                )
+            } else {
+                playerView.exo_pause.performClick()
+                mView.exo_play_aux.setImageDrawable(resources.getDrawable(R.drawable.exo_controls_play, context?.theme))
+            }
         }
         mView.exo_prev_aux.setOnClickListener {
             playerView.exo_prev.performClick()
@@ -78,8 +88,18 @@ class PlayerViewSheetFragment : Fragment() {
         mView.exo_nex_aux.setOnClickListener {
             playerView.exo_next.performClick()
         }
+        playerView.ib_state_bottomsheet.setOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
+    }
 
-        return mView
+
+    private fun managerButtonsControllersByStateBottomSheet(){
+        if (player?.playWhenReady == false) {
+            mView.exo_play_aux.setImageDrawable(resources.getDrawable(R.drawable.exo_controls_pause, context?.theme))
+        } else {
+            mView.exo_play_aux.setImageDrawable(resources.getDrawable(R.drawable.exo_controls_play, context?.theme))
+        }
     }
 
     private fun observerListenerVideoPlayer() {
@@ -121,9 +141,11 @@ class PlayerViewSheetFragment : Fragment() {
                 if (positionState == BottomSheetBehavior.STATE_COLLAPSED) {
                     playerView.container_controllers_play.visibility = View.GONE
                     animateConstraint(positionState)
+                    managerButtonsControllersByStateBottomSheet()
                 } else if (positionState == BottomSheetBehavior.STATE_EXPANDED) {
                     animateConstraint(positionState)
                     playerView.container_controllers_play.visibility = View.VISIBLE
+                    managerButtonsControllersByStateBottomSheet()
                 }
             }
 
