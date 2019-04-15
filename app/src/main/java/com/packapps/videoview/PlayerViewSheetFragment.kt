@@ -95,7 +95,7 @@ class PlayerViewSheetFragment : Fragment() {
 
 
     private fun managerButtonsControllersByStateBottomSheet(){
-        if (player?.playWhenReady == false) {
+        if (player?.playWhenReady == true) {
             mView.exo_play_aux.setImageDrawable(resources.getDrawable(R.drawable.exo_controls_pause, context?.theme))
         } else {
             mView.exo_play_aux.setImageDrawable(resources.getDrawable(R.drawable.exo_controls_play, context?.theme))
