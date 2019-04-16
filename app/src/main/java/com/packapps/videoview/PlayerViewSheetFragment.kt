@@ -1,19 +1,17 @@
 package com.packapps.videoview
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionManager
 import com.google.android.exoplayer2.*
@@ -98,18 +96,26 @@ class PlayerViewSheetFragment : Fragment(){
         }
         playerView.ibFullscreenEnable.setOnClickListener {
             if (player != null) {
-                val fullscreenVideoFragment = FullscreenVideoFragment.newInstance(player?.currentPosition!!, player?.currentWindowIndex!!, playWhenReady)
-                fullscreenVideoFragment.show(fragmentManager, "FULLSCREEN_VIDEO")
-                Handler().postDelayed({
-                    val observable = fullscreenVideoFragment.getViewModelObservable()
-                    observable.objectVideo.observe(this, Observer {
-                        Log.i("TAG", "currentPosition= " + it)
-                        playbackPosition = it.playbackPosition
-                        currentWindow = it.currentWindow
-                        initializePlayer()
+                val bundle = Bundle()
+                bundle.putLong(FullscreenVideoActivity.PLAYBACK_POSITION, player?.currentPosition!!)
+                bundle.putInt(FullscreenVideoActivity.CURRENT_WINDOW, player?.currentWindowIndex!!)
+                bundle.putBoolean(FullscreenVideoActivity.PLAY_WHEN_READY, playWhenReady)
+                val intent = Intent(context, FullscreenVideoActivity::class.java)
+                intent.putExtras(bundle)
+                startActivityForResult(intent, 100)
 
-                    })
-                }, 800)
+//                val fullscreenVideoFragment = FullscreenVideoActivity.newInstance(player?.currentPosition!!, player?.currentWindowIndex!!, playWhenReady)
+//                fullscreenVideoFragment.show(fragmentManager, "FULLSCREEN_VIDEO")
+//                Handler().postDelayed({
+//                    val observable = fullscreenVideoFragment.getViewModelObservable()
+//                    observable.objectVideo.observe(this, Observer {
+//                        Log.i("TAG", "currentPosition= " + it)
+//                        playbackPosition = it.playbackPosition
+//                        currentWindow = it.currentWindow
+//                        initializePlayer()
+//
+//                    })
+//                }, 800)
                 releasePlayer()
             }
         }
