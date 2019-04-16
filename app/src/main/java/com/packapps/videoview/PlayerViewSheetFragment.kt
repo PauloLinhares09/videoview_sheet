@@ -26,12 +26,13 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.area_video_expanded.*
 import kotlinx.android.synthetic.main.area_video_expanded.view.*
 import kotlinx.android.synthetic.main.content_video_bottomsheet_emp.view.*
-import kotlinx.android.synthetic.main.content_view_list_fragment.view.*
 import kotlinx.android.synthetic.main.fragment_view_list.view.*
 import kotlinx.android.synthetic.main.layout_controllers_videoplayer.view.*
 
 
 class PlayerViewSheetFragment : Fragment(){
+
+    private val URI_MEDIA : String = "uri_media"
 
     private var viewModelVideoPlayer: ViewModelVideoPlayer? = null
     lateinit var mView : View
@@ -44,10 +45,16 @@ class PlayerViewSheetFragment : Fragment(){
     private var playbackPosition : Long = 0
     private var currentWindow : Int = 0
     private lateinit var playerListener : MyComponentPlayerListener
+    private var uriMedia : String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        arguments.apply {
+            uriMedia = this?.getString(URI_MEDIA)
+        }
+
         playerListener = MyComponentPlayerListener()
     }
 
@@ -101,32 +108,22 @@ class PlayerViewSheetFragment : Fragment(){
         }
         playerView.ibFullscreenEnable.setOnClickListener {
             if (player != null) {
-
-                val bundle = Bundle()
-                bundle.putLong(FullscreenVideoActivity.PLAYBACK_POSITION, player?.currentPosition?:0)
-                bundle.putInt(FullscreenVideoActivity.CURRENT_WINDOW, player?.currentWindowIndex?:0)
-                bundle.putBoolean(FullscreenVideoActivity.PLAY_WHEN_READY, playWhenReady)
-                val intent = Intent(context, FullscreenVideoActivity::class.java)
-                intent.putExtras(bundle)
-                releasePlayer()
-                startActivityForResult(intent, FullscreenVideoActivity.REQUEST_FULLSCREEN)
-
-//                val fullscreenVideoFragment = FullscreenVideoActivity.newInstance(player?.currentPosition!!, player?.currentWindowIndex!!, playWhenReady)
-//                fullscreenVideoFragment.show(fragmentManager, "FULLSCREEN_VIDEO")
-//                Handler().postDelayed({
-//                    val observable = fullscreenVideoFragment.getViewModelObservable()
-//                    observable.objectVideo.observe(this, Observer {
-//                        Log.i("TAG", "currentPosition= " + it)
-//                        playbackPosition = it.playbackPosition
-//                        currentWindow = it.currentWindow
-//                        initializePlayer()
-//
-//                    })
-//                }, 800)
+                openActivityFullScreen()
                 releasePlayer()
             }
         }
 
+    }
+
+    private fun openActivityFullScreen() {
+        val bundle = Bundle()
+        bundle.putLong(FullscreenVideoActivity.PLAYBACK_POSITION, player?.currentPosition ?: 0)
+        bundle.putInt(FullscreenVideoActivity.CURRENT_WINDOW, player?.currentWindowIndex ?: 0)
+        bundle.putBoolean(FullscreenVideoActivity.PLAY_WHEN_READY, playWhenReady)
+        val intent = Intent(context, FullscreenVideoActivity::class.java)
+        intent.putExtras(bundle)
+        releasePlayer()
+        startActivityForResult(intent, FullscreenVideoActivity.REQUEST_FULLSCREEN)
     }
 
 
@@ -214,7 +211,7 @@ class PlayerViewSheetFragment : Fragment(){
         player?.seekTo(currentWindow, playbackPosition)
 
         //File media
-        val mediaSource = buildMediaSource(Uri.parse(getString(R.string.media_url_mp4)))
+        val mediaSource = buildMediaSource(Uri.parse(uriMedia))
 
         //Play / prepare
         player?.prepare(mediaSource, false, false)
@@ -326,8 +323,12 @@ class PlayerViewSheetFragment : Fragment(){
 
     companion object {
         @JvmStatic
-        fun newInstance() =
-            PlayerViewSheetFragment()
+        fun newInstance(uriMedia: String?) =
+            PlayerViewSheetFragment().apply {
+                arguments = Bundle().apply {
+                    putString(URI_MEDIA, uriMedia)
+                }
+            }
 
     }
 }

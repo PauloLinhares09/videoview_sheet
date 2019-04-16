@@ -20,7 +20,7 @@ class TestActivity : AppCompatActivity() {
         EmpiricusMedia.Builder(this)
             .containerShowMedia(R.id.container)
             .setMediaType(MediaType.VIDEO)
-            .putUri(Uri.parse("https://google.com/video"))
+//            .putUri(Uri.parse("https://google.com/video"))
             .setContentLayout(R.layout.layout_video_view)
             .callBackMediaState(object : EmpiricusMediaStateCallback{
                 override fun stateFromMedia(state : Int) {

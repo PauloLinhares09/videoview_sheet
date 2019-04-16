@@ -1,13 +1,10 @@
 package com.packapps.videoview.core
 
-import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import android.os.Handler
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
-import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.util.Util
 import com.packapps.videoview.PlayerViewSheetFragment
 
@@ -18,7 +15,7 @@ class EmpiricusMedia{
     private var context : Context? = null
     private var contentLayout : Int? = null
     private var mediaType : MediaType? = null
-    private var uri : Uri? = null
+    private var uri : String? = null
     private var playerHomeFragment : PlayerViewSheetFragment? = null
 
     private fun execute(){
@@ -28,7 +25,7 @@ class EmpiricusMedia{
 
 
         //Inflate the Fragment in container informed
-        playerHomeFragment = PlayerViewSheetFragment.newInstance()
+        playerHomeFragment = PlayerViewSheetFragment.newInstance(uri)
         val t = (context as FragmentActivity).supportFragmentManager.beginTransaction()
         t.replace(containerLayout!!, playerHomeFragment!!)
         t.commit()
@@ -101,7 +98,7 @@ class EmpiricusMedia{
             return this
         }
 
-        fun putUri(uri: Uri?): Builder {
+        fun putUri(uri: String?): Builder {
             empiricusMedia.uri = uri
 
             return this
