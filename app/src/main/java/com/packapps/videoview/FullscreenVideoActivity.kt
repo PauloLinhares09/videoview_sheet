@@ -2,11 +2,13 @@ package com.packapps.videoview
 
 import android.annotation.SuppressLint
 import android.app.PictureInPictureParams
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.util.Rational
 import android.view.View
 import android.widget.Toast
@@ -29,6 +31,8 @@ class FullscreenVideoActivity : AppCompatActivity() {
         const val PLAYBACK_POSITION = "playbackPosition"
         const val CURRENT_WINDOW = "currentWindow"
         const val PLAY_WHEN_READY = "playWhenReady"
+
+        const val REQUEST_FULLSCREEN = 100
     }
 
 
@@ -44,21 +48,40 @@ class FullscreenVideoActivity : AppCompatActivity() {
         setContentView(R.layout.fragment_fullscreen_video)
 //        viewModelObservable = ViewModelProvider.NewInstanceFactory().create(ViewModelFullscreenObservable::class.java)
 
-        //Initialize PlayerView
+
         playerListener = MyComponentPlayerListener()
-        initializePlayer()
-        observerListenerVideoPlayer()
-        hideSystemUi()
+
+        //Receipt data bundle
+        Handler().post {
+            intent.extras?.let {
+                playbackPosition  = it.getLong(PLAYBACK_POSITION, 0)
+                currentWindow     = it.getInt(CURRENT_WINDOW, 0)
+                playWhenReady     = it.getBoolean(PLAY_WHEN_READY, true)
+            }
+
+            runOnUiThread {
+                //Initialize PlayerView
+
+                initializePlayer()
+                observerListenerVideoPlayer()
+                hideSystemUi()
+
+            }
+        }
+
+
+        //Click closed fullscreen
         playerView.ibFullscreenDisable.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putLong(PLAYBACK_POSITION, player?.currentPosition?:0)
+            bundle.putInt(CURRENT_WINDOW, player?.currentWindowIndex?:0)
+            bundle.putBoolean(PLAY_WHEN_READY, player?.playWhenReady?:true)
+            val intent = Intent()
+            intent.putExtras(bundle)
+
+            setResult(REQUEST_FULLSCREEN, intent)
             finish()
         }
-
-        intent.extras?.let {
-            playbackPosition  = it.getLong(PLAYBACK_POSITION, 0)
-            currentWindow     = it.getInt(CURRENT_WINDOW, 0)
-            playWhenReady     = it.getBoolean(PLAY_WHEN_READY, true)
-        }
-
 
     }
 
