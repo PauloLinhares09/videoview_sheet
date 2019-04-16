@@ -26,7 +26,7 @@
 
     <!--</com.google.android.material.appbar.AppBarLayout>-->
 
-    <include layout="@layout/content_view_list_fragment"/>
+    <!--<include layout="@layout/content_view_list_fragment"/>-->
 
 
     <!--### BottomSheet ###-->

@@ -2,12 +2,17 @@ package com.packapps.videoview
 
 import android.app.PictureInPictureParams
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.util.Rational
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.exoplayer2.util.Util
+import com.packapps.videoview.core.EmpiricusMedia
+import com.packapps.videoview.core.EmpiricusMediaStateCallback
+import com.packapps.videoview.core.MediaType
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.area_video_expanded.*
 
@@ -17,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
-                openHome(playerHomeFragment)
+                testOpenBlankFragment()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
@@ -27,11 +32,27 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.navigation_notifications -> {
                 testOpenBlankFragment()
+                openMediaPlayer()
 
                 return@OnNavigationItemSelectedListener true
             }
         }
         false
+    }
+
+    fun openMediaPlayer(){
+
+        EmpiricusMedia.Builder(this)
+            .containerShowMedia(R.id.containerMedia)
+            .setMediaType(MediaType.VIDEO)
+            .putUri(Uri.parse("https://google.com/video"))
+            .setContentLayout(R.layout.layout_video_view)
+            .callBackMediaState(object : EmpiricusMediaStateCallback {
+                override fun stateFromMedia(state : Int) {
+                    Log.i("TAG", "state from callback: " + state)
+                }
+            })
+            .build()
     }
 
     private fun openHome(playerHomeFragment: PlayerViewSheetFragment) {

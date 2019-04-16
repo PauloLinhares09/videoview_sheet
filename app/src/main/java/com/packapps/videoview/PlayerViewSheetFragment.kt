@@ -56,15 +56,13 @@ class PlayerViewSheetFragment : Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mView = inflater.inflate(R.layout.fragment_view_list, container, false)
 
-        mView.card1.setOnClickListener {
-            initBottomSheetExpirience()
-        }
-
         playerView = mView.playerView
 
         //Observer to player listener
         observerListenerVideoPlayer()
         managerClicksControllesCollapsed()
+
+        initBottomSheetExpirience()
 
 
         return mView

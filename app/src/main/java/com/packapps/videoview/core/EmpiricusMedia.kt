@@ -25,6 +25,8 @@ class EmpiricusMedia{
 
 
 
+
+
         //Inflate the Fragment in container informed
         playerHomeFragment = PlayerViewSheetFragment.newInstance()
         val t = (context as FragmentActivity).supportFragmentManager.beginTransaction()
@@ -59,7 +61,7 @@ class EmpiricusMedia{
         }
     }
 
-    fun releasePlayer() {
+    fun releasePlayer() { //TODO Cancel Listeners
         playerHomeFragment?.releasePlayer()
 
     }
