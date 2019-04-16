@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import com.google.android.exoplayer2.Player
+import com.google.android.exoplayer2.util.Util
 import com.packapps.videoview.PlayerViewSheetFragment
 
 class EmpiricusMedia{
@@ -45,12 +46,22 @@ class EmpiricusMedia{
 
     }
 
-    fun onStop() {
-        //TODO release
+    fun onPause() {
+        if (Util.SDK_INT <= 23) {
+            releasePlayer()
+        }
     }
 
-    fun onPause() {
-        //TODO release
+
+    fun onStop() {
+        if (Util.SDK_INT > 23) {
+            releasePlayer()
+        }
+    }
+
+    fun releasePlayer() {
+        playerHomeFragment?.releasePlayer()
+
     }
 
 

@@ -255,7 +255,7 @@ class PlayerViewSheetFragment : Fragment(){
         }
     }
 
-    private fun releasePlayer() {
+    fun releasePlayer() {
         if (player != null) {
             playbackPosition = player?.getCurrentPosition()!!
             currentWindow = player?.getCurrentWindowIndex()!!
