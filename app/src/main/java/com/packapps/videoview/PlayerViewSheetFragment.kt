@@ -1,6 +1,7 @@
 package com.packapps.videoview
 
 import android.annotation.SuppressLint
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -96,13 +97,15 @@ class PlayerViewSheetFragment : Fragment(){
         }
         playerView.ibFullscreenEnable.setOnClickListener {
             if (player != null) {
+
                 val bundle = Bundle()
-                bundle.putLong(FullscreenVideoActivity.PLAYBACK_POSITION, player?.currentPosition!!)
-                bundle.putInt(FullscreenVideoActivity.CURRENT_WINDOW, player?.currentWindowIndex!!)
+                bundle.putLong(FullscreenVideoActivity.PLAYBACK_POSITION, player?.currentPosition?:0)
+                bundle.putInt(FullscreenVideoActivity.CURRENT_WINDOW, player?.currentWindowIndex?:0)
                 bundle.putBoolean(FullscreenVideoActivity.PLAY_WHEN_READY, playWhenReady)
                 val intent = Intent(context, FullscreenVideoActivity::class.java)
                 intent.putExtras(bundle)
-                startActivityForResult(intent, 100)
+                releasePlayer()
+                startActivityForResult(intent, FullscreenVideoActivity.REQUEST_FULLSCREEN)
 
 //                val fullscreenVideoFragment = FullscreenVideoActivity.newInstance(player?.currentPosition!!, player?.currentWindowIndex!!, playWhenReady)
 //                fullscreenVideoFragment.show(fragmentManager, "FULLSCREEN_VIDEO")
@@ -291,6 +294,25 @@ class PlayerViewSheetFragment : Fragment(){
         TransitionManager.beginDelayedTransition(constraintViewAreExpanded)
         constraint.applyTo(mView.constraintViewAreExpanded)
         set = !set
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK){
+            when(requestCode){
+                FullscreenVideoActivity.REQUEST_FULLSCREEN -> {
+                    val bundle = data?.extras
+                    if (bundle != null){
+                        playbackPosition = bundle.getLong(FullscreenVideoActivity.PLAYBACK_POSITION)
+                        currentWindow = bundle.getInt(FullscreenVideoActivity.CURRENT_WINDOW)
+                        playWhenReady = bundle.getBoolean(FullscreenVideoActivity.PLAY_WHEN_READY)
+
+                        initializePlayer()
+                    }
+                }
+            }
+        }
     }
 
 

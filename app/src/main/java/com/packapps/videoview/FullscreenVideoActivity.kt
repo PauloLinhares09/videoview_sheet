@@ -1,6 +1,7 @@
 package com.packapps.videoview
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.PictureInPictureParams
 import android.content.Intent
 import android.content.pm.ActivityInfo
@@ -79,7 +80,7 @@ class FullscreenVideoActivity : AppCompatActivity() {
             val intent = Intent()
             intent.putExtras(bundle)
 
-            setResult(REQUEST_FULLSCREEN, intent)
+            setResult(Activity.RESULT_OK, intent)
             finish()
         }
 
@@ -160,16 +161,19 @@ class FullscreenVideoActivity : AppCompatActivity() {
     }
 
 
-    override fun onStop() {
-        releasePlayer()
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
-        super.onStop()
-
+    override fun onPause() {
+        super.onPause()
+        if (Util.SDK_INT <= 23) {
+            releasePlayer()
+        }
     }
 
-    override fun onStart() {
-        super.onStart()
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+
+    override fun onStop() {
+        super.onStop()
+        if (Util.SDK_INT > 23) {
+            releasePlayer()
+        }
     }
 
 
