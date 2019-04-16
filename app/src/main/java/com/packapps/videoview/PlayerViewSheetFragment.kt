@@ -315,6 +315,9 @@ class PlayerViewSheetFragment : Fragment(){
         }
     }
 
+    fun getObservableViewModel(): ViewModelVideoPlayer {
+        return playerListener.getObservableViewModel()
+    }
 
 
     companion object {

@@ -3,8 +3,11 @@ package com.packapps.videoview.core
 import android.app.Activity
 import android.content.Context
 import android.net.Uri
+import android.os.Handler
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Observer
+import com.google.android.exoplayer2.Player
 import com.packapps.videoview.PlayerViewSheetFragment
 
 class EmpiricusMedia{
@@ -26,6 +29,18 @@ class EmpiricusMedia{
         val t = (context as FragmentActivity).supportFragmentManager.beginTransaction()
         t.replace(containerLayout!!, playerHomeFragment!!)
         t.commit()
+
+        //Get observable for listen media callback state
+        Handler().postDelayed({
+            val viewModelVideoPlayer = playerHomeFragment?.getObservableViewModel()
+            viewModelVideoPlayer?.stateVideo?.observe(context as FragmentActivity, Observer {
+                mediaStateCallback?.stateFromMedia(it)
+
+            })
+        }, 8000)
+
+
+
 
 
     }
