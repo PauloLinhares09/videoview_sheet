@@ -33,6 +33,7 @@ import kotlinx.android.synthetic.main.layout_controllers_videoplayer.view.*
 
 class PlayerViewSheetFragment : Fragment(){
 
+    private var viewModelVideoPlayer: ViewModelVideoPlayer? = null
     lateinit var mView : View
     lateinit var bottomSheetBehavior : BottomSheetBehavior<View>
 
@@ -63,6 +64,11 @@ class PlayerViewSheetFragment : Fragment(){
         managerClicksControllesCollapsed()
 
         initBottomSheetExpirience()
+
+
+        mView.emp_like.setOnClickListener {
+            viewModelVideoPlayer?.buttonClicked?.postValue(R.id.emp_like)
+        }
 
 
         return mView
@@ -133,8 +139,8 @@ class PlayerViewSheetFragment : Fragment(){
     }
 
     private fun observerListenerVideoPlayer() {
-        val viewModelVideoPlayer = playerListener.getObservableViewModel()
-        viewModelVideoPlayer.stateVideo.observe(this, Observer {
+        viewModelVideoPlayer = playerListener.getObservableViewModel()
+        viewModelVideoPlayer?.stateVideo?.observe(this, Observer {
             Toast.makeText(context, "State: ${it}", Toast.LENGTH_SHORT).show()
             if (it == Player.STATE_IDLE || it == Player.STATE_BUFFERING) {
                 mView.playerView.cardProgress.visibility = View.VISIBLE

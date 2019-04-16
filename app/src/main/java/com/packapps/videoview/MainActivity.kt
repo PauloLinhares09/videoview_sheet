@@ -11,6 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.exoplayer2.util.Util
 import com.packapps.videoview.core.EmpiricusMedia
+import com.packapps.videoview.core.EmpiricusMediaItemClicked
 import com.packapps.videoview.core.EmpiricusMediaStateCallback
 import com.packapps.videoview.core.MediaType
 import kotlinx.android.synthetic.main.activity_main.*
@@ -50,6 +51,11 @@ class MainActivity : AppCompatActivity() {
             .callBackMediaState(object : EmpiricusMediaStateCallback {
                 override fun stateFromMedia(state : Int) {
                     Log.i("TAG", "state from callback: " + state)
+                }
+            })
+            .callbackItemFromContentViewClicked(object : EmpiricusMediaItemClicked{
+                override fun itemClicked(id: Int) {
+                    Log.i("TAG", "item clicked: " + id)
                 }
             })
             .build()

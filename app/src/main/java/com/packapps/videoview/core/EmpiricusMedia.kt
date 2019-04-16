@@ -12,8 +12,9 @@ import com.google.android.exoplayer2.util.Util
 import com.packapps.videoview.PlayerViewSheetFragment
 
 class EmpiricusMedia{
+    private var itemClickedContentView: EmpiricusMediaItemClicked? = null
     private var containerLayout: Int? = null
-    private lateinit var mediaStateCallback: EmpiricusMediaStateCallback
+    private var mediaStateCallback: EmpiricusMediaStateCallback? = null
     private var context : Context? = null
     private var contentLayout : Int? = null
     private var mediaType : MediaType? = null
@@ -22,7 +23,6 @@ class EmpiricusMedia{
 
     private fun execute(){
         //Check the values required TODO
-
 
 
 
@@ -36,10 +36,17 @@ class EmpiricusMedia{
         //Get observable for listen media callback state
         Handler().postDelayed({
             val viewModelVideoPlayer = playerHomeFragment?.getObservableViewModel()
+            //### Observer state Media
             viewModelVideoPlayer?.stateVideo?.observe(context as FragmentActivity, Observer {
                 mediaStateCallback?.stateFromMedia(it)
 
             })
+            //### Observer click item on contentView
+            viewModelVideoPlayer?.buttonClicked?.observe(context as FragmentActivity, Observer {
+                itemClickedContentView?.itemClicked(it)
+            })
+
+
         }, 8000)
 
 
@@ -104,8 +111,15 @@ class EmpiricusMedia{
             empiricusMedia.mediaStateCallback = empiricusMediaCallback
 
             return this
-
         }
+
+        fun callbackItemFromContentViewClicked(empiricusMediaItemClicked: EmpiricusMediaItemClicked) : Builder{
+            empiricusMedia.itemClickedContentView = empiricusMediaItemClicked
+
+            return this
+        }
+
+
 
 
 
@@ -131,4 +145,8 @@ enum class MediaType{
 
 interface EmpiricusMediaStateCallback{
     fun stateFromMedia(state: Int)
+}
+
+interface EmpiricusMediaItemClicked{
+    fun itemClicked(id : Int)
 }
