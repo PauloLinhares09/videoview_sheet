@@ -84,6 +84,18 @@ class PlayerViewSheetFragment : Fragment(){
         mView.emp_favourite.setOnClickListener {
             viewModelVideoPlayer?.buttonClicked?.postValue(R.id.emp_favourite)
         }
+        mView.emp_like.setOnClickListener {
+            viewModelVideoPlayer?.buttonClicked?.postValue(R.id.emp_like)
+        }
+        mView.emp_dont_like.setOnClickListener {
+            viewModelVideoPlayer?.buttonClicked?.postValue(R.id.emp_dont_like)
+        }
+        mView.emp_download.setOnClickListener {
+            viewModelVideoPlayer?.buttonClicked?.postValue(R.id.emp_download)
+        }
+        mView.emp_audio_version.setOnClickListener {
+            viewModelVideoPlayer?.buttonClicked?.postValue(R.id.emp_audio_version)
+        }
         mView.emp_show_more.setOnClickListener {
             val tag : String = mView.emp_show_more.tag.toString()
             if (tag.equals("0")){
