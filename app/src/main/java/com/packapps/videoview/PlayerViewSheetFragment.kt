@@ -24,6 +24,7 @@ import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.packapps.videoview.models.EmpiricusVideoBusiness
 import com.packapps.videoview.utils.Utils
 import kotlinx.android.synthetic.main.area_video_expanded.*
 import kotlinx.android.synthetic.main.area_video_expanded.view.*
@@ -36,6 +37,7 @@ class PlayerViewSheetFragment : Fragment(){
 
     private val URI_MEDIA : String = "uri_media"
     private val PEEK_HEIGHT : String = "peek_eight"
+    private val EMPIRICUS_VIDEO_BUSINESS : String = "empiricus_video_business"
 
     private var viewModelVideoPlayer: ViewModelVideoPlayer? = null
     lateinit var mView : View
@@ -50,6 +52,7 @@ class PlayerViewSheetFragment : Fragment(){
     private lateinit var playerListener : MyComponentPlayerListener
     private var uriMedia : String? = null
     private var peekHeight : Int = 550
+    private var empiricusVideoBusiness: EmpiricusVideoBusiness? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,6 +61,7 @@ class PlayerViewSheetFragment : Fragment(){
         arguments.apply {
             uriMedia = this?.getString(URI_MEDIA)
             peekHeight = this?.getInt(PEEK_HEIGHT)?:peekHeight
+            empiricusVideoBusiness = this?.getParcelable(EMPIRICUS_VIDEO_BUSINESS)
         }
 
         playerListener = MyComponentPlayerListener()
@@ -71,6 +75,12 @@ class PlayerViewSheetFragment : Fragment(){
         val contextInflate = inflater.cloneInContext(contextTheme)
 
         mView = contextInflate.inflate(R.layout.fragment_view_list, container, false)
+
+        if (empiricusVideoBusiness == null){
+            //Show View of Error
+
+            return mView
+        }
 
         playerView = mView.playerView
 
@@ -360,11 +370,12 @@ class PlayerViewSheetFragment : Fragment(){
 
     companion object {
         @JvmStatic
-        fun newInstance(uriMedia: String?, peekHeight : Int) =
+        fun newInstance(uriMedia: String?, peekHeight : Int, empiricusVideoBusiness: EmpiricusVideoBusiness? = null) =
             PlayerViewSheetFragment().apply {
                 arguments = Bundle().apply {
                     putString(URI_MEDIA, uriMedia)
                     putInt(PEEK_HEIGHT, peekHeight)
+                    putParcelable(EMPIRICUS_VIDEO_BUSINESS, empiricusVideoBusiness)
                 }
             }
 
