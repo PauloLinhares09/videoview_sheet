@@ -17,6 +17,7 @@ class EmpiricusMedia{
     private var mediaType : MediaType? = null
     private var uri : String? = null
     private var playerHomeFragment : PlayerViewSheetFragment? = null
+    private var peekHeight : Int = 550
 
     private fun execute(){
         //Check the values required TODO
@@ -25,7 +26,7 @@ class EmpiricusMedia{
 
 
         //Inflate the Fragment in container informed
-        playerHomeFragment = PlayerViewSheetFragment.newInstance(uri)
+        playerHomeFragment = PlayerViewSheetFragment.newInstance(uri, peekHeight)
         val t = (context as FragmentActivity).supportFragmentManager.beginTransaction()
         t.replace(containerLayout!!, playerHomeFragment!!)
         t.commit()
@@ -98,9 +99,14 @@ class EmpiricusMedia{
             return this
         }
 
-        fun putUri(uri: String?): Builder {
+        fun setUri(uri: String?): Builder {
             empiricusMedia.uri = uri
 
+            return this
+        }
+
+        fun setPeekHeight(peekHeight : Int) : Builder{
+            empiricusMedia.peekHeight = peekHeight
             return this
         }
 

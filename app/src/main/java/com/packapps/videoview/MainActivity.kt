@@ -1,6 +1,5 @@
 package com.packapps.videoview
 
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -40,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         EmpiricusMedia.Builder(this)
             .containerShowMedia(R.id.containerMedia)
             .setMediaType(MediaType.VIDEO)
-            .putUri(getString(R.string.media_url_mp4))
+            .setUri(getString(R.string.media_url_mp4))
             .setContentLayout(R.layout.layout_video_view)
             .callBackMediaState(object : EmpiricusMediaStateCallback {
                 override fun stateFromMedia(state : Int) {

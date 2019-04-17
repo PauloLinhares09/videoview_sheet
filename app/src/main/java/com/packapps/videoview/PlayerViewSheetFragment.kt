@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -33,6 +34,7 @@ import kotlinx.android.synthetic.main.layout_controllers_videoplayer.view.*
 class PlayerViewSheetFragment : Fragment(){
 
     private val URI_MEDIA : String = "uri_media"
+    private val PEEK_HEIGHT : String = "peek_eight"
 
     private var viewModelVideoPlayer: ViewModelVideoPlayer? = null
     lateinit var mView : View
@@ -46,6 +48,7 @@ class PlayerViewSheetFragment : Fragment(){
     private var currentWindow : Int = 0
     private lateinit var playerListener : MyComponentPlayerListener
     private var uriMedia : String? = null
+    private var peekHeight : Int = 550
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +56,7 @@ class PlayerViewSheetFragment : Fragment(){
 
         arguments.apply {
             uriMedia = this?.getString(URI_MEDIA)
+            peekHeight = this?.getInt(PEEK_HEIGHT)?:peekHeight
         }
 
         playerListener = MyComponentPlayerListener()
@@ -62,7 +66,10 @@ class PlayerViewSheetFragment : Fragment(){
 
     @SuppressLint("WrongConstant")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        mView = inflater.inflate(R.layout.fragment_view_list, container, false)
+        val contextTheme = ContextThemeWrapper(context, R.style.AppTheme)
+        val contextInflate = inflater.cloneInContext(contextTheme)
+
+        mView = contextInflate.inflate(R.layout.fragment_view_list, container, false)
 
         playerView = mView.playerView
 
@@ -73,8 +80,8 @@ class PlayerViewSheetFragment : Fragment(){
         initBottomSheetExpirience()
 
 
-        mView.emp_like.setOnClickListener {
-            viewModelVideoPlayer?.buttonClicked?.postValue(R.id.emp_like)
+        mView.emp_favourite.setOnClickListener {
+            viewModelVideoPlayer?.buttonClicked?.postValue(R.id.emp_favourite)
         }
 
 
@@ -155,7 +162,7 @@ class PlayerViewSheetFragment : Fragment(){
         bottomSheetBehavior = BottomSheetBehavior.from(mView.bottomSheetVideo)
         bottomSheetBehavior.isHideable = false
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-        bottomSheetBehavior.peekHeight = 450
+        bottomSheetBehavior.peekHeight = peekHeight
 
         bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(view: View, positionFloat: Float) {
@@ -323,10 +330,11 @@ class PlayerViewSheetFragment : Fragment(){
 
     companion object {
         @JvmStatic
-        fun newInstance(uriMedia: String?) =
+        fun newInstance(uriMedia: String?, peekHeight : Int) =
             PlayerViewSheetFragment().apply {
                 arguments = Bundle().apply {
                     putString(URI_MEDIA, uriMedia)
+                    putInt(PEEK_HEIGHT, peekHeight)
                 }
             }
 
