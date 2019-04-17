@@ -48,13 +48,13 @@
                     android:layout_marginTop="12dp"
                     app:layout_constraintTop_toBottomOf="@+id/tvTitle"
                     app:layout_constraintEnd_toStartOf="@+id/emp_favourite"
-                    android:layout_marginEnd="8dp" app:layout_constraintHorizontal_bias="0.0"/>
+                    android:layout_marginEnd="16dp" app:layout_constraintHorizontal_bias="0.0"/>
             <ImageButton
                     android:background="@android:color/transparent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" app:srcCompat="@drawable/ic_download"
                     android:id="@+id/emp_download"
-                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
                     app:layout_constraintTop_toTopOf="@+id/emp_audio_version"
                     app:layout_constraintBottom_toBottomOf="@+id/emp_audio_version"/>
             <ImageButton
@@ -62,7 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" app:srcCompat="@drawable/ic_thumbs_down"
                     android:id="@+id/emp_dont_like"
-                    app:layout_constraintEnd_toStartOf="@+id/emp_download" android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toStartOf="@+id/emp_download" android:layout_marginEnd="16dp"
                     app:layout_constraintTop_toTopOf="@+id/emp_download"
                     app:layout_constraintBottom_toBottomOf="@+id/emp_download"/>
             <ImageButton
@@ -70,7 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" app:srcCompat="@drawable/ic_thumbs_up"
                     android:id="@+id/emp_like"
-                    app:layout_constraintEnd_toStartOf="@+id/emp_dont_like" android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toStartOf="@+id/emp_dont_like" android:layout_marginEnd="16dp"
                     app:layout_constraintTop_toTopOf="@+id/emp_dont_like"
                     app:layout_constraintBottom_toBottomOf="@+id/emp_dont_like"/>
             <ImageButton
@@ -78,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" app:srcCompat="@drawable/ic_favorite"
                     android:id="@+id/emp_favourite"
-                    app:layout_constraintEnd_toStartOf="@+id/emp_like" android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toStartOf="@+id/emp_like" android:layout_marginEnd="16dp"
                     app:layout_constraintTop_toTopOf="@+id/emp_like"
                     app:layout_constraintBottom_toBottomOf="@+id/emp_like"/>
             <View
@@ -116,7 +116,7 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintBottom_toBottomOf="@+id/ivAuthor"/>
             <TextView
-                    android:text="se você quer fazer seu dinheiro render mais e com mais segurança, não se guie por..."
+                    tools:text="@string/description_test"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvDescription" app:layout_constraintStart_toStartOf="@+id/ivAuthor"
@@ -125,10 +125,11 @@
                     app:layout_constraintTop_toBottomOf="@+id/tvTimeAgo" app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="16dp"/>
             <TextView
-                    android:text="Mostrar mais"
+                    android:text="@string/show_more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorAccent"
+                    android:tag="0"
                     android:id="@+id/emp_show_more" app:layout_constraintStart_toStartOf="@+id/tvDescription"
                     android:layout_marginTop="16dp"
                     app:layout_constraintTop_toBottomOf="@+id/tvDescription" app:layout_constraintBottom_toBottomOf="parent"

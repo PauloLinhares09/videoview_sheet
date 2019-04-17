@@ -24,6 +24,7 @@ import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.packapps.videoview.utils.Utils
 import kotlinx.android.synthetic.main.area_video_expanded.*
 import kotlinx.android.synthetic.main.area_video_expanded.view.*
 import kotlinx.android.synthetic.main.content_video_bottomsheet_emp.view.*
@@ -83,6 +84,23 @@ class PlayerViewSheetFragment : Fragment(){
         mView.emp_favourite.setOnClickListener {
             viewModelVideoPlayer?.buttonClicked?.postValue(R.id.emp_favourite)
         }
+        mView.emp_show_more.setOnClickListener {
+            val tag : String = mView.emp_show_more.tag.toString()
+            if (tag.equals("0")){
+                mView.emp_show_more.tag = 1
+                mView.tvDescription.text =  resources.getString(R.string.description_test)
+                mView.emp_show_more.text = resources.getString(R.string.show_less)
+            }else{
+                mView.tvDescription.text =  Utils.truncateText(resources.getString(R.string.description_test), 100)
+                mView.emp_show_more.tag = 0
+                mView.emp_show_more.text = resources.getString(R.string.show_more)
+            }
+
+        }
+
+        //### Populate fields
+        mView.tvDescription.text = Utils.truncateText(resources.getString(R.string.description_test), 100)
+
 
 
         return mView

@@ -99,4 +99,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="description_test">se você quer fazer seu dinheiro render mais e com mais segurança, não se guie por,
+        se você quer fazer seu dinheiro render mais e com mais segurança, não se guie por, se você quer fazer seu
+        dinheiro render mais e com mais segurança, não se guie por.
+    </string>
+    <string name="show_less">Mostrar menos</string>
+    <string name="show_more">Mostrar mais</string>
 </resources>
