@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -71,16 +72,14 @@ class PlayerViewSheetFragment : Fragment(){
 
     @SuppressLint("WrongConstant")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val contextTheme = ContextThemeWrapper(context, R.style.AppTheme)
-        val contextInflate = inflater.cloneInContext(contextTheme)
 
-        mView = contextInflate.inflate(R.layout.fragment_view_list, container, false)
+        mView = inflater.inflate(R.layout.fragment_view_list, container, false)
 
-        if (empiricusVideoBusiness == null){
-            //Show View of Error
-
-            return mView
-        }
+//        if (empiricusVideoBusiness == null){//TODO implement it after
+//            //Show View of Error
+//
+//            return mView
+//        }
 
         playerView = mView.playerView
 
