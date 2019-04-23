@@ -7,6 +7,7 @@ import android.os.Parcelable
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import com.google.android.exoplayer2.util.Util
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.packapps.videoview.PlayerViewSheetFragment
 
 class EmpiricusMedia{
@@ -21,6 +22,8 @@ class EmpiricusMedia{
     private var uri : String? = null
     private var playerHomeFragment : PlayerViewSheetFragment? = null
     private var peekHeight : Int = 550
+
+    var stateBottomSheet : Int = BottomSheetBehavior.STATE_EXPANDED
 
     private fun execute(){
         //Check the values required TODO
@@ -49,6 +52,11 @@ class EmpiricusMedia{
 
             })
 
+            //Observer state bottom Sheet
+            viewModelVideoPlayer?.stateBottomSheet?.observe(context as FragmentActivity, Observer {
+                stateBottomSheet = it
+            })
+
 
         }, 8000)
 
@@ -74,6 +82,10 @@ class EmpiricusMedia{
     fun releasePlayer() { //TODO Cancel Listeners
         playerHomeFragment?.releasePlayer()
 
+    }
+
+    fun stateToCollapsed() {
+        playerHomeFragment?.bottomSheetToCollapsed()
     }
 
 

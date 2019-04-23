@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.packapps.videoview.core.*
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         false
     }
 
+    var empiricusMedia : EmpiricusMedia? = null
     fun openMediaPlayer(){
 
         val contentData = ContentData(
@@ -54,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                     MediaType.VIDEO.toString()
                 )))
 
-        EmpiricusMedia.Builder(this)
+        empiricusMedia = EmpiricusMedia.Builder(this)
             .containerShowMedia(R.id.containerMedia)
             .setMediaType(MediaType.VIDEO, StreamType.HLS)
 //            .setUri(getString(R.string.media_url_mp4))
@@ -72,6 +74,16 @@ class MainActivity : AppCompatActivity() {
                 }
             })
             .build()
+    }
+
+    override fun onBackPressed() {
+        if (empiricusMedia != null){
+            if (empiricusMedia?.stateBottomSheet == BottomSheetBehavior.STATE_EXPANDED){
+                empiricusMedia?.stateToCollapsed()
+                return
+            }
+        }
+        super.onBackPressed()
     }
 
     private fun openHome(playerHomeFragment: PlayerViewSheetFragment) {

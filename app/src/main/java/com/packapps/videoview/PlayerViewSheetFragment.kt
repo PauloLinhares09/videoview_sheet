@@ -228,10 +228,12 @@ class PlayerViewSheetFragment : Fragment(){
                     playerView.container_controllers_play.visibility = View.GONE
                     animateConstraint(positionState)
                     managerButtonsControllersByStateBottomSheet()
+                    viewModelVideoPlayer?.stateBottomSheet?.postValue(BottomSheetBehavior.STATE_COLLAPSED)
                 } else if (positionState == BottomSheetBehavior.STATE_EXPANDED) {
                     animateConstraint(positionState)
                     playerView.container_controllers_play.visibility = View.VISIBLE
                     managerButtonsControllersByStateBottomSheet()
+                    viewModelVideoPlayer?.stateBottomSheet?.postValue(BottomSheetBehavior.STATE_EXPANDED)
                 }
             }
 
@@ -434,6 +436,10 @@ class PlayerViewSheetFragment : Fragment(){
 
     fun getObservableViewModel(): ViewModelVideoPlayer {
         return playerListener.getObservableViewModel()
+    }
+
+    fun bottomSheetToCollapsed() {
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
 
