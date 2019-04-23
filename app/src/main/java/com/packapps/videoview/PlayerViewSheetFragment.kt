@@ -245,6 +245,7 @@ class PlayerViewSheetFragment : Fragment(){
 
         //### Populate fields
         mView.tvTitle.text = contentData?.title?:""
+        mView.tvTitleCollapsed.text = Utils.truncateText(contentData?.title!!, 20)
         mView.tvDescription.text = Utils.truncateText(contentData?.description!!, 100)
         mView.tvAuthorName.text = contentData?.authors?.get(0)?.name?:""
         mView.ivAuthor.setImageDrawable(resources.getDrawable(R.drawable.ic_account_circle, context?.theme))//TODO change for Glide
