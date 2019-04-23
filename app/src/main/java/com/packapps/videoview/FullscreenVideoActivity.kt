@@ -17,8 +17,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.google.android.exoplayer2.*
+import com.google.android.exoplayer2.extractor.ts.DefaultTsPayloadReaderFactory
 import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.source.MediaSource
+import com.google.android.exoplayer2.source.hls.DefaultHlsExtractorFactory
+import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import com.google.android.exoplayer2.util.Util
@@ -32,6 +35,7 @@ class FullscreenVideoActivity : AppCompatActivity() {
         const val PLAYBACK_POSITION = "playbackPosition"
         const val CURRENT_WINDOW = "currentWindow"
         const val PLAY_WHEN_READY = "playWhenReady"
+        const val URI = "uri"
 
         const val REQUEST_FULLSCREEN = 100
     }
@@ -41,6 +45,8 @@ class FullscreenVideoActivity : AppCompatActivity() {
     private var currentWindow: Int = 0
     private var playWhenReady: Boolean = true
     private var player: SimpleExoPlayer? = null
+    private var uri: String? = null
+
     private lateinit var playerListener : MyComponentPlayerListener
 //    private lateinit var viewModelObservable : ViewModelFullscreenObservable
 
@@ -58,6 +64,8 @@ class FullscreenVideoActivity : AppCompatActivity() {
                 playbackPosition  = it.getLong(PLAYBACK_POSITION, 0)
                 currentWindow     = it.getInt(CURRENT_WINDOW, 0)
                 playWhenReady     = it.getBoolean(PLAY_WHEN_READY, true)
+                uri               = it.getString(URI)
+
             }
 
             runOnUiThread {
@@ -117,34 +125,48 @@ class FullscreenVideoActivity : AppCompatActivity() {
     }
 
     private fun initializePlayer() {
-        //A Simple instance
-        player = ExoPlayerFactory.newSimpleInstance(
-            this,
-            DefaultRenderersFactory(this),
-            DefaultTrackSelector(), DefaultLoadControl()
-        )
+        try {
 
-        //Add listner
-        player?.addListener(playerListener)
-        player?.addAnalyticsListener(playerListener)
+            //A Simple instance
+            player = ExoPlayerFactory.newSimpleInstance(
+                this,
+                DefaultRenderersFactory(this),
+                DefaultTrackSelector(), DefaultLoadControl()
+            )
 
-        //Vicule the player with the playerView
-        playerView.setPlayer(player)
+            //Add listner
+            player?.addListener(playerListener)
+            player?.addAnalyticsListener(playerListener)
 
-        //keep ready for the play when its ready
-        player?.setPlayWhenReady(playWhenReady)
-        player?.seekTo(currentWindow, playbackPosition)
+            //Vicule the player with the playerView
+            playerView.setPlayer(player)
 
-        //File media
-        val mediaSource = buildMediaSource(Uri.parse(getString(R.string.media_url_mp4)))
+            //keep ready for the play when its ready
+            player?.setPlayWhenReady(playWhenReady)
+            player?.seekTo(currentWindow, playbackPosition)
 
-        //Play / prepare
-        player?.prepare(mediaSource, false, false)
+            //File media
+            val mediaSource = buildHlsMediaSource(Uri.parse(uri))
+
+            //Play / prepare
+            player?.prepare(mediaSource, false, false)
+        }catch (e : Exception){
+            e.printStackTrace()
+            //TODO implement Exception EmpiricusMedia
+            finish()
+        }
     }
 
-    private fun buildMediaSource(uri: Uri): MediaSource {
-        return ExtractorMediaSource.Factory(DefaultHttpDataSourceFactory("exoplayer-app"))
-            .createMediaSource(uri)
+//    private fun buildMediaSource(uri: Uri): MediaSource {
+//        return ExtractorMediaSource.Factory(DefaultHttpDataSourceFactory("exoplayer-app"))
+//            .createMediaSource(uri)
+//    }
+
+    private fun buildHlsMediaSource(playListUri : Uri): MediaSource? {
+        val defaultHlsExtractorFactory = DefaultHlsExtractorFactory(DefaultTsPayloadReaderFactory.FLAG_ALLOW_NON_IDR_KEYFRAMES)
+        return HlsMediaSource.Factory(DefaultHttpDataSourceFactory("exoplayer-app"))
+            .setExtractorFactory(defaultHlsExtractorFactory)
+            .createMediaSource(playListUri)
     }
 
     private fun releasePlayer() {

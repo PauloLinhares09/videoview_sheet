@@ -172,6 +172,7 @@ class PlayerViewSheetFragment : Fragment(){
         bundle.putLong(FullscreenVideoActivity.PLAYBACK_POSITION, player?.currentPosition ?: 0)
         bundle.putInt(FullscreenVideoActivity.CURRENT_WINDOW, player?.currentWindowIndex ?: 0)
         bundle.putBoolean(FullscreenVideoActivity.PLAY_WHEN_READY, playWhenReady)
+        bundle.putString(FullscreenVideoActivity.URI, uriMedia)
         val intent = Intent(context, FullscreenVideoActivity::class.java)
         intent.putExtras(bundle)
         releasePlayer()
