@@ -44,7 +44,9 @@ class EmpiricusMedia{
             })
             //### Observer click item on contentView
             viewModelVideoPlayer?.buttonClicked?.observe(context as FragmentActivity, Observer {
-                itemClickedContentView?.itemClicked(it)
+                val idItemCurrent = viewModelVideoPlayer?.itemId.value
+                itemClickedContentView?.itemClicked(ActionClick(it, contentData?.id))
+
             })
 
 
@@ -309,6 +311,12 @@ interface EmpiricusMediaStateCallback{
     fun stateFromMedia(state: Int)
 }
 
+class ActionClick(val viewId : Int, val itemIdCurrent : String?){
+    override fun toString(): String {
+        return "ActionClick(viewId=$viewId, itemIdCurrent='$itemIdCurrent')"
+    }
+}
+
 interface EmpiricusMediaItemClicked{
-    fun itemClicked(id : Int)
+    fun itemClicked(id : ActionClick)
 }

@@ -67,8 +67,8 @@ class MainActivity : AppCompatActivity() {
                 }
             })
             .callbackItemFromContentViewClicked(object : EmpiricusMediaItemClicked{
-                override fun itemClicked(id: Int) {
-                    Log.i("TAG", "item clicked: " + id)
+                override fun itemClicked(actionClick: ActionClick) {
+                    Log.i("TAG", "item clicked: " + actionClick.toString())
                 }
             })
             .build()

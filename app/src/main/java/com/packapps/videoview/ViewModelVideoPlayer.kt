@@ -7,5 +7,6 @@ class ViewModelVideoPlayer() : ViewModel(){
 
     var stateVideo : MutableLiveData<Int> = MutableLiveData()
     var buttonClicked : MutableLiveData<Int> = MutableLiveData()
+    var itemId : MutableLiveData<String> = MutableLiveData()
 
 }

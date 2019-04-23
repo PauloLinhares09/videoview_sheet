@@ -93,13 +93,16 @@ class PlayerViewSheetFragment : Fragment(){
 
         playerView = mView.playerView
 
-        //Observer to player listener
-        observerListenerVideoPlayer()
-        managerClicksControllesCollapsed()
-
         initBottomSheetExpirience()
 
+        return mView
+    }
 
+    private fun managerClickButtonsContent() {
+        //Set item current
+        viewModelVideoPlayer?.itemId?.postValue(contentData?.id)
+
+        //Implements events click
         mView.emp_favourite.setOnClickListener {
             viewModelVideoPlayer?.buttonClicked?.postValue(R.id.emp_favourite)
         }
@@ -116,24 +119,18 @@ class PlayerViewSheetFragment : Fragment(){
             viewModelVideoPlayer?.buttonClicked?.postValue(R.id.emp_audio_version)
         }
         mView.emp_show_more.setOnClickListener {
-            val tag : String = mView.emp_show_more.tag.toString()
-            if (tag.equals("0")){
+            val tag: String = mView.emp_show_more.tag.toString()
+            if (tag.equals("0")) {
                 mView.emp_show_more.tag = 1
-                mView.tvDescription.text =  contentData?.description
+                mView.tvDescription.text = contentData?.description
                 mView.emp_show_more.text = resources.getString(R.string.show_less)
-            }else{
-                mView.tvDescription.text =  Utils.truncateText(contentData?.description?:"", 100)
+            } else {
+                mView.tvDescription.text = Utils.truncateText(contentData?.description ?: "", 100)
                 mView.emp_show_more.tag = 0
                 mView.emp_show_more.text = resources.getString(R.string.show_more)
             }
 
         }
-
-
-
-
-
-        return mView
     }
 
 
@@ -239,20 +236,26 @@ class PlayerViewSheetFragment : Fragment(){
 
         })
 
+        //Observer to player listener
+        observerListenerVideoPlayer()
+
+        managerClicksControllesCollapsed()
+
+        managerClickButtonsContent()
+
         managerClickIbClose()
 
-
-
         //### Populate fields
-        mView.tvTitle.text = contentData?.title?:""
-        mView.tvTitleCollapsed.text = Utils.truncateText(contentData?.title!!, 20)
-        mView.tvDescription.text = Utils.truncateText(contentData?.description!!, 100)
-        mView.tvAuthorName.text = contentData?.authors?.get(0)?.name?:""
-        mView.ivAuthor.setImageDrawable(resources.getDrawable(R.drawable.ic_account_circle, context?.theme))//TODO change for Glide
-        mView.tvTimeAgo.text = contentData?.timeAgoStr?:""
+        populateFieldsContent()
 
         //Next media / in Adapter
-        if (contentData?.next != null){
+        managerAdapterPlayListNext()
+
+
+    }
+
+    private fun managerAdapterPlayListNext() {
+        if (contentData?.next != null) {
             //Adapter list playlist on sheet
             val adapterPlayList = PlaylistAdapter()
             mView.rvPlaylist.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -266,11 +269,23 @@ class PlayerViewSheetFragment : Fragment(){
                 }
 
             })
-        }else{
+        } else {
             //Inflate somebody layout
         }
+    }
 
-
+    private fun populateFieldsContent() {
+        mView.tvTitle.text = contentData?.title ?: ""
+        mView.tvTitleCollapsed.text = Utils.truncateText(contentData?.title!!, 20)
+        mView.tvDescription.text = Utils.truncateText(contentData?.description!!, 100)
+        mView.tvAuthorName.text = contentData?.authors?.get(0)?.name ?: ""
+        mView.ivAuthor.setImageDrawable(
+            resources.getDrawable(
+                R.drawable.ic_account_circle,
+                context?.theme
+            )
+        )//TODO change for Glide
+        mView.tvTimeAgo.text = contentData?.timeAgoStr ?: ""
     }
 
 
