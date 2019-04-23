@@ -1,7 +1,6 @@
 package com.packapps.videoview.core
 
 import android.content.Context
-import android.net.Uri
 import android.os.Handler
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
@@ -15,6 +14,7 @@ class EmpiricusMedia{
     private var context : Context? = null
     private var contentLayout : Int? = null
     private var mediaType : MediaType? = null
+    private lateinit var streamType: StreamType
     private var uri : String? = null
     private var playerHomeFragment : PlayerViewSheetFragment? = null
     private var peekHeight : Int = 550
@@ -26,7 +26,7 @@ class EmpiricusMedia{
 
 
         //Inflate the Fragment in container informed
-        playerHomeFragment = PlayerViewSheetFragment.newInstance(uri, peekHeight)
+        playerHomeFragment = PlayerViewSheetFragment.newInstance(uri, peekHeight, streamType = streamType)
         val t = (context as FragmentActivity).supportFragmentManager.beginTransaction()
         t.replace(containerLayout!!, playerHomeFragment!!)
         t.commit()
@@ -93,8 +93,9 @@ class EmpiricusMedia{
             return this
         }
 
-        fun setMediaType(mediaType : MediaType) : Builder{
+        fun setMediaType(mediaType: MediaType, streamType: StreamType = StreamType.HLS) : Builder{
             empiricusMedia.mediaType = mediaType
+            empiricusMedia.streamType = streamType
 
             return this
         }
@@ -143,6 +144,11 @@ class EmpiricusMedia{
 enum class MediaType{
     VIDEO,
     PODCAST
+}
+
+enum class StreamType{
+    HLS,
+    MP4
 }
 
 

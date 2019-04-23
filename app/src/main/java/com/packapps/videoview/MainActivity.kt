@@ -4,10 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import com.packapps.videoview.core.EmpiricusMedia
-import com.packapps.videoview.core.EmpiricusMediaItemClicked
-import com.packapps.videoview.core.EmpiricusMediaStateCallback
-import com.packapps.videoview.core.MediaType
+import com.packapps.videoview.core.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -38,8 +35,9 @@ class MainActivity : AppCompatActivity() {
 
         EmpiricusMedia.Builder(this)
             .containerShowMedia(R.id.containerMedia)
-            .setMediaType(MediaType.VIDEO)
-            .setUri(getString(R.string.media_url_mp4))
+            .setMediaType(MediaType.VIDEO, StreamType.HLS)
+//            .setUri(getString(R.string.media_url_mp4))
+            .setUri("https://player.vimeo.com/external/310118574.m3u8?s=916d76157199bfe02c7daa8a735a4b84a9c9a038&oauth2_token_id=1018475342")
             .setContentLayout(R.layout.layout_video_view)
             .callBackMediaState(object : EmpiricusMediaStateCallback {
                 override fun stateFromMedia(state : Int) {

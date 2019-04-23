@@ -1,12 +1,12 @@
 package com.packapps.videoview
 
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.packapps.videoview.core.EmpiricusMedia
 import com.packapps.videoview.core.EmpiricusMediaStateCallback
 import com.packapps.videoview.core.MediaType
+import com.packapps.videoview.core.StreamType
 
 class TestActivity : AppCompatActivity() {
 
@@ -19,7 +19,7 @@ class TestActivity : AppCompatActivity() {
 
         EmpiricusMedia.Builder(this)
             .containerShowMedia(R.id.container)
-            .setMediaType(MediaType.VIDEO)
+            .setMediaType(MediaType.VIDEO, StreamType.HLS)
 //            .setUri(Uri.parse("https://google.com/video"))
             .setContentLayout(R.layout.layout_video_view)
             .callBackMediaState(object : EmpiricusMediaStateCallback{

@@ -18,13 +18,19 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionManager
 import com.google.android.exoplayer2.*
+import com.google.android.exoplayer2.extractor.ts.DefaultTsPayloadReaderFactory.FLAG_ALLOW_NON_IDR_KEYFRAMES
 import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.source.MediaSource
+import com.google.android.exoplayer2.source.hls.DefaultHlsExtractorFactory
+import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.ui.PlayerView
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
+import com.google.android.exoplayer2.upstream.HttpDataSource
 import com.google.android.exoplayer2.util.Util
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.packapps.videoview.core.StreamType
 import com.packapps.videoview.models.EmpiricusVideoBusiness
 import com.packapps.videoview.utils.Utils
 import kotlinx.android.synthetic.main.area_video_expanded.*
@@ -32,6 +38,7 @@ import kotlinx.android.synthetic.main.area_video_expanded.view.*
 import kotlinx.android.synthetic.main.content_video_bottomsheet_emp.view.*
 import kotlinx.android.synthetic.main.fragment_view_list.view.*
 import kotlinx.android.synthetic.main.layout_controllers_videoplayer.view.*
+import java.lang.Exception
 
 
 class PlayerViewSheetFragment : Fragment(){
@@ -39,6 +46,7 @@ class PlayerViewSheetFragment : Fragment(){
     private val URI_MEDIA : String = "uri_media"
     private val PEEK_HEIGHT : String = "peek_eight"
     private val EMPIRICUS_VIDEO_BUSINESS : String = "empiricus_video_business"
+    private val STREAM_TYPE : String = "stream_type"
 
     private var viewModelVideoPlayer: ViewModelVideoPlayer? = null
     lateinit var mView : View
@@ -52,6 +60,7 @@ class PlayerViewSheetFragment : Fragment(){
     private var currentWindow : Int = 0
     private lateinit var playerListener : MyComponentPlayerListener
     private var uriMedia : String? = null
+    private lateinit var streamType: StreamType
     private var peekHeight : Int = 550
     private var empiricusVideoBusiness: EmpiricusVideoBusiness? = null
 
@@ -63,6 +72,7 @@ class PlayerViewSheetFragment : Fragment(){
             uriMedia = this?.getString(URI_MEDIA)
             peekHeight = this?.getInt(PEEK_HEIGHT)?:peekHeight
             empiricusVideoBusiness = this?.getParcelable(EMPIRICUS_VIDEO_BUSINESS)
+            streamType = this?.getSerializable(STREAM_TYPE) as StreamType
         }
 
         playerListener = MyComponentPlayerListener()
@@ -240,33 +250,51 @@ class PlayerViewSheetFragment : Fragment(){
 
     private fun initializePlayer() {
         //A Simple instance
-        player = ExoPlayerFactory.newSimpleInstance(
-            context,
-            DefaultRenderersFactory(context!!),
-            DefaultTrackSelector(), DefaultLoadControl())
+        try {
 
-        //Add listner
-        player?.addListener(playerListener)
-        player?.addAnalyticsListener(playerListener)
+            player = ExoPlayerFactory.newSimpleInstance(
+                context,
+                DefaultRenderersFactory(context!!),
+                DefaultTrackSelector(), DefaultLoadControl()
+            )
 
-        //Vicule the player with the playerView
-        playerView.setPlayer(player)
+            //Add listner
+            player?.addListener(playerListener)
+            player?.addAnalyticsListener(playerListener)
 
-        //keep ready for the play when its ready
-        player?.setPlayWhenReady(playWhenReady)
-        player?.seekTo(currentWindow, playbackPosition)
+            //Vicule the player with the playerView
+            playerView.setPlayer(player)
 
-        //File media
-        val mediaSource = buildMediaSource(Uri.parse(uriMedia))
+            //keep ready for the play when its ready
+            player?.setPlayWhenReady(playWhenReady)
+            player?.seekTo(currentWindow, playbackPosition)
 
-        //Play / prepare
-        player?.prepare(mediaSource, false, false)
+            //File media
+            var mediaSource: MediaSource? = null
+            if (streamType == StreamType.HLS)
+                mediaSource = buildHlsMediaSource(Uri.parse(uriMedia))
+            else if (streamType == StreamType.MP4)
+                mediaSource = buildMediaSource(Uri.parse(uriMedia))
+
+            //Play / prepare
+            player?.prepare(mediaSource, false, false)
+        }catch (e : Exception){
+            e.printStackTrace()
+            //TODO send exception to view
+        }
     }
 
 
     private fun buildMediaSource(uri: Uri): MediaSource {
         return ExtractorMediaSource.Factory(DefaultHttpDataSourceFactory("exoplayer-app"))
             .createMediaSource(uri)
+    }
+
+    private fun buildHlsMediaSource(playListUri : Uri): MediaSource? {
+        val defaultHlsExtractorFactory = DefaultHlsExtractorFactory(FLAG_ALLOW_NON_IDR_KEYFRAMES)
+        return HlsMediaSource.Factory(DefaultHttpDataSourceFactory("exoplayer-app"))
+        .setExtractorFactory(defaultHlsExtractorFactory)
+        .createMediaSource(playListUri)
     }
 
 
@@ -369,12 +397,13 @@ class PlayerViewSheetFragment : Fragment(){
 
     companion object {
         @JvmStatic
-        fun newInstance(uriMedia: String?, peekHeight : Int, empiricusVideoBusiness: EmpiricusVideoBusiness? = null) =
+        fun newInstance(uriMedia: String?, peekHeight : Int, empiricusVideoBusiness: EmpiricusVideoBusiness? = null, streamType: StreamType) =
             PlayerViewSheetFragment().apply {
                 arguments = Bundle().apply {
                     putString(URI_MEDIA, uriMedia)
                     putInt(PEEK_HEIGHT, peekHeight)
                     putParcelable(EMPIRICUS_VIDEO_BUSINESS, empiricusVideoBusiness)
+                    putSerializable(STREAM_TYPE, streamType)
                 }
             }
 
