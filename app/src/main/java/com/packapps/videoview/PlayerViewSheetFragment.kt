@@ -4,14 +4,12 @@ import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.view.ContextThemeWrapper
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -25,11 +23,10 @@ import com.google.android.exoplayer2.source.hls.DefaultHlsExtractorFactory
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.ui.PlayerView
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
-import com.google.android.exoplayer2.upstream.HttpDataSource
 import com.google.android.exoplayer2.util.Util
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.packapps.videoview.core.ContentData
 import com.packapps.videoview.core.StreamType
 import com.packapps.videoview.models.EmpiricusVideoBusiness
 import com.packapps.videoview.utils.Utils
@@ -47,6 +44,7 @@ class PlayerViewSheetFragment : Fragment(){
     private val PEEK_HEIGHT : String = "peek_eight"
     private val EMPIRICUS_VIDEO_BUSINESS : String = "empiricus_video_business"
     private val STREAM_TYPE : String = "stream_type"
+    private val CONTENT_DATA : String = "content_data"
 
     private var viewModelVideoPlayer: ViewModelVideoPlayer? = null
     lateinit var mView : View
@@ -61,6 +59,7 @@ class PlayerViewSheetFragment : Fragment(){
     private lateinit var playerListener : MyComponentPlayerListener
     private var uriMedia : String? = null
     private lateinit var streamType: StreamType
+    private var contentData: ContentData? = null
     private var peekHeight : Int = 550
     private var empiricusVideoBusiness: EmpiricusVideoBusiness? = null
 
@@ -73,6 +72,7 @@ class PlayerViewSheetFragment : Fragment(){
             peekHeight = this?.getInt(PEEK_HEIGHT)?:peekHeight
             empiricusVideoBusiness = this?.getParcelable(EMPIRICUS_VIDEO_BUSINESS)
             streamType = this?.getSerializable(STREAM_TYPE) as StreamType
+            contentData = this?.getParcelable<ContentData>(CONTENT_DATA)
         }
 
         playerListener = MyComponentPlayerListener()
@@ -119,18 +119,17 @@ class PlayerViewSheetFragment : Fragment(){
             val tag : String = mView.emp_show_more.tag.toString()
             if (tag.equals("0")){
                 mView.emp_show_more.tag = 1
-                mView.tvDescription.text =  resources.getString(R.string.description_test)
+                mView.tvDescription.text =  contentData?.description
                 mView.emp_show_more.text = resources.getString(R.string.show_less)
             }else{
-                mView.tvDescription.text =  Utils.truncateText(resources.getString(R.string.description_test), 100)
+                mView.tvDescription.text =  Utils.truncateText(contentData?.description?:"", 100)
                 mView.emp_show_more.tag = 0
                 mView.emp_show_more.text = resources.getString(R.string.show_more)
             }
 
         }
 
-        //### Populate fields
-        mView.tvDescription.text = Utils.truncateText(resources.getString(R.string.description_test), 100)
+
 
 
 
@@ -242,9 +241,35 @@ class PlayerViewSheetFragment : Fragment(){
 
         managerClickIbClose()
 
-        //Adapter list playlist on sheet
-        mView.rvPlaylist.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        mView.rvPlaylist.adapter = PlaylistAdapter()
+
+
+        //### Populate fields
+        mView.tvTitle.text = contentData?.title?:""
+        mView.tvDescription.text = Utils.truncateText(contentData?.description!!, 100)
+        mView.tvAuthorName.text = contentData?.authors?.get(0)?.name?:""
+        mView.ivAuthor.setImageDrawable(resources.getDrawable(R.drawable.ic_account_circle, context?.theme))//TODO change for Glide
+        mView.tvTimeAgo.text = contentData?.timeAgoStr?:""
+
+        //Next media / in Adapter
+        if (contentData?.next != null){
+            //Adapter list playlist on sheet
+            val adapterPlayList = PlaylistAdapter()
+            mView.rvPlaylist.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            mView.rvPlaylist.adapter = adapterPlayList
+            adapterPlayList.updateAndNotifyDataSetChanged(contentData?.next!!)
+            //Listen events from Adapter list
+            adapterPlayList.listenEvents(object : PlaylistAdapter.PlayListListener {
+                override fun itemClicked(item: ContentData.NextMedia) {
+                    //TODO send to front
+                    Log.i("TAG", "click item: " + item.toString())
+                }
+
+            })
+        }else{
+            //Inflate somebody layout
+        }
+
+
     }
 
 
@@ -397,13 +422,14 @@ class PlayerViewSheetFragment : Fragment(){
 
     companion object {
         @JvmStatic
-        fun newInstance(uriMedia: String?, peekHeight : Int, empiricusVideoBusiness: EmpiricusVideoBusiness? = null, streamType: StreamType) =
+        fun newInstance(uriMedia: String?, peekHeight : Int, empiricusVideoBusiness: EmpiricusVideoBusiness? = null, streamType: StreamType, contentData: ContentData?) =
             PlayerViewSheetFragment().apply {
                 arguments = Bundle().apply {
                     putString(URI_MEDIA, uriMedia)
                     putInt(PEEK_HEIGHT, peekHeight)
                     putParcelable(EMPIRICUS_VIDEO_BUSINESS, empiricusVideoBusiness)
                     putSerializable(STREAM_TYPE, streamType)
+                    putParcelable(CONTENT_DATA, contentData)
                 }
             }
 

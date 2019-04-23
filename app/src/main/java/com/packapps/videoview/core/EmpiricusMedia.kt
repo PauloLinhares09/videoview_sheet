@@ -2,6 +2,8 @@ package com.packapps.videoview.core
 
 import android.content.Context
 import android.os.Handler
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import com.google.android.exoplayer2.util.Util
@@ -14,6 +16,7 @@ class EmpiricusMedia{
     private var context : Context? = null
     private var contentLayout : Int? = null
     private var mediaType : MediaType? = null
+    private var contentData : ContentData? = null
     private lateinit var streamType: StreamType
     private var uri : String? = null
     private var playerHomeFragment : PlayerViewSheetFragment? = null
@@ -26,7 +29,7 @@ class EmpiricusMedia{
 
 
         //Inflate the Fragment in container informed
-        playerHomeFragment = PlayerViewSheetFragment.newInstance(uri, peekHeight, streamType = streamType)
+        playerHomeFragment = PlayerViewSheetFragment.newInstance(uri, peekHeight, streamType = streamType, contentData = contentData)
         val t = (context as FragmentActivity).supportFragmentManager.beginTransaction()
         t.replace(containerLayout!!, playerHomeFragment!!)
         t.commit()
@@ -123,6 +126,12 @@ class EmpiricusMedia{
             return this
         }
 
+        fun setContentData(contentData: ContentData): Builder {
+            empiricusMedia.contentData = contentData
+
+            return this
+        }
+
 
 
 
@@ -134,6 +143,8 @@ class EmpiricusMedia{
             empiricusMedia.execute()
             return empiricusMedia
         }
+
+
 
     }
 
@@ -149,6 +160,148 @@ enum class MediaType{
 enum class StreamType{
     HLS,
     MP4
+}
+
+class ContentData (
+    val id : String?,
+    val title : String?,
+    val description : String?,
+    val authors : MutableList<Author>?,
+    val thumbnailsFull : String?,
+    val timeAgoStr : String?,
+    val next : MutableList<NextMedia>?
+) : Parcelable {
+
+
+    constructor(parcel: Parcel) : this(
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.createTypedArrayList(Author.CREATOR),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.createTypedArrayList(NextMedia.CREATOR)
+    ) {
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(id)
+        parcel.writeString(title)
+        parcel.writeString(description)
+        parcel.writeString(thumbnailsFull)
+        parcel.writeTypedList(authors)
+        parcel.writeString(timeAgoStr)
+        parcel.writeTypedList(next)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<ContentData> {
+        override fun createFromParcel(parcel: Parcel): ContentData {
+            return ContentData(parcel)
+        }
+
+        override fun newArray(size: Int): Array<ContentData?> {
+            return arrayOfNulls(size)
+        }
+    }
+
+
+
+    class Author(
+        val authorId : String?,
+        val name : String,
+        val photoUrl : String?,
+        val photoLargeUrl : String?,
+        val email : String?,
+        val description : String?
+    ) : Parcelable {
+        constructor(parcel: Parcel) : this(
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString()
+        ) {
+        }
+
+        override fun writeToParcel(parcel: Parcel, flags: Int) {
+            parcel.writeString(authorId)
+            parcel.writeString(name)
+            parcel.writeString(photoUrl)
+            parcel.writeString(photoLargeUrl)
+            parcel.writeString(email)
+            parcel.writeString(description)
+        }
+
+        override fun describeContents(): Int {
+            return 0
+        }
+
+        companion object CREATOR : Parcelable.Creator<Author> {
+            override fun createFromParcel(parcel: Parcel): Author {
+
+                return Author(parcel)
+            }
+
+            override fun newArray(size: Int): Array<Author?> {
+                return arrayOfNulls(size)
+            }
+        }
+
+    }
+
+
+    class NextMedia(
+        val id : String?,
+        val text : String?,
+        val time : String?,
+        val thumbnails : String?,
+        val mediaType: String?
+    ) : Parcelable {
+        constructor(parcel: Parcel) : this(
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString()
+        ) {
+        }
+
+        override fun writeToParcel(parcel: Parcel, flags: Int) {
+            parcel.writeString(id)
+            parcel.writeString(text)
+            parcel.writeString(time)
+            parcel.writeString(thumbnails)
+            parcel.writeString(mediaType)
+        }
+
+        override fun describeContents(): Int {
+            return 0
+        }
+
+        override fun toString(): String {
+            return "NextMedia(id=$id, text=$text, time=$time, thumbnails=$thumbnails, mediaType='$mediaType')"
+        }
+
+
+        companion object CREATOR : Parcelable.Creator<NextMedia> {
+            override fun createFromParcel(parcel: Parcel): NextMedia {
+                return NextMedia(parcel)
+            }
+
+            override fun newArray(size: Int): Array<NextMedia?> {
+                return arrayOfNulls(size)
+            }
+        }
+
+
+
+    }
+
 }
 
 

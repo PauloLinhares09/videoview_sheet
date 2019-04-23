@@ -41,6 +41,15 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"/>
             </androidx.cardview.widget.CardView>
+
+            <ImageView
+                    android:id="@+id/ivItemThumbnails"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/exo_controls_play"
+                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
         <TextView
                 android:text="A segunda parte dessa luta volta em endgame."

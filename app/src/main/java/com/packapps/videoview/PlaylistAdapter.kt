@@ -3,18 +3,14 @@ package com.packapps.videoview
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.packapps.videoview.core.ContentData
 
 class PlaylistAdapter() : RecyclerView.Adapter<PlaylistAdapter.MyHolder>() {
-    val list : MutableList<String> = mutableListOf()
-    init {
-        list.add("")
-        list.add("")
-        list.add("")
-        list.add("")
-        list.add("")
-        list.add("")
-    }
+    var list : MutableList<ContentData.NextMedia> = mutableListOf()
+    var listener : PlayListListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
         val mView  = LayoutInflater.from(parent.context).inflate(R.layout.item_card, parent, false)
@@ -24,8 +20,39 @@ class PlaylistAdapter() : RecyclerView.Adapter<PlaylistAdapter.MyHolder>() {
 
     override fun getItemCount(): Int = list.size
 
-    override fun onBindViewHolder(holder: MyHolder, position: Int) {}
+    override fun onBindViewHolder(holder: MyHolder, position: Int) {
+        val item = list.get(position)
+        //populate date on items
+        holder.tvText.text = item.text
+        holder.tvTime.text = item.time
+//        holder.ivThumbnails.setImageDrawable() = "" //TODO implement Glide
+
+        //Implement clik item
+        holder.itemView.setOnClickListener {
+            listener?.itemClicked(item)
+        }
+    }
 
 
-    class MyHolder(view : View) : RecyclerView.ViewHolder(view) {}
+    fun updateAndNotifyDataSetChanged(list : MutableList<ContentData.NextMedia>){
+        this.list = list
+        notifyDataSetChanged()
+    }
+
+    fun listenEvents(listener : PlayListListener){
+        this.listener = listener
+    }
+
+    interface PlayListListener{
+        fun itemClicked(item : ContentData.NextMedia)
+    }
+
+
+    class MyHolder(view : View) : RecyclerView.ViewHolder(view) {
+        val tvText = view.findViewById<TextView>(R.id.tvItemDescription)
+        val tvTime = view.findViewById<TextView>(R.id.tvItemTimePreview)
+        val ivThumbnails = view.findViewById<ImageView>(R.id.ivItemThumbnails)
+
+    }
+
 }
