@@ -64,6 +64,7 @@ class PlayerViewSheetFragment : Fragment(){
     private var contentData: ContentData? = null
     private var peekHeight : Int = 550
     private var empiricusVideoBusiness: EmpiricusVideoBusiness? = null
+    private var currentStateBottomSheet : Int = BottomSheetBehavior.STATE_EXPANDED
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -209,7 +210,7 @@ class PlayerViewSheetFragment : Fragment(){
         initializePlayer()
         bottomSheetBehavior = BottomSheetBehavior.from(mView.bottomSheetVideo)
         bottomSheetBehavior.isHideable = false
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        bottomSheetBehavior.state = currentStateBottomSheet
         bottomSheetBehavior.peekHeight = peekHeight
 
         bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
@@ -230,12 +231,14 @@ class PlayerViewSheetFragment : Fragment(){
                     playerView.container_controllers_play.visibility = View.GONE
                     animateConstraint(positionState)
                     managerButtonsControllersByStateBottomSheet()
-                    viewModelVideoPlayer?.stateBottomSheet?.postValue(BottomSheetBehavior.STATE_COLLAPSED)
+                    currentStateBottomSheet = BottomSheetBehavior.STATE_COLLAPSED
+                    viewModelVideoPlayer?.stateBottomSheet?.postValue(currentStateBottomSheet)
                 } else if (positionState == BottomSheetBehavior.STATE_EXPANDED) {
                     animateConstraint(positionState)
                     playerView.container_controllers_play.visibility = View.VISIBLE
                     managerButtonsControllersByStateBottomSheet()
-                    viewModelVideoPlayer?.stateBottomSheet?.postValue(BottomSheetBehavior.STATE_EXPANDED)
+                    currentStateBottomSheet = BottomSheetBehavior.STATE_EXPANDED
+                    viewModelVideoPlayer?.stateBottomSheet?.postValue(currentStateBottomSheet)
                 }
             }
 
