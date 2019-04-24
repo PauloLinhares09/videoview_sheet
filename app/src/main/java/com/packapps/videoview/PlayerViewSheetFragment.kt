@@ -196,7 +196,6 @@ class PlayerViewSheetFragment : Fragment(){
     private fun observerListenerVideoPlayer() {
         viewModelVideoPlayer = playerListener.getObservableViewModel()
         viewModelVideoPlayer?.stateVideo?.observe(this, Observer {
-            Toast.makeText(context, "State: ${it}", Toast.LENGTH_SHORT).show()
             if (it == Player.STATE_IDLE || it == Player.STATE_BUFFERING) {
                 mView.playerView.cardProgress.visibility = View.VISIBLE
             } else if (it == Player.STATE_ENDED) {

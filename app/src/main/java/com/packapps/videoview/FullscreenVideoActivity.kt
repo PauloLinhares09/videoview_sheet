@@ -112,7 +112,6 @@ class FullscreenVideoActivity : AppCompatActivity() {
     private fun observerListenerVideoPlayer() {
         val viewModelVideoPlayer = playerListener.getObservableViewModel()
         viewModelVideoPlayer.stateVideo.observe(this, Observer {
-            Toast.makeText(this, "State: ${it}", Toast.LENGTH_SHORT).show()
             if (it == Player.STATE_IDLE || it == Player.STATE_BUFFERING) {
                 playerView.cardProgress.visibility = View.VISIBLE
             } else if (it == Player.STATE_ENDED) {
