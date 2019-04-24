@@ -464,6 +464,7 @@ class PlayerViewSheetFragment : Fragment(){
     fun replacePlayListAssociated(playList: MutableList<ContentData.NextMedia>?) {
         //Done search layout animated
         mView.clSearchMediaAssociated.visibility = View.GONE
+        mView.clNotThereAreMediaAssociated.visibility = View.GONE
 
         if (playList != null){
             if (playList.size > 0){
@@ -471,10 +472,8 @@ class PlayerViewSheetFragment : Fragment(){
                 return
             }
         }
-        //Done search layout animated
-        mView.clSearchMediaAssociated.visibility = View.GONE
-
         //Show image content not found
+        mView.clNotThereAreMediaAssociated.visibility = View.VISIBLE
 
     }
 
