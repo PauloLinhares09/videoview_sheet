@@ -48,14 +48,7 @@ class MainActivity : AppCompatActivity() {
                 "email@empiricus.com.br",
                 "Author desta serie" )), "https://thumbnails",
             "11/01/2019 17h00",
-            mutableListOf(
-                ContentData.NextMedia(
-                    "id-item",
-                    "Some media: Video/Podcast",
-                    "9:11",
-                    "https://thumbnails",
-                    MediaType.VIDEO.toString()
-                )))
+            null)
 
         empiricusMedia = EmpiricusMedia.Builder(this)
             .containerShowMedia(R.id.containerMedia)
@@ -79,14 +72,14 @@ class MainActivity : AppCompatActivity() {
 
         Handler().postDelayed({
             var listTest : MutableList<ContentData.NextMedia> = mutableListOf()
-            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", "HLS"))
-            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", "HLS"))
-            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", "HLS"))
-            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", "HLS"))
-            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", "HLS"))
-            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", "HLS"))
-            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", "HLS"))
-            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", "HLS"))
+            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", MediaType.VIDEO.toString()))
+            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", MediaType.VIDEO.toString()))
+            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", MediaType.VIDEO.toString()))
+            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", MediaType.VIDEO.toString()))
+            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", MediaType.VIDEO.toString()))
+            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", MediaType.VIDEO.toString()))
+            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", MediaType.VIDEO.toString()))
+            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", MediaType.VIDEO.toString()))
 
             empiricusMedia?.replacePlayListAssociated(listTest)
 

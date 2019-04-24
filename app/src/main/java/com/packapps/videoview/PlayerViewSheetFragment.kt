@@ -265,22 +265,22 @@ class PlayerViewSheetFragment : Fragment(){
     }
 
     private fun managerAdapterPlayListNext() {
-        if (contentData?.next != null) {
-            //Adapter list playlist on sheet
-            adapterPlayList = PlaylistAdapter()
-            mView.rvPlaylist.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            mView.rvPlaylist.adapter = adapterPlayList
-            adapterPlayList?.updateAndNotifyDataSetChanged(contentData?.next!!)
-            //Listen events from Adapter list
-            adapterPlayList?.listenEvents(object : PlaylistAdapter.PlayListListener {
-                override fun itemClicked(item: ContentData.NextMedia) {
-                    //TODO send to front
-                    Log.i("TAG", "click item: " + item.toString())
-                }
+        //Adapter list playlist on sheet
+        adapterPlayList = PlaylistAdapter()
+        mView.rvPlaylist.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        mView.rvPlaylist.adapter = adapterPlayList
+        //Listen events from Adapter list
+        adapterPlayList?.listenEvents(object : PlaylistAdapter.PlayListListener {
+            override fun itemClicked(item: ContentData.NextMedia) {
+                //TODO send to front
+                Log.i("TAG", "click item: " + item.toString())
+            }
 
-            })
-        } else {
-            //Inflate somebody layout
+        })
+
+        //Notify data list
+        if (contentData?.next != null) {
+            adapterPlayList?.updateAndNotifyDataSetChanged(contentData?.next!!)
         }
     }
 
