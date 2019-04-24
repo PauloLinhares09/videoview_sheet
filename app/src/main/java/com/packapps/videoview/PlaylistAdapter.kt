@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.packapps.videoview.core.ContentData
+import com.packapps.videoview.utils.Utils
 
 class PlaylistAdapter() : RecyclerView.Adapter<PlaylistAdapter.MyHolder>() {
     var list : MutableList<ContentData.NextMedia> = mutableListOf()
@@ -23,7 +24,7 @@ class PlaylistAdapter() : RecyclerView.Adapter<PlaylistAdapter.MyHolder>() {
     override fun onBindViewHolder(holder: MyHolder, position: Int) {
         val item = list.get(position)
         //populate date on items
-        holder.tvText.text = item.text
+        holder.tvText.text = Utils.truncateText(item.text!!, 45)
         holder.tvTime.text = item.time
 //        holder.ivThumbnails.setImageDrawable() = "" //TODO implement Glide
 

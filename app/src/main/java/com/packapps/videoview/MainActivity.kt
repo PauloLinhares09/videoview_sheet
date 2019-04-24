@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
 
             empiricusMedia?.replacePlayListAssociated(listTest)
 
-        }, 3000)
+        }, 3900)
     }
 
     override fun onBackPressed() {
