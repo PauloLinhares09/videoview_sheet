@@ -14,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.extractor.ts.DefaultTsPayloadReaderFactory.FLAG_ALLOW_NON_IDR_KEYFRAMES
@@ -239,6 +240,7 @@ class PlayerViewSheetFragment : Fragment(){
 
         })
 
+
         //Observer to player listener
         observerListenerVideoPlayer()
 
@@ -254,14 +256,13 @@ class PlayerViewSheetFragment : Fragment(){
         //Next media / in Adapter
         managerAdapterPlayListNext()
 
-
     }
 
     private fun managerAdapterPlayListNext() {
         if (contentData?.next != null) {
             //Adapter list playlist on sheet
             val adapterPlayList = PlaylistAdapter()
-            mView.rvPlaylist.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            mView.rvPlaylist.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             mView.rvPlaylist.adapter = adapterPlayList
             adapterPlayList.updateAndNotifyDataSetChanged(contentData?.next!!)
             //Listen events from Adapter list
@@ -376,6 +377,7 @@ class PlayerViewSheetFragment : Fragment(){
 
     fun releasePlayer() {
         if (player != null) {
+            viewModelVideoPlayer?.stateBottomSheet?.postValue(-1)
             playbackPosition = player?.getCurrentPosition()!!
             currentWindow = player?.getCurrentWindowIndex()!!
             playWhenReady = player?.getPlayWhenReady()!!
