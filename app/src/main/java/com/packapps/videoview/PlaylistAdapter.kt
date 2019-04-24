@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.packapps.videoview.core.ContentData
 import com.packapps.videoview.utils.Utils
 
@@ -26,7 +28,7 @@ class PlaylistAdapter() : RecyclerView.Adapter<PlaylistAdapter.MyHolder>() {
         //populate date on items
         holder.tvText.text = Utils.truncateText(item.text!!, 45)
         holder.tvTime.text = item.time
-//        holder.ivThumbnails.setImageDrawable() = "" //TODO implement Glide
+        Glide.with(holder.itemView.context).load(item.thumbnails).apply(RequestOptions.centerCropTransform()).into(holder.ivThumbnails)
 
         //Implement clik item
         holder.itemView.setOnClickListener {

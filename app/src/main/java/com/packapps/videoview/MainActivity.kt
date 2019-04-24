@@ -72,8 +72,8 @@ class MainActivity : AppCompatActivity() {
 
         Handler().postDelayed({
             var listTest : MutableList<ContentData.NextMedia> = mutableListOf()
-            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", MediaType.VIDEO.toString()))
-            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", MediaType.VIDEO.toString()))
+            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "https://pbs.twimg.com/profile_images/1112802506902568962/1M4O48vX_400x400.png", MediaType.VIDEO.toString()))
+            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "https://pbs.twimg.com/profile_images/1112802506902568962/1M4O48vX_400x400.png", MediaType.VIDEO.toString()))
             listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", MediaType.VIDEO.toString()))
             listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", MediaType.VIDEO.toString()))
             listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", MediaType.VIDEO.toString()))
