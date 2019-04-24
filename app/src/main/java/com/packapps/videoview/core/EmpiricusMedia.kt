@@ -88,6 +88,10 @@ class EmpiricusMedia{
         playerHomeFragment?.bottomSheetToCollapsed()
     }
 
+    fun replacePlayListAssociated(playList: MutableList<ContentData.NextMedia>) {
+        playerHomeFragment?.replacePlayListAssociated(playList)
+    }
+
 
     companion object class Builder{
         private var empiricusMedia : EmpiricusMedia

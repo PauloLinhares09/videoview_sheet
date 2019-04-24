@@ -34,6 +34,7 @@ import com.packapps.videoview.models.EmpiricusVideoBusiness
 import com.packapps.videoview.utils.Utils
 import kotlinx.android.synthetic.main.area_video_expanded.*
 import kotlinx.android.synthetic.main.area_video_expanded.view.*
+import kotlinx.android.synthetic.main.content_video_bottomsheet_emp.*
 import kotlinx.android.synthetic.main.content_video_bottomsheet_emp.view.*
 import kotlinx.android.synthetic.main.fragment_view_list.view.*
 import kotlinx.android.synthetic.main.layout_controllers_videoplayer.view.*
@@ -51,6 +52,7 @@ class PlayerViewSheetFragment : Fragment(){
     private var viewModelVideoPlayer: ViewModelVideoPlayer? = null
     lateinit var mView : View
     lateinit var bottomSheetBehavior : BottomSheetBehavior<View>
+    var adapterPlayList : PlaylistAdapter? = null
 
     //ExoPlayer flow
     lateinit var playerView : PlayerView
@@ -265,12 +267,12 @@ class PlayerViewSheetFragment : Fragment(){
     private fun managerAdapterPlayListNext() {
         if (contentData?.next != null) {
             //Adapter list playlist on sheet
-            val adapterPlayList = PlaylistAdapter()
+            adapterPlayList = PlaylistAdapter()
             mView.rvPlaylist.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             mView.rvPlaylist.adapter = adapterPlayList
-            adapterPlayList.updateAndNotifyDataSetChanged(contentData?.next!!)
+            adapterPlayList?.updateAndNotifyDataSetChanged(contentData?.next!!)
             //Listen events from Adapter list
-            adapterPlayList.listenEvents(object : PlaylistAdapter.PlayListListener {
+            adapterPlayList?.listenEvents(object : PlaylistAdapter.PlayListListener {
                 override fun itemClicked(item: ContentData.NextMedia) {
                     //TODO send to front
                     Log.i("TAG", "click item: " + item.toString())
@@ -457,6 +459,23 @@ class PlayerViewSheetFragment : Fragment(){
 
     fun bottomSheetToCollapsed() {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+    }
+
+    fun replacePlayListAssociated(playList: MutableList<ContentData.NextMedia>?) {
+        //Done search layout animated
+        mView.clSearchMediaAssociated.visibility = View.GONE
+
+        if (playList != null){
+            if (playList.size > 0){
+                adapterPlayList?.updateAndNotifyDataSetChanged(playList)
+                return
+            }
+        }
+        //Done search layout animated
+        mView.clSearchMediaAssociated.visibility = View.GONE
+
+        //Show image content not found
+
     }
 
 

@@ -1,6 +1,7 @@
 package com.packapps.videoview
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -74,6 +75,22 @@ class MainActivity : AppCompatActivity() {
                 }
             })
             .build()
+
+
+        Handler().postDelayed({
+            var listTest : MutableList<ContentData.NextMedia> = mutableListOf()
+            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", "HLS"))
+            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", "HLS"))
+            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", "HLS"))
+            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", "HLS"))
+            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", "HLS"))
+            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", "HLS"))
+            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", "HLS"))
+            listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", "HLS"))
+
+            empiricusMedia?.replacePlayListAssociated(listTest)
+
+        }, 3000)
     }
 
     override fun onBackPressed() {
