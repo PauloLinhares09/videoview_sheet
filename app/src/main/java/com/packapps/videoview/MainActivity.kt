@@ -43,8 +43,8 @@ class MainActivity : AppCompatActivity() {
             mutableListOf(ContentData.Author(
                 "",
                 "Felipe Miranda",
-                "https://photo",
-                "https://photoLarge",
+                "https://pbs.twimg.com/profile_images/1112802506902568962/1M4O48vX_400x400.png",
+                "https://pbs.twimg.com/profile_images/1112802506902568962/1M4O48vX_400x400.png",
                 "email@empiricus.com.br",
                 "Author desta serie" )), "https://thumbnails",
             "11/01/2019 17h00",

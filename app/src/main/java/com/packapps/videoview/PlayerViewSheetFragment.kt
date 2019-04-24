@@ -17,6 +17,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.extractor.ts.DefaultTsPayloadReaderFactory.FLAG_ALLOW_NON_IDR_KEYFRAMES
 import com.google.android.exoplayer2.source.ExtractorMediaSource
@@ -289,12 +291,7 @@ class PlayerViewSheetFragment : Fragment(){
         mView.tvTitleCollapsed.text = Utils.truncateText(contentData?.title!!, 20)
         mView.tvDescription.text = Utils.truncateText(contentData?.description!!, 100)
         mView.tvAuthorName.text = contentData?.authors?.get(0)?.name ?: ""
-        mView.ivAuthor.setImageDrawable(
-            resources.getDrawable(
-                R.drawable.ic_account_circle,
-                context?.theme
-            )
-        )//TODO change for Glide
+        Glide.with(activity!!).load(contentData?.authors?.get(0)?.photoUrl).apply(RequestOptions.circleCropTransform()).into(mView.ivAuthor)
         mView.tvTimeAgo.text = contentData?.timeAgoStr ?: ""
     }
 
