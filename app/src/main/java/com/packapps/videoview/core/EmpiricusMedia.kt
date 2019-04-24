@@ -34,7 +34,7 @@ class EmpiricusMedia{
         //Inflate the Fragment in container informed
         playerHomeFragment = PlayerViewSheetFragment.newInstance(uri, peekHeight, streamType = streamType, contentData = contentData)
         val t = (context as FragmentActivity).supportFragmentManager.beginTransaction()
-        t.replace(containerLayout!!, playerHomeFragment!!)
+        t.replace(containerLayout!!, playerHomeFragment!!, PlayerViewSheetFragment::class.java.simpleName)
         t.commit()
 
         //Get observable for listen media callback state

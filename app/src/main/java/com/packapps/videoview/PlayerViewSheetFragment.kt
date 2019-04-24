@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -386,6 +387,7 @@ class PlayerViewSheetFragment : Fragment(){
             player?.removeListener(playerListener)
             player?.release()
             player = null
+
         }
     }
 
@@ -397,7 +399,17 @@ class PlayerViewSheetFragment : Fragment(){
             releasePlayer()
             bottomSheetBehavior.isHideable = true
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
+            //Kill Fragment
+            killThisFragment()
         }
+    }
+
+    private fun killThisFragment() {
+        val m = (activity as FragmentActivity).supportFragmentManager
+        val t = m.beginTransaction()
+        t.remove(m.findFragmentByTag(PlayerViewSheetFragment::class.java.simpleName)!!)
+        t.commit()
     }
 
     private var set: Boolean = false
