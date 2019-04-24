@@ -266,7 +266,8 @@ class PlayerViewSheetFragment : Fragment(){
 
     private fun managerAdapterPlayListNext() {
         //Adapter list playlist on sheet
-        adapterPlayList = PlaylistAdapter()
+        if (adapterPlayList == null)
+            adapterPlayList = PlaylistAdapter()
         mView.rvPlaylist.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         mView.rvPlaylist.adapter = adapterPlayList
         //Listen events from Adapter list
