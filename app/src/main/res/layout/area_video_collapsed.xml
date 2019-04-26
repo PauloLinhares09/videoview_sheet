@@ -31,9 +31,12 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
             android:id="@+id/tvTitleCollapsed"
+            android:textSize="13sp"
             app:layout_constraintStart_toEndOf="@+id/constraintContainer"
-            android:layout_marginStart="16dp" app:layout_constraintEnd_toStartOf="@+id/imageView"
-            android:layout_marginEnd="8dp" android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/imageView"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintTop_toTopOf="@+id/constraintContainer"/>
     <ImageButton
             android:layout_width="wrap_content"
