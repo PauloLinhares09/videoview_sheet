@@ -66,6 +66,17 @@ class MainActivity : AppCompatActivity() {
             .callbackItemFromContentViewClicked(object : EmpiricusMediaItemClicked{
                 override fun itemClicked(actionClick: ActionClick) {
                     Log.i("TAG", "item clicked: " + actionClick.toString())
+                    if (actionClick.viewId == R.id.emp_like) {
+                        Handler().postDelayed({
+                            empiricusMedia?.updateEvaluation(Evaluation("", "", "up"))
+                        }, 1000)
+
+                    }else if (actionClick.viewId == R.id.emp_dont_like){
+                        Handler().postDelayed({
+                            empiricusMedia?.updateEvaluation(Evaluation("", "", "down"))
+                        }, 1000)
+                    }
+
                 }
             })
             .build()

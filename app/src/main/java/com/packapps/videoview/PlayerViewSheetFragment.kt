@@ -112,10 +112,13 @@ class PlayerViewSheetFragment : Fragment(){
         mView.emp_favourite.setOnClickListener {
             viewModelVideoPlayer?.buttonClicked?.postValue(R.id.emp_favourite)
         }
-        mView.linearLayout1.setOnClickListener {
-            viewModelVideoPlayer?.buttonClicked?.postValue(R.id.linearLayout1)
+        mView.emp_like.setOnClickListener {
+            showProgressInButtonsEvaluations(true)
+            viewModelVideoPlayer?.buttonClicked?.postValue(R.id.emp_like)
+
         }
         mView.emp_dont_like.setOnClickListener {
+            showProgressInButtonsEvaluations(true)
             viewModelVideoPlayer?.buttonClicked?.postValue(R.id.emp_dont_like)
         }
         mView.emp_download.setOnClickListener {
@@ -479,7 +482,7 @@ class PlayerViewSheetFragment : Fragment(){
      * */
     fun updateEvaluationView(evaluation: Evaluation?) {
         //Just Show buttons evaluations
-        justShowButtonsEvaluations()
+        showProgressInButtonsEvaluations(false)
         //change color icons
         evaluation?.let { evaluation ->
             manageButtonsEvaluations(evaluation.thumbs)
@@ -527,10 +530,17 @@ class PlayerViewSheetFragment : Fragment(){
 
     }
 
-    private fun justShowButtonsEvaluations() {
-        mView.pb_like.visibility = View.GONE
-        mView.emp_like.visibility = View.VISIBLE
-        mView.emp_dont_like.visibility = View.VISIBLE
+    private fun showProgressInButtonsEvaluations(progressShow : Boolean) {
+        if (!progressShow){
+            mView.pb_like.visibility = View.GONE
+            mView.emp_like.visibility = View.VISIBLE
+            mView.emp_dont_like.visibility = View.VISIBLE
+        }else{
+            mView.pb_like.visibility = View.VISIBLE
+            mView.emp_like.visibility = View.GONE
+            mView.emp_dont_like.visibility = View.GONE
+        }
+
     }
 
 
