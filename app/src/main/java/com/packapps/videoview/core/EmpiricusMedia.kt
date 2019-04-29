@@ -94,7 +94,7 @@ class EmpiricusMedia{
         playerHomeFragment?.replacePlayListAssociated(playList)
     }
 
-    fun updateEvaluation(evaluation : Evaluation){
+    fun updateEvaluation(evaluation : Evaluation?){
         playerHomeFragment?.updateEvaluationView(evaluation)
     }
 
