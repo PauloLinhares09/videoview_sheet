@@ -49,7 +49,7 @@
                     android:id="@+id/emp_audio_version" app:layout_constraintStart_toStartOf="@+id/tvTitle"
                     android:layout_marginTop="12dp"
                     app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-                    app:layout_constraintEnd_toStartOf="@+id/emp_favourite"
+                    app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
                     android:layout_marginEnd="16dp" app:layout_constraintHorizontal_bias="0.0"/>
             <ImageButton
                     android:background="@android:color/transparent"
@@ -94,14 +94,27 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"/>
             </LinearLayout>
-            <ImageButton
+            <LinearLayout
                     android:background="@android:color/transparent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" app:srcCompat="@drawable/ic_media_favorite"
-                    android:id="@+id/emp_favourite"
+                    android:id="@+id/linearLayout2"
                     app:layout_constraintEnd_toStartOf="@+id/linearLayout1" android:layout_marginEnd="24dp"
                     app:layout_constraintTop_toTopOf="@+id/linearLayout1"
-                    app:layout_constraintBottom_toBottomOf="@+id/linearLayout1"/>
+                    app:layout_constraintBottom_toBottomOf="@+id/linearLayout1">
+
+                <ImageButton
+                        android:background="@android:color/transparent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" app:srcCompat="@drawable/ic_media_favorite"
+                        android:id="@+id/emp_favourite"
+                        android:visibility="gone"/>
+                <ProgressBar
+                        android:id="@+id/pb_favourite"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"/>
+
+            </LinearLayout>
             <View
                     android:background="#CCCCCC"
                     android:layout_width="0dp"

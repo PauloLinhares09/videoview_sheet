@@ -110,6 +110,7 @@ class PlayerViewSheetFragment : Fragment(){
 
         //Implements events click
         mView.emp_favourite.setOnClickListener {
+            showProgressInButtonFavourite(true)
             viewModelVideoPlayer?.buttonClicked?.postValue(R.id.emp_favourite)
         }
         mView.emp_like.setOnClickListener {
@@ -491,6 +492,20 @@ class PlayerViewSheetFragment : Fragment(){
         }
     }
 
+    fun updateFavouriteView(isFavourite: Boolean?) {
+        //Just Show buttons evaluations
+        showProgressInButtonFavourite(false)
+        //change color icons
+        isFavourite?.let {
+            if (it == true)
+                manageButtonFavourite(true)
+            else
+                manageButtonFavourite(false)
+        } ?: kotlin.run {
+            manageButtonFavourite(false)
+        }
+    }
+
     private fun manageButtonsEvaluations(thumbs: String) {
         if (thumbs.equals("up", true)){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -530,6 +545,23 @@ class PlayerViewSheetFragment : Fragment(){
 
     }
 
+    private fun manageButtonFavourite(isFavourite: Boolean) {
+        if (isFavourite){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                mView.emp_favourite.drawable.setTint(resources.getColor(R.color.colorAccent, activity?.theme))
+            }else{
+                mView.emp_favourite.drawable.setTint(resources.getColor(R.color.colorAccent))
+            }
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                mView.emp_favourite.drawable.setTint(resources.getColor(android.R.color.black, activity?.theme))
+            }else{
+                mView.emp_favourite.drawable.setTint(resources.getColor(android.R.color.black))
+            }
+        }
+
+    }
+
     private fun showProgressInButtonsEvaluations(progressShow : Boolean) {
         if (!progressShow){
             mView.pb_like.visibility = View.GONE
@@ -539,6 +571,17 @@ class PlayerViewSheetFragment : Fragment(){
             mView.pb_like.visibility = View.VISIBLE
             mView.emp_like.visibility = View.GONE
             mView.emp_dont_like.visibility = View.GONE
+        }
+
+    }
+
+    private fun showProgressInButtonFavourite(progressShow : Boolean) {
+        if (!progressShow){
+            mView.pb_favourite.visibility = View.GONE
+            mView.emp_favourite.visibility = View.VISIBLE
+        }else{
+            mView.pb_favourite.visibility = View.VISIBLE
+            mView.emp_favourite.visibility = View.GONE
         }
 
     }

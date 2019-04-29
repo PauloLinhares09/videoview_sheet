@@ -75,6 +75,10 @@ class MainActivity : AppCompatActivity() {
                         Handler().postDelayed({
                             empiricusMedia?.updateEvaluation(Evaluation("", "", "down"))
                         }, 1000)
+                    }else if (actionClick.viewId == R.id.emp_favourite){
+                        Handler().postDelayed({
+                            empiricusMedia?.updateFavourite(false)
+                        }, 1000)
                     }
 
                 }
@@ -97,6 +101,9 @@ class MainActivity : AppCompatActivity() {
 
             //icons Evaluatiosn
             empiricusMedia?.updateEvaluation(Evaluation("", "", "up"))
+
+            //Icon Favourite
+            empiricusMedia?.updateFavourite(true)
 
         }, 3900)
     }
