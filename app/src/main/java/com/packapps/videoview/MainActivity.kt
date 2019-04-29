@@ -7,6 +7,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.packapps.videoview.core.*
+import com.packapps.videoview.models.Evaluation
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -82,6 +83,9 @@ class MainActivity : AppCompatActivity() {
             listTest.add(ContentData.NextMedia("id", "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.", "09:11", "", MediaType.VIDEO.toString()))
 
             empiricusMedia?.replacePlayListAssociated(listTest)
+
+            //icons Evaluatiosn
+            empiricusMedia?.updateEvaluation(Evaluation("", "", "up"))
 
         }, 3900)
     }

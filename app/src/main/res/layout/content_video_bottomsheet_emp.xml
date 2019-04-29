@@ -59,6 +59,8 @@
                     app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
                     app:layout_constraintTop_toTopOf="@+id/emp_audio_version"
                     app:layout_constraintBottom_toBottomOf="@+id/emp_audio_version"/>
+
+            <!--Dont like-->
             <ImageButton
                     android:background="@android:color/transparent"
                     android:layout_width="wrap_content"
@@ -66,23 +68,40 @@
                     android:id="@+id/emp_dont_like"
                     app:layout_constraintEnd_toStartOf="@+id/emp_download" android:layout_marginEnd="24dp"
                     app:layout_constraintTop_toTopOf="@+id/emp_download"
-                    app:layout_constraintBottom_toBottomOf="@+id/emp_download"/>
-            <ImageButton
+                    app:layout_constraintBottom_toBottomOf="@+id/emp_download"
+                    android:visibility="gone"/>
+
+            <!--Like-->
+            <LinearLayout
                     android:background="@android:color/transparent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" app:srcCompat="@drawable/ic_media_thumbs_up"
-                    android:id="@+id/emp_like"
+                    android:id="@+id/linearLayout1"
                     app:layout_constraintEnd_toStartOf="@+id/emp_dont_like" android:layout_marginEnd="24dp"
                     app:layout_constraintTop_toTopOf="@+id/emp_dont_like"
-                    app:layout_constraintBottom_toBottomOf="@+id/emp_dont_like"/>
+                    app:layout_constraintBottom_toBottomOf="@+id/emp_dont_like">
+
+                <ImageButton
+                        android:background="@android:color/transparent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_media_thumbs_up"
+                        android:id="@+id/emp_like"
+                        android:visibility="gone"/>
+
+                <ProgressBar
+                        android:id="@+id/pb_like"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"/>
+            </LinearLayout>
             <ImageButton
                     android:background="@android:color/transparent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" app:srcCompat="@drawable/ic_media_favorite"
                     android:id="@+id/emp_favourite"
-                    app:layout_constraintEnd_toStartOf="@+id/emp_like" android:layout_marginEnd="24dp"
-                    app:layout_constraintTop_toTopOf="@+id/emp_like"
-                    app:layout_constraintBottom_toBottomOf="@+id/emp_like"/>
+                    app:layout_constraintEnd_toStartOf="@+id/linearLayout1" android:layout_marginEnd="24dp"
+                    app:layout_constraintTop_toTopOf="@+id/linearLayout1"
+                    app:layout_constraintBottom_toBottomOf="@+id/linearLayout1"/>
             <View
                     android:background="#CCCCCC"
                     android:layout_width="0dp"

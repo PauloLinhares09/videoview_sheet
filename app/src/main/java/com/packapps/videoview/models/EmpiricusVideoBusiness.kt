@@ -84,3 +84,41 @@ class EmpiricusVideoBusiness() : Parcelable{
         }
     }
 }
+
+
+data class Evaluation(
+    val comment: String,
+    val taxonomySlug: String,
+    val thumbs: String
+) : Parcelable{
+
+    constructor(parcel: Parcel) : this(
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString()
+    )
+
+    override fun toString(): String {
+        return "Evaluation(comment='$comment', taxonomySlug='$taxonomySlug', thumbs='$thumbs')"
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(comment)
+        parcel.writeString(taxonomySlug)
+        parcel.writeString(thumbs)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Evaluation> {
+        override fun createFromParcel(parcel: Parcel): Evaluation {
+            return Evaluation(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Evaluation?> {
+            return arrayOfNulls(size)
+        }
+    }
+}

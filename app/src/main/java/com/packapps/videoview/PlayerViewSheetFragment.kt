@@ -4,12 +4,12 @@ import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.extractor.ts.DefaultTsPayloadReaderFactory.FLAG_ALLOW_NON_IDR_KEYFRAMES
 import com.google.android.exoplayer2.source.ExtractorMediaSource
@@ -33,10 +32,10 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.packapps.videoview.core.ContentData
 import com.packapps.videoview.core.StreamType
 import com.packapps.videoview.models.EmpiricusVideoBusiness
+import com.packapps.videoview.models.Evaluation
 import com.packapps.videoview.utils.Utils
 import kotlinx.android.synthetic.main.area_video_expanded.*
 import kotlinx.android.synthetic.main.area_video_expanded.view.*
-import kotlinx.android.synthetic.main.content_video_bottomsheet_emp.*
 import kotlinx.android.synthetic.main.content_video_bottomsheet_emp.view.*
 import kotlinx.android.synthetic.main.fragment_view_list.view.*
 import kotlinx.android.synthetic.main.layout_controllers_videoplayer.view.*
@@ -113,8 +112,8 @@ class PlayerViewSheetFragment : Fragment(){
         mView.emp_favourite.setOnClickListener {
             viewModelVideoPlayer?.buttonClicked?.postValue(R.id.emp_favourite)
         }
-        mView.emp_like.setOnClickListener {
-            viewModelVideoPlayer?.buttonClicked?.postValue(R.id.emp_like)
+        mView.linearLayout1.setOnClickListener {
+            viewModelVideoPlayer?.buttonClicked?.postValue(R.id.linearLayout1)
         }
         mView.emp_dont_like.setOnClickListener {
             viewModelVideoPlayer?.buttonClicked?.postValue(R.id.emp_dont_like)
@@ -472,6 +471,66 @@ class PlayerViewSheetFragment : Fragment(){
         //Show image content not found
         mView.clNotThereAreMediaAssociated.visibility = View.VISIBLE
 
+    }
+
+    /** evaluation data come from API
+     * "rate" - número inteiro entre 1 e 5 (inclusive)
+     * "thumbs" - string "up" ou "down"
+     * */
+    fun updateEvaluationView(evaluation: Evaluation?) {
+        //Just Show buttons evaluations
+        justShowButtonsEvaluations()
+        //change color icons
+        evaluation?.let { evaluation ->
+            manageButtonsEvaluations(evaluation.thumbs)
+        } ?: kotlin.run {
+            manageButtonsEvaluations("")
+        }
+    }
+
+    private fun manageButtonsEvaluations(thumbs: String) {
+        if (thumbs.equals("up", true)){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                mView.emp_like.drawable.setTint(resources.getColor(R.color.colorAccent, activity?.theme))
+            }else{
+                mView.emp_like.drawable.setTint(resources.getColor(R.color.colorAccent))
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                mView.emp_dont_like.drawable.setTint(resources.getColor(android.R.color.black, activity?.theme))
+            }else{
+                mView.emp_dont_like.drawable.setTint(resources.getColor(android.R.color.black))
+            }
+        }else if ( thumbs.equals("down", true)){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                mView.emp_like.drawable.setTint(resources.getColor(android.R.color.black, activity?.theme))
+            }else{
+                mView.emp_like.drawable.setTint(resources.getColor(android.R.color.black))
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                mView.emp_dont_like.drawable.setTint(resources.getColor(R.color.colorAccent, activity?.theme))
+            }else{
+                mView.emp_dont_like.drawable.setTint(resources.getColor(R.color.colorAccent))
+            }
+        }else{
+            //just set defaults icons
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                mView.emp_like.drawable.setTint(resources.getColor(android.R.color.black, activity?.theme))
+            }else{
+                mView.emp_like.drawable.setTint(resources.getColor(android.R.color.black))
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                mView.emp_dont_like.drawable.setTint(resources.getColor(android.R.color.black, activity?.theme))
+            }else{
+                mView.emp_dont_like.drawable.setTint(resources.getColor(android.R.color.black))
+            }
+        }
+
+    }
+
+    private fun justShowButtonsEvaluations() {
+        mView.pb_like.visibility = View.GONE
+        mView.emp_like.visibility = View.VISIBLE
+        mView.emp_dont_like.visibility = View.VISIBLE
     }
 
 

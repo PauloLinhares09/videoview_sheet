@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import com.google.android.exoplayer2.util.Util
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.packapps.videoview.PlayerViewSheetFragment
+import com.packapps.videoview.models.Evaluation
 
 class EmpiricusMedia{
     private var itemClickedContentView: EmpiricusMediaItemClicked? = null
@@ -18,6 +19,7 @@ class EmpiricusMedia{
     private var contentLayout : Int? = null
     private var mediaType : MediaType? = null
     private var contentData : ContentData? = null
+    private lateinit var evaluation: Evaluation
     private lateinit var streamType: StreamType
     private var uri : String? = null
     private var playerHomeFragment : PlayerViewSheetFragment? = null
@@ -92,8 +94,15 @@ class EmpiricusMedia{
         playerHomeFragment?.replacePlayListAssociated(playList)
     }
 
+    fun updateEvaluation(evaluation : Evaluation){
+        playerHomeFragment?.updateEvaluationView(evaluation)
+    }
 
-    companion object class Builder{
+
+    companion object
+
+
+    class Builder{
         private var empiricusMedia : EmpiricusMedia
 
         constructor(context: Context){
@@ -149,9 +158,6 @@ class EmpiricusMedia{
 
             return this
         }
-
-
-
 
 
 
