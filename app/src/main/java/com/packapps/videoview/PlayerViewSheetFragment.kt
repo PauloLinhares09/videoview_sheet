@@ -52,7 +52,7 @@ class PlayerViewSheetFragment : Fragment(){
     private val CONTENT_DATA : String = "content_data"
 
     private var viewModelVideoPlayer: ViewModelVideoPlayer? = null
-    lateinit var mView : View
+    var mView : View? = null
     lateinit var bottomSheetBehavior : BottomSheetBehavior<View>
     var adapterPlayList : PlaylistAdapter? = null
 
@@ -98,10 +98,10 @@ class PlayerViewSheetFragment : Fragment(){
 //        if (empiricusVideoBusiness == null){//TODO implement it after
 //            //Show View of Error
 //
-//            return mView
+//            return mView?
 //        }
 
-        playerView = mView.playerView
+        playerView = mView?.playerView!!
 
         initBottomSheetExpirience()
 
@@ -113,35 +113,35 @@ class PlayerViewSheetFragment : Fragment(){
         viewModelVideoPlayer?.itemId?.postValue(contentData?.id)
 
         //Implements events click
-        mView.emp_favourite.setOnClickListener {
+        mView?.emp_favourite?.setOnClickListener {
             showProgressInButtonFavourite(true)
             viewModelVideoPlayer?.buttonClicked?.postValue(R.id.emp_favourite)
         }
-        mView.emp_like.setOnClickListener {
+        mView?.emp_like?.setOnClickListener {
             showProgressInButtonsEvaluations(true)
             viewModelVideoPlayer?.buttonClicked?.postValue(R.id.emp_like)
 
         }
-        mView.emp_dont_like.setOnClickListener {
+        mView?.emp_dont_like?.setOnClickListener {
             showProgressInButtonsEvaluations(true)
             viewModelVideoPlayer?.buttonClicked?.postValue(R.id.emp_dont_like)
         }
-        mView.emp_download.setOnClickListener {
+        mView?.emp_download?.setOnClickListener {
             viewModelVideoPlayer?.buttonClicked?.postValue(R.id.emp_download)
         }
-        mView.emp_audio_version.setOnClickListener {
+        mView?.emp_audio_version?.setOnClickListener {
             viewModelVideoPlayer?.buttonClicked?.postValue(R.id.emp_audio_version)
         }
-        mView.emp_show_more.setOnClickListener {
-            val tag: String = mView.emp_show_more.tag.toString()
+        mView?.emp_show_more?.setOnClickListener {
+            val tag: String = mView?.emp_show_more?.tag.toString()
             if (tag.equals("0")) {
-                mView.emp_show_more.tag = 1
-                mView.tvDescription.text = contentData?.description
-                mView.emp_show_more.text = resources.getString(R.string.show_less)
+                mView?.emp_show_more?.tag = 1
+                mView?.tvDescription?.text = contentData?.description
+                mView?.emp_show_more?.text = resources.getString(R.string.show_less)
             } else {
-                mView.tvDescription.text = Utils.truncateText(contentData?.description ?: "", 100)
-                mView.emp_show_more.tag = 0
-                mView.emp_show_more.text = resources.getString(R.string.show_more)
+                mView?.tvDescription?.text = Utils.truncateText(contentData?.description ?: "", 100)
+                mView?.emp_show_more?.tag = 0
+                mView?.emp_show_more?.text = resources.getString(R.string.show_more)
             }
 
         }
@@ -149,10 +149,10 @@ class PlayerViewSheetFragment : Fragment(){
 
 
     private fun managerClicksControllesCollapsed() {
-        mView.exo_play_aux.setOnClickListener {
+        mView?.exo_play_aux?.setOnClickListener {
             if (player?.playWhenReady == false) {
                 playerView.exo_play.performClick()
-                mView.exo_play_aux.setImageDrawable(
+                mView?.exo_play_aux?.setImageDrawable(
                     resources.getDrawable(
                         R.drawable.exo_controls_pause,
                         context?.theme
@@ -160,13 +160,13 @@ class PlayerViewSheetFragment : Fragment(){
                 )
             } else {
                 playerView.exo_pause.performClick()
-                mView.exo_play_aux.setImageDrawable(resources.getDrawable(R.drawable.exo_controls_play, context?.theme))
+                mView?.exo_play_aux?.setImageDrawable(resources.getDrawable(R.drawable.exo_controls_play, context?.theme))
             }
         }
-        mView.exo_prev_aux.setOnClickListener {
+        mView?.exo_prev_aux?.setOnClickListener {
             playerView.exo_prev.performClick()
         }
-        mView.exo_nex_aux.setOnClickListener {
+        mView?.exo_nex_aux?.setOnClickListener {
             playerView.exo_next.performClick()
         }
         playerView.ib_state_bottomsheet.setOnClickListener {
@@ -196,9 +196,9 @@ class PlayerViewSheetFragment : Fragment(){
 
     private fun managerButtonsControllersByStateBottomSheet(){
         if (player?.playWhenReady == true) {
-            mView.exo_play_aux.setImageDrawable(resources.getDrawable(R.drawable.exo_controls_pause, context?.theme))
+            mView?.exo_play_aux?.setImageDrawable(resources.getDrawable(R.drawable.exo_controls_pause, context?.theme))
         } else {
-            mView.exo_play_aux.setImageDrawable(resources.getDrawable(R.drawable.exo_controls_play, context?.theme))
+            mView?.exo_play_aux?.setImageDrawable(resources.getDrawable(R.drawable.exo_controls_play, context?.theme))
         }
     }
 
@@ -206,11 +206,11 @@ class PlayerViewSheetFragment : Fragment(){
         viewModelVideoPlayer = playerListener.getObservableViewModel()
         viewModelVideoPlayer?.stateVideo?.observe(this, Observer {
             if (it == Player.STATE_IDLE || it == Player.STATE_BUFFERING) {
-                mView.playerView.cardProgress.visibility = View.VISIBLE
+                mView?.playerView?.cardProgress?.visibility = View.VISIBLE
             } else if (it == Player.STATE_ENDED) {
 
             } else {
-                mView.playerView.cardProgress.visibility = View.GONE
+                mView?.playerView?.cardProgress?.visibility = View.GONE
             }
 
         })
@@ -218,7 +218,7 @@ class PlayerViewSheetFragment : Fragment(){
 
     private fun initBottomSheetExpirience() {
         initializePlayer()
-        bottomSheetBehavior = BottomSheetBehavior.from(mView.bottomSheetVideo)
+        bottomSheetBehavior = BottomSheetBehavior.from(mView?.bottomSheetVideo)
         bottomSheetBehavior.isHideable = false
         bottomSheetBehavior.state = currentStateBottomSheet
         bottomSheetBehavior.peekHeight = peekHeight
@@ -276,8 +276,8 @@ class PlayerViewSheetFragment : Fragment(){
         //Adapter list playlist on sheet
         if (adapterPlayList == null)
             adapterPlayList = PlaylistAdapter()
-        mView.rvPlaylist.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        mView.rvPlaylist.adapter = adapterPlayList
+        mView?.rvPlaylist?.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        mView?.rvPlaylist?.adapter = adapterPlayList
         //Listen events from Adapter list
         adapterPlayList?.listenEvents(object : PlaylistAdapter.PlayListListener {
             override fun itemClicked(item: ContentData.NextMedia) {
@@ -295,12 +295,12 @@ class PlayerViewSheetFragment : Fragment(){
 
     private fun populateFieldsContent() {
         contentData?.let {
-            mView.tvTitle.text = contentData?.title ?: ""
-            mView.tvTitleCollapsed.text = Utils.truncateText(contentData?.title!!, 15)
-            mView.tvDescription.text = Utils.truncateText(contentData?.description!!, 100)
-            mView.tvAuthorName.text = contentData?.authors?.get(0)?.name ?: ""
-            Glide.with(activity!!).load(contentData?.authors?.get(0)?.photoUrl).apply(RequestOptions.circleCropTransform()).into(mView.ivAuthor)
-            mView.tvTimeAgo.text = contentData?.timeAgoStr ?: ""
+            mView?.tvTitle?.text = contentData?.title ?: ""
+            mView?.tvTitleCollapsed?.text = Utils.truncateText(contentData?.title!!, 15)
+            mView?.tvDescription?.text = Utils.truncateText(contentData?.description!!, 100)
+            mView?.tvAuthorName?.text = contentData?.authors?.get(0)?.name ?: ""
+            Glide.with(activity!!).load(contentData?.authors?.get(0)?.photoUrl).apply(RequestOptions.circleCropTransform()).into(mView?.ivAuthor!!)
+            mView?.tvTimeAgo?.text = contentData?.timeAgoStr ?: ""
         }
     }
 
@@ -364,12 +364,10 @@ class PlayerViewSheetFragment : Fragment(){
 
     override fun onResume() {
         super.onResume()
-//        hideSystemUi()
-        if ((Util.SDK_INT <= 23 || player == null)) {
-//            initializePlayer()
-            if (playbackPosition > 0)
-                initBottomSheetExpirience()
-        }
+//        if ((Util.SDK_INT <= 23 || player == null)) {
+//            if (playbackPosition > 0)
+//                initBottomSheetExpirience()
+//        }
     }
 
     override fun onPause() {
@@ -406,7 +404,7 @@ class PlayerViewSheetFragment : Fragment(){
 
 
     private fun managerClickIbClose() {
-        mView.imageView.setOnClickListener {
+        mView?.imageView?.setOnClickListener {
             releasePlayer()
             bottomSheetBehavior.isHideable = true
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
@@ -436,7 +434,7 @@ class PlayerViewSheetFragment : Fragment(){
         constraintSet2.clone(context, R.layout.area_video_expanded)
         var constraint = if (set) constraintSet1 else constraintSet2
         TransitionManager.beginDelayedTransition(constraintViewAreExpanded)
-        constraint.applyTo(mView.constraintViewAreExpanded)
+        constraint.applyTo(mView?.constraintViewAreExpanded)
         set = !set
     }
 
@@ -469,8 +467,8 @@ class PlayerViewSheetFragment : Fragment(){
 
     fun replacePlayListAssociated(playList: MutableList<ContentData.NextMedia>?) {
         //Done search layout animated
-        mView.clSearchMediaAssociated.visibility = View.GONE
-        mView.clNotThereAreMediaAssociated.visibility = View.GONE
+        mView?.clSearchMediaAssociated?.visibility = View.GONE
+        mView?.clNotThereAreMediaAssociated?.visibility = View.GONE
 
         if (playList != null){
             if (playList.size > 0){
@@ -479,7 +477,7 @@ class PlayerViewSheetFragment : Fragment(){
             }
         }
         //Show image content not found
-        mView.clNotThereAreMediaAssociated.visibility = View.VISIBLE
+        mView?.clNotThereAreMediaAssociated?.visibility = View.VISIBLE
 
     }
 
@@ -513,25 +511,25 @@ class PlayerViewSheetFragment : Fragment(){
         thumbs?.let {
             if (thumbs.equals("up", true)) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    mView.emp_like.drawable.setTint(resources.getColor(R.color.colorAccent, activity?.theme))
+                    mView?.emp_like?.drawable?.setTint(resources.getColor(R.color.colorAccent, activity?.theme))
                 } else {
-                    mView.emp_like.drawable.setTint(resources.getColor(R.color.colorAccent))
+                    mView?.emp_like?.drawable?.setTint(resources.getColor(R.color.colorAccent))
                 }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    mView.emp_dont_like.drawable.setTint(resources.getColor(android.R.color.black, activity?.theme))
+                    mView?.emp_dont_like?.drawable?.setTint(resources.getColor(android.R.color.black, activity?.theme))
                 } else {
-                    mView.emp_dont_like.drawable.setTint(resources.getColor(android.R.color.black))
+                    mView?.emp_dont_like?.drawable?.setTint(resources.getColor(android.R.color.black))
                 }
             } else if (thumbs.equals("down", true)) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    mView.emp_like.drawable.setTint(resources.getColor(android.R.color.black, activity?.theme))
+                    mView?.emp_like?.drawable?.setTint(resources.getColor(android.R.color.black, activity?.theme))
                 } else {
-                    mView.emp_like.drawable.setTint(resources.getColor(android.R.color.black))
+                    mView?.emp_like?.drawable?.setTint(resources.getColor(android.R.color.black))
                 }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    mView.emp_dont_like.drawable.setTint(resources.getColor(R.color.colorAccent, activity?.theme))
+                    mView?.emp_dont_like?.drawable?.setTint(resources.getColor(R.color.colorAccent, activity?.theme))
                 } else {
-                    mView.emp_dont_like.drawable.setTint(resources.getColor(R.color.colorAccent))
+                    mView?.emp_dont_like?.drawable?.setTint(resources.getColor(R.color.colorAccent))
                 }
             } else {
                 //just set defaults icons
@@ -546,29 +544,29 @@ class PlayerViewSheetFragment : Fragment(){
 
     private fun setDefaultForAllIconsEvaluations() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            mView.emp_like.drawable.setTint(resources.getColor(android.R.color.black, activity?.theme))
+            mView?.emp_like?.drawable?.setTint(resources.getColor(android.R.color.black, activity?.theme))
         } else {
-            mView.emp_like.drawable.setTint(resources.getColor(android.R.color.black))
+            mView?.emp_like?.drawable?.setTint(resources.getColor(android.R.color.black))
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            mView.emp_dont_like.drawable.setTint(resources.getColor(android.R.color.black, activity?.theme))
+            mView?.emp_dont_like?.drawable?.setTint(resources.getColor(android.R.color.black, activity?.theme))
         } else {
-            mView.emp_dont_like.drawable.setTint(resources.getColor(android.R.color.black))
+            mView?.emp_dont_like?.drawable?.setTint(resources.getColor(android.R.color.black))
         }
     }
 
     private fun manageButtonFavourite(isFavourite: Boolean) {
         if (isFavourite == true){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                mView.emp_favourite.drawable.setTint(resources.getColor(R.color.colorAccent, activity?.theme))
+                mView?.emp_favourite?.drawable?.setTint(resources.getColor(R.color.colorAccent, activity?.theme))
             }else{
-                mView.emp_favourite.drawable.setTint(resources.getColor(R.color.colorAccent))
+                mView?.emp_favourite?.drawable?.setTint(resources.getColor(R.color.colorAccent))
             }
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                mView.emp_favourite.drawable.setTint(resources.getColor(android.R.color.black, activity?.theme))
+                mView?.emp_favourite?.drawable?.setTint(resources.getColor(android.R.color.black, activity?.theme))
             }else{
-                mView.emp_favourite.drawable.setTint(resources.getColor(android.R.color.black))
+                mView?.emp_favourite?.drawable?.setTint(resources.getColor(android.R.color.black))
             }
         }
 
@@ -576,24 +574,24 @@ class PlayerViewSheetFragment : Fragment(){
 
     private fun showProgressInButtonsEvaluations(progressShow : Boolean) {
         if (!progressShow){
-            mView.pb_like.visibility = View.GONE
-            mView.emp_like.visibility = View.VISIBLE
-            mView.emp_dont_like.visibility = View.VISIBLE
+            mView?.pb_like?.visibility = View.GONE
+            mView?.emp_like?.visibility = View.VISIBLE
+            mView?.emp_dont_like?.visibility = View.VISIBLE
         }else{
-            mView.pb_like.visibility = View.VISIBLE
-            mView.emp_like.visibility = View.GONE
-            mView.emp_dont_like.visibility = View.GONE
+            mView?.pb_like?.visibility = View.VISIBLE
+            mView?.emp_like?.visibility = View.GONE
+            mView?.emp_dont_like?.visibility = View.GONE
         }
 
     }
 
     private fun showProgressInButtonFavourite(progressShow : Boolean) {
         if (!progressShow){
-            mView.pb_favourite.visibility = View.GONE
-            mView.emp_favourite.visibility = View.VISIBLE
+            mView?.pb_favourite?.visibility = View.GONE
+            mView?.emp_favourite?.visibility = View.VISIBLE
         }else{
-            mView.pb_favourite.visibility = View.VISIBLE
-            mView.emp_favourite.visibility = View.GONE
+            mView?.pb_favourite?.visibility = View.VISIBLE
+            mView?.emp_favourite?.visibility = View.GONE
         }
 
     }
