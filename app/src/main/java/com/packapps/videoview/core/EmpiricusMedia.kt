@@ -98,7 +98,7 @@ class EmpiricusMedia{
         playerHomeFragment?.updateEvaluationView(evaluation)
     }
 
-    fun updateFavourite(isFavourite : Boolean?){
+    fun updateFavourite(isFavourite : Boolean){
         playerHomeFragment?.updateFavouriteView(isFavourite)
     }
 

@@ -488,65 +488,71 @@ class PlayerViewSheetFragment : Fragment(){
         evaluation?.let { evaluation ->
             manageButtonsEvaluations(evaluation.thumbs)
         } ?: kotlin.run {
-            manageButtonsEvaluations("")
+            manageButtonsEvaluations(null)
         }
     }
 
-    fun updateFavouriteView(isFavourite: Boolean?) {
+    fun updateFavouriteView(isFavourite: Boolean) {
         //Just Show buttons evaluations
         showProgressInButtonFavourite(false)
         //change color icons
-        isFavourite?.let {
-            if (it == true)
-                manageButtonFavourite(true)
-            else
-                manageButtonFavourite(false)
-        } ?: kotlin.run {
+        if (isFavourite == true) {
+            manageButtonFavourite(true)
+        } else {
             manageButtonFavourite(false)
         }
     }
 
-    private fun manageButtonsEvaluations(thumbs: String) {
-        if (thumbs.equals("up", true)){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                mView.emp_like.drawable.setTint(resources.getColor(R.color.colorAccent, activity?.theme))
-            }else{
-                mView.emp_like.drawable.setTint(resources.getColor(R.color.colorAccent))
+    private fun manageButtonsEvaluations(thumbs: String?) {
+        thumbs?.let {
+            if (thumbs.equals("up", true)) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    mView.emp_like.drawable.setTint(resources.getColor(R.color.colorAccent, activity?.theme))
+                } else {
+                    mView.emp_like.drawable.setTint(resources.getColor(R.color.colorAccent))
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    mView.emp_dont_like.drawable.setTint(resources.getColor(android.R.color.black, activity?.theme))
+                } else {
+                    mView.emp_dont_like.drawable.setTint(resources.getColor(android.R.color.black))
+                }
+            } else if (thumbs.equals("down", true)) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    mView.emp_like.drawable.setTint(resources.getColor(android.R.color.black, activity?.theme))
+                } else {
+                    mView.emp_like.drawable.setTint(resources.getColor(android.R.color.black))
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    mView.emp_dont_like.drawable.setTint(resources.getColor(R.color.colorAccent, activity?.theme))
+                } else {
+                    mView.emp_dont_like.drawable.setTint(resources.getColor(R.color.colorAccent))
+                }
+            } else {
+                //just set defaults icons
+                setDefaultForAllIconsEvaluations()
             }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                mView.emp_dont_like.drawable.setTint(resources.getColor(android.R.color.black, activity?.theme))
-            }else{
-                mView.emp_dont_like.drawable.setTint(resources.getColor(android.R.color.black))
-            }
-        }else if ( thumbs.equals("down", true)){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                mView.emp_like.drawable.setTint(resources.getColor(android.R.color.black, activity?.theme))
-            }else{
-                mView.emp_like.drawable.setTint(resources.getColor(android.R.color.black))
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                mView.emp_dont_like.drawable.setTint(resources.getColor(R.color.colorAccent, activity?.theme))
-            }else{
-                mView.emp_dont_like.drawable.setTint(resources.getColor(R.color.colorAccent))
-            }
-        }else{
-            //just set defaults icons
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                mView.emp_like.drawable.setTint(resources.getColor(android.R.color.black, activity?.theme))
-            }else{
-                mView.emp_like.drawable.setTint(resources.getColor(android.R.color.black))
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                mView.emp_dont_like.drawable.setTint(resources.getColor(android.R.color.black, activity?.theme))
-            }else{
-                mView.emp_dont_like.drawable.setTint(resources.getColor(android.R.color.black))
-            }
+
+        }?: kotlin.run {
+            setDefaultForAllIconsEvaluations()
         }
 
     }
 
+    private fun setDefaultForAllIconsEvaluations() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mView.emp_like.drawable.setTint(resources.getColor(android.R.color.black, activity?.theme))
+        } else {
+            mView.emp_like.drawable.setTint(resources.getColor(android.R.color.black))
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mView.emp_dont_like.drawable.setTint(resources.getColor(android.R.color.black, activity?.theme))
+        } else {
+            mView.emp_dont_like.drawable.setTint(resources.getColor(android.R.color.black))
+        }
+    }
+
     private fun manageButtonFavourite(isFavourite: Boolean) {
-        if (isFavourite){
+        if (isFavourite == true){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 mView.emp_favourite.drawable.setTint(resources.getColor(R.color.colorAccent, activity?.theme))
             }else{

@@ -87,9 +87,9 @@ class EmpiricusVideoBusiness() : Parcelable{
 
 
 data class Evaluation(
-    val comment: String,
-    val taxonomySlug: String,
-    val thumbs: String
+    val comment: String?,
+    val taxonomySlug: String?,
+    val thumbs: String?
 ) : Parcelable{
 
     constructor(parcel: Parcel) : this(

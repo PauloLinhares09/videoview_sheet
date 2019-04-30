@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity() {
             empiricusMedia?.updateEvaluation(Evaluation("", "", "up"))
 
             //Icon Favourite
-            empiricusMedia?.updateFavourite(null)
+            empiricusMedia?.updateFavourite(false)
 
         }, 3900)
     }
