@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:gravity="left|center"
-                    android:textSize="12dp"
+                    android:textSize="14dp"
                     android:drawablePadding="8dp"
                     android:drawableLeft="@drawable/ic_audio_max"
                     android:drawableTint="@color/colorAccent"
