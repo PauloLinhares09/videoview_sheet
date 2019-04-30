@@ -20,7 +20,7 @@ class EmpiricusMedia{
     private var mediaType : MediaType? = null
     private var contentData : ContentData? = null
     private lateinit var evaluation: Evaluation
-    private lateinit var streamType: StreamType
+    private var streamType: StreamType? = null
     private var uri : String? = null
     private var playerHomeFragment : PlayerViewSheetFragment? = null
     private var peekHeight : Int = 550
@@ -29,9 +29,6 @@ class EmpiricusMedia{
 
     private fun execute(){
         //Check the values required TODO
-
-
-
 
         //Inflate the Fragment in container informed
         playerHomeFragment = PlayerViewSheetFragment.newInstance(uri, peekHeight, streamType = streamType, contentData = contentData)
@@ -68,6 +65,20 @@ class EmpiricusMedia{
 
     }
 
+    fun setMediaType(mediaType: MediaType, streamType: StreamType = StreamType.HLS) {
+        this.mediaType = mediaType
+        this.streamType = streamType
+    }
+
+    fun setUri(uri: String?) {
+        this.uri = uri
+    }
+
+    fun setContentData(contentData: ContentData) {
+        this.contentData = contentData
+    }
+
+
     fun onPause() {
         if (Util.SDK_INT <= 23) {
             releasePlayer()
@@ -100,6 +111,10 @@ class EmpiricusMedia{
 
     fun updateFavourite(isFavourite : Boolean){
         playerHomeFragment?.updateFavouriteView(isFavourite)
+    }
+
+    fun executeDelaued() {
+        execute()
     }
 
 
@@ -140,6 +155,12 @@ class EmpiricusMedia{
             return this
         }
 
+        fun setContentData(contentData: ContentData): Builder {
+            empiricusMedia.contentData = contentData
+
+            return this
+        }
+
         fun setPeekHeight(peekHeight : Int) : Builder{
             empiricusMedia.peekHeight = peekHeight
             return this
@@ -157,11 +178,7 @@ class EmpiricusMedia{
             return this
         }
 
-        fun setContentData(contentData: ContentData): Builder {
-            empiricusMedia.contentData = contentData
 
-            return this
-        }
 
 
 

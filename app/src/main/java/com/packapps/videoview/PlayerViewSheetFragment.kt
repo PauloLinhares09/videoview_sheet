@@ -77,7 +77,10 @@ class PlayerViewSheetFragment : Fragment(){
             uriMedia = this?.getString(URI_MEDIA)
             peekHeight = this?.getInt(PEEK_HEIGHT)?:peekHeight
             empiricusVideoBusiness = this?.getParcelable(EMPIRICUS_VIDEO_BUSINESS)
-            streamType = this?.getSerializable(STREAM_TYPE) as StreamType
+            val streamTypeAux = this?.getSerializable(STREAM_TYPE)
+            streamTypeAux?.let {
+                streamType = streamTypeAux as StreamType
+            }
             contentData = this?.getParcelable<ContentData>(CONTENT_DATA)
         }
 
@@ -290,12 +293,14 @@ class PlayerViewSheetFragment : Fragment(){
     }
 
     private fun populateFieldsContent() {
-        mView.tvTitle.text = contentData?.title ?: ""
-        mView.tvTitleCollapsed.text = Utils.truncateText(contentData?.title!!, 20)
-        mView.tvDescription.text = Utils.truncateText(contentData?.description!!, 100)
-        mView.tvAuthorName.text = contentData?.authors?.get(0)?.name ?: ""
-        Glide.with(activity!!).load(contentData?.authors?.get(0)?.photoUrl).into(mView.ivAuthor)
-        mView.tvTimeAgo.text = contentData?.timeAgoStr ?: ""
+        contentData?.let {
+            mView.tvTitle.text = contentData?.title ?: ""
+            mView.tvTitleCollapsed.text = Utils.truncateText(contentData?.title!!, 20)
+            mView.tvDescription.text = Utils.truncateText(contentData?.description!!, 100)
+            mView.tvAuthorName.text = contentData?.authors?.get(0)?.name ?: ""
+            Glide.with(activity!!).load(contentData?.authors?.get(0)?.photoUrl).into(mView.ivAuthor)
+            mView.tvTimeAgo.text = contentData?.timeAgoStr ?: ""
+        }
     }
 
 
@@ -595,7 +600,7 @@ class PlayerViewSheetFragment : Fragment(){
 
     companion object {
         @JvmStatic
-        fun newInstance(uriMedia: String?, peekHeight : Int, empiricusVideoBusiness: EmpiricusVideoBusiness? = null, streamType: StreamType, contentData: ContentData?) =
+        fun newInstance(uriMedia: String?, peekHeight : Int, empiricusVideoBusiness: EmpiricusVideoBusiness? = null, streamType: StreamType?, contentData: ContentData?) =
             PlayerViewSheetFragment().apply {
                 arguments = Bundle().apply {
                     putString(URI_MEDIA, uriMedia)

@@ -53,11 +53,7 @@ class MainActivity : AppCompatActivity() {
 
         empiricusMedia = EmpiricusMedia.Builder(this)
             .containerShowMedia(R.id.containerMedia)
-            .setMediaType(MediaType.VIDEO, StreamType.HLS)
-//            .setUri(getString(R.string.media_url_mp4))
-            .setUri("https://player.vimeo.com/external/310118574.m3u8?s=916d76157199bfe02c7daa8a735a4b84a9c9a038&oauth2_token_id=1018475342")
             .setContentLayout(R.layout.layout_video_view)
-            .setContentData(contentData)
             .callBackMediaState(object : EmpiricusMediaStateCallback {
                 override fun stateFromMedia(state : Int) {
                     Log.i("TAG", "state from callback: " + state)
@@ -84,6 +80,17 @@ class MainActivity : AppCompatActivity() {
                 }
             })
             .build()
+
+
+        Handler().postDelayed({
+            empiricusMedia?.setMediaType(MediaType.VIDEO, StreamType.HLS)
+            empiricusMedia?.setUri("https://player.vimeo.com/external/310118574.m3u8?s=916d76157199bfe02c7daa8a735a4b84a9c9a038&oauth2_token_id=1018475342")
+            empiricusMedia?.setContentData(contentData)
+
+            //Exute
+            empiricusMedia?.executeDelaued()
+        }, 1500)
+
 
 
         Handler().postDelayed({
