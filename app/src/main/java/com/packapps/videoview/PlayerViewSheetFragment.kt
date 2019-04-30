@@ -296,7 +296,7 @@ class PlayerViewSheetFragment : Fragment(){
     private fun populateFieldsContent() {
         contentData?.let {
             mView.tvTitle.text = contentData?.title ?: ""
-            mView.tvTitleCollapsed.text = Utils.truncateText(contentData?.title!!, 20)
+            mView.tvTitleCollapsed.text = Utils.truncateText(contentData?.title!!, 15)
             mView.tvDescription.text = Utils.truncateText(contentData?.description!!, 100)
             mView.tvAuthorName.text = contentData?.authors?.get(0)?.name ?: ""
             Glide.with(activity!!).load(contentData?.authors?.get(0)?.photoUrl).apply(RequestOptions.circleCropTransform()).into(mView.ivAuthor)
