@@ -97,8 +97,18 @@ class EmpiricusMedia{
 
     }
 
-    fun stateToCollapsed() {
+    fun killEmpiricusMedia(justPause : Boolean = false){
+        if (justPause == true){
+            playerHomeFragment?.pausePlayer()
+            return
+        }
+        playerHomeFragment?.managerClickIbClose()
+    }
+
+    fun stateToCollapsed(paused : Boolean = false) {
         playerHomeFragment?.bottomSheetToCollapsed()
+        if (paused == true)
+            playerHomeFragment?.pausePlayer()
     }
 
     fun replacePlayListAssociated(playList: MutableList<ContentData.NextMedia>) {

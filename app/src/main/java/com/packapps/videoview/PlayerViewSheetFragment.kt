@@ -39,6 +39,7 @@ import kotlinx.android.synthetic.main.area_video_expanded.*
 import kotlinx.android.synthetic.main.area_video_expanded.view.*
 import kotlinx.android.synthetic.main.content_video_bottomsheet_emp.view.*
 import kotlinx.android.synthetic.main.fragment_view_list.view.*
+import kotlinx.android.synthetic.main.layout_controllers_videoplayer.*
 import kotlinx.android.synthetic.main.layout_controllers_videoplayer.view.*
 import java.lang.Exception
 
@@ -57,7 +58,7 @@ class PlayerViewSheetFragment : Fragment(){
     var adapterPlayList : PlaylistAdapter? = null
 
     //ExoPlayer flow
-    lateinit var playerView : PlayerView
+    private lateinit var playerView : PlayerView
     private var player: SimpleExoPlayer? = null
     private var playWhenReady : Boolean = true
     private var playbackPosition : Long = 0
@@ -403,7 +404,7 @@ class PlayerViewSheetFragment : Fragment(){
 
 
 
-    private fun managerClickIbClose() {
+    fun managerClickIbClose() {
         mView?.imageView?.setOnClickListener {
             releasePlayer()
             bottomSheetBehavior.isHideable = true
@@ -594,6 +595,10 @@ class PlayerViewSheetFragment : Fragment(){
             mView?.emp_favourite?.visibility = View.GONE
         }
 
+    }
+
+    fun pausePlayer() {
+        exo_pause.performClick()
     }
 
 
