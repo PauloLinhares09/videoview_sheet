@@ -406,12 +406,18 @@ class PlayerViewSheetFragment : Fragment(){
 
     fun managerClickIbClose() {
         mView?.imageView?.setOnClickListener {
-            releasePlayer()
-            bottomSheetBehavior.isHideable = true
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            try {
 
-            //Kill Fragment
-            killThisFragment()
+                releasePlayer()
+                bottomSheetBehavior.isHideable = true
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
+                //Kill Fragment
+                killThisFragment()
+
+            }catch (e : Exception){
+                killThisFragment()
+            }
         }
     }
 
@@ -605,6 +611,7 @@ class PlayerViewSheetFragment : Fragment(){
     }
 
     fun killFragment() {
+//        mView?.imageView?.performClick()
         killThisFragment()
     }
 
