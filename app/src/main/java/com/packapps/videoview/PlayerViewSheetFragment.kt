@@ -416,10 +416,13 @@ class PlayerViewSheetFragment : Fragment(){
     }
 
     private fun killThisFragment() {
-        val m = (activity as FragmentActivity).supportFragmentManager
-        val t = m.beginTransaction()
-        t.remove(m.findFragmentByTag(PlayerViewSheetFragment::class.java.simpleName)!!)
-        t.commit()
+        activity?.let {
+            val m = (activity as FragmentActivity).supportFragmentManager
+            val t = m.beginTransaction()
+            t.remove(m.findFragmentByTag(PlayerViewSheetFragment::class.java.simpleName)!!)
+            t.commit()
+        }
+
     }
 
     private var set: Boolean = false
@@ -599,6 +602,10 @@ class PlayerViewSheetFragment : Fragment(){
 
     fun pausePlayer() {
         exo_pause.performClick()
+    }
+
+    fun killFragment() {
+        killThisFragment()
     }
 
 

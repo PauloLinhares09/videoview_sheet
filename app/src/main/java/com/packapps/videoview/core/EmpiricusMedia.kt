@@ -97,12 +97,8 @@ class EmpiricusMedia{
 
     }
 
-    fun killEmpiricusMedia(justPause : Boolean = false){
-        if (justPause == true){
-            playerHomeFragment?.pausePlayer()
-            return
-        }
-        playerHomeFragment?.managerClickIbClose()
+    fun killEmpiricusMedia(){
+        playerHomeFragment?.killFragment()
     }
 
     fun stateToCollapsed(paused : Boolean = false) {

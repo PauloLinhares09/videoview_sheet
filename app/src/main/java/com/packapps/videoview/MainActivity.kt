@@ -9,6 +9,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.packapps.videoview.core.*
 import com.packapps.videoview.models.Evaluation
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_video_bottomsheet_emp.*
 
 class MainActivity : AppCompatActivity() {
     lateinit var playerHomeFragment : PlayerViewSheetFragment
@@ -75,6 +76,8 @@ class MainActivity : AppCompatActivity() {
                         Handler().postDelayed({
                             empiricusMedia?.updateFavourite(false)
                         }, 1000)
+                    } else if (actionClick.viewId == R.id.emp_audio_version){
+                        empiricusMedia?.killEmpiricusMedia()
                     }
 
                 }
