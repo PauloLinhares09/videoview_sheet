@@ -119,11 +119,11 @@ class EmpiricusMedia{
     }
 
     fun updateEvaluation(evaluation : Evaluation?){
-        playerHomeFragment?.updateEvaluationView(evaluation)
+//        playerHomeFragment?.updateEvaluationView(evaluation) //TODO enable when work with buttons
     }
 
     fun updateFavourite(isFavourite : Boolean){
-        playerHomeFragment?.updateFavouriteView(isFavourite)
+//        playerHomeFragment?.updateFavouriteView(isFavourite)//TODO enable when work with buttons
     }
 
     fun executeDelaued() {

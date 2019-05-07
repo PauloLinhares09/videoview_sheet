@@ -52,6 +52,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
                     android:layout_marginEnd="16dp" app:layout_constraintHorizontal_bias="0.0"/>
             <ImageButton
+                    android:visibility="gone"
                     android:background="@android:color/transparent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" app:srcCompat="@drawable/ic_media_download"
@@ -73,6 +74,7 @@
 
             <!--Like-->
             <LinearLayout
+                    android:visibility="gone"
                     android:background="@android:color/transparent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" app:srcCompat="@drawable/ic_media_thumbs_up"
@@ -95,6 +97,7 @@
                         android:layout_height="24dp"/>
             </LinearLayout>
             <LinearLayout
+                    android:visibility="gone"
                     android:background="@android:color/transparent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" app:srcCompat="@drawable/ic_media_favorite"
