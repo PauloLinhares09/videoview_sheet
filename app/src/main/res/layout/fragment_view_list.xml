@@ -9,26 +9,6 @@
         android:fitsSystemWindows="true"
         tools:context=".PlayerViewSheetFragment">
 
-    <!--<com.google.android.material.appbar.AppBarLayout-->
-            <!--android:id="@+id/app_bar"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:theme="@style/AppTheme.AppBarOverlay">-->
-
-        <!--<androidx.appcompat.widget.Toolbar-->
-                <!--android:id="@+id/toolbar"-->
-                <!--android:layout_height="?attr/actionBarSize"-->
-                <!--android:layout_width="match_parent"-->
-                <!--app:layout_collapseMode="pin"-->
-                <!--app:title="Video List"-->
-                <!--app:popupTheme="@style/AppTheme.PopupOverlay"-->
-                <!--app:layout_scrollFlags="scroll|enterAlwaysCollapsed"/>-->
-
-    <!--</com.google.android.material.appbar.AppBarLayout>-->
-
-    <!--<include layout="@layout/content_view_list_fragment"/>-->
-
-
     <!--### BottomSheet ###-->
     <FrameLayout
             android:id="@+id/bottomSheetVideo"
@@ -41,15 +21,5 @@
 
         <include layout="@layout/layout_video_view"/>
     </FrameLayout>
-
-
-    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton-->
-    <!--android:id="@+id/fab"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_margin="@dimen/fab_margin"-->
-    <!--app:layout_anchor="@id/app_bar"-->
-    <!--app:layout_anchorGravity="bottom|end"-->
-    <!--app:srcCompat="@android:drawable/ic_dialog_email"/>-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
