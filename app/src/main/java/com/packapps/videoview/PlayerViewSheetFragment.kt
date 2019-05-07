@@ -282,8 +282,9 @@ class PlayerViewSheetFragment : Fragment(){
         //Listen events from Adapter list
         adapterPlayList?.listenEvents(object : PlaylistAdapter.PlayListListener {
             override fun itemClicked(item: ContentData.NextMedia) {
-                //TODO send to front
                 Log.i("TAG", "click item: " + item.toString())
+                viewModelVideoPlayer?.buttonClicked?.postValue(R.id.emp_item_playlist)
+
             }
 
         })

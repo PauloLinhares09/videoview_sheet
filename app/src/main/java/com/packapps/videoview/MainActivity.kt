@@ -78,6 +78,8 @@ class MainActivity : AppCompatActivity() {
                         }, 1000)
                     } else if (actionClick.viewId == R.id.emp_audio_version){
                         empiricusMedia?.killEmpiricusMedia()
+                    } else if (actionClick.viewId == R.id.emp_item_playlist){
+                        Log.i("TAG", "id from playlist clicked: ${actionClick.itemIdCurrent}")
                     }
 
                 }

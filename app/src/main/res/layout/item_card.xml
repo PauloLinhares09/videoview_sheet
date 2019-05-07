@@ -5,6 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardElevation="2dp"
+        android:id="@+id/emp_item_playlist"
         app:cardCornerRadius="5dp"
         app:cardBackgroundColor="@android:color/white"
         android:layout_margin="8dp"

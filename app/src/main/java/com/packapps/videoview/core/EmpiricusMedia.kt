@@ -5,11 +5,14 @@ import android.os.Handler
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManagerNonConfig
 import androidx.lifecycle.Observer
 import com.google.android.exoplayer2.util.Util
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.packapps.videoview.PlayerViewSheetFragment
+import com.packapps.videoview.R
 import com.packapps.videoview.models.Evaluation
+import kotlinx.android.synthetic.main.item_card.view.*
 
 class EmpiricusMedia{
     private var itemClickedContentView: EmpiricusMediaItemClicked? = null
@@ -46,7 +49,6 @@ class EmpiricusMedia{
             })
             //### Observer click item on contentView
             viewModelVideoPlayer?.buttonClicked?.observe(context as FragmentActivity, Observer {
-                val idItemCurrent = viewModelVideoPlayer?.itemId.value
                 itemClickedContentView?.itemClicked(ActionClick(it, contentData?.id))
 
             })
@@ -56,8 +58,13 @@ class EmpiricusMedia{
                 stateBottomSheet = it
             })
 
+            //Observer to click in item from playlist
+            viewModelVideoPlayer?.itemPlayList?.observe(context as FragmentActivity, Observer {
+                itemClickedContentView?.itemClicked(ActionClick(R.id.emp_item_playlist, it.id))
+            })
 
-        }, 8000)
+
+        }, 800)
 
 
 
