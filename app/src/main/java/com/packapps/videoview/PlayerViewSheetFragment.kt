@@ -165,10 +165,10 @@ class PlayerViewSheetFragment : Fragment(){
             }
         }
         mView?.exo_prev_aux?.setOnClickListener {
-            playerView.exo_prev.performClick()
+            playerView.exo_rew.performClick()
         }
         mView?.exo_nex_aux?.setOnClickListener {
-            playerView.exo_next.performClick()
+            playerView.exo_ffwd.performClick()
         }
         playerView.ib_state_bottomsheet.setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
