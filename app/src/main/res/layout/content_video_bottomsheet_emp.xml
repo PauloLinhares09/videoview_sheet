@@ -189,6 +189,7 @@
             android:layout_height="wrap_content"
             android:textSize="11sp"
             android:gravity="right|center"
+            android:theme="@style/Theme.ToogleTheme"
             android:id="@+id/switchAutomaticNextPlay" android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView9" app:layout_constraintBottom_toBottomOf="@+id/textView9"
             app:layout_constraintStart_toEndOf="@+id/textView9" android:layout_marginStart="16dp"/>

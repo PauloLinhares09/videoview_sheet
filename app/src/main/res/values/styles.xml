@@ -33,4 +33,16 @@
         <!--<item name="android:windowExitAnimation">@anim/slide_down</item>-->
     </style>
 
+    <!--Switch-->
+    <style name="Theme.ToogleTheme" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">@color/colorAccent</item>
+
+        <!-- inactive thumb color -->
+        <item name="colorSwitchThumbNormal">@color/colorPrimary</item>
+
+        <!-- inactive track color (30% transparency) -->
+        <item name="android:colorForeground">@color/colorPrimaryDark</item>
+    </style>
+
 </resources>
