@@ -51,6 +51,8 @@
                     app:layout_constraintTop_toBottomOf="@+id/tvTitle"
                     app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
                     android:layout_marginEnd="16dp" app:layout_constraintHorizontal_bias="0.0"/>
+
+            <!--TODO remove this gone when enable button on the next sprint-->
             <ImageButton
                     android:visibility="gone"
                     android:background="@android:color/transparent"
@@ -73,6 +75,8 @@
                     android:visibility="gone"/>
 
             <!--Like-->
+
+            <!--TODO remove this gone when enable button on the next sprint-->
             <LinearLayout
                     android:visibility="gone"
                     android:background="@android:color/transparent"
@@ -96,6 +100,8 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"/>
             </LinearLayout>
+
+            <!--TODO remove this gone when enable button on the next sprint-->
             <LinearLayout
                     android:visibility="gone"
                     android:background="@android:color/transparent"
