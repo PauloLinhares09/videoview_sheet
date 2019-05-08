@@ -5,14 +5,13 @@ import android.os.Handler
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManagerNonConfig
 import androidx.lifecycle.Observer
 import com.google.android.exoplayer2.util.Util
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.packapps.videoview.PlayerViewSheetFragment
 import com.packapps.videoview.R
 import com.packapps.videoview.models.Evaluation
-import kotlinx.android.synthetic.main.item_card.view.*
+import com.packapps.videoview.models.PublicationImpl
 
 class EmpiricusMedia{
     private var itemClickedContentView: EmpiricusMediaItemClicked? = null
@@ -60,7 +59,7 @@ class EmpiricusMedia{
 
             //Observer to click in item from playlist
             viewModelVideoPlayer?.itemPlayList?.observe(context as FragmentActivity, Observer {
-                itemClickedContentView?.itemClicked(ActionClick(R.id.emp_item_playlist, it.id))
+                itemClickedContentView?.itemClicked(ActionClick(R.id.emp_item_playlist, it.publicationId))
             })
 
 
@@ -114,7 +113,7 @@ class EmpiricusMedia{
             playerHomeFragment?.pausePlayer()
     }
 
-    fun replacePlayListAssociated(playList: MutableList<ContentData.NextMedia>) {
+    fun replacePlayListAssociated(playList: MutableList<PublicationImpl>) {
         playerHomeFragment?.replacePlayListAssociated(playList)
     }
 
@@ -227,7 +226,7 @@ class ContentData (
     val authors : MutableList<Author>?,
     val thumbnailsFull : String?,
     val timeAgoStr : String?,
-    val next : MutableList<NextMedia>?
+    val next : MutableList<PublicationImpl>?
 ) : Parcelable {
 
 
@@ -238,7 +237,7 @@ class ContentData (
         parcel.createTypedArrayList(Author.CREATOR),
         parcel.readString(),
         parcel.readString(),
-        parcel.createTypedArrayList(NextMedia.CREATOR)
+        parcel.createTypedArrayList(PublicationImpl.CREATOR)
     ) {
     }
 
@@ -313,52 +312,52 @@ class ContentData (
     }
 
 
-    class NextMedia(
-        val id : String?,
-        val text : String?,
-        val time : String?,
-        val thumbnails : String?,
-        val mediaType: String?
-    ) : Parcelable {
-        constructor(parcel: Parcel) : this(
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString()
-        ) {
-        }
-
-        override fun writeToParcel(parcel: Parcel, flags: Int) {
-            parcel.writeString(id)
-            parcel.writeString(text)
-            parcel.writeString(time)
-            parcel.writeString(thumbnails)
-            parcel.writeString(mediaType)
-        }
-
-        override fun describeContents(): Int {
-            return 0
-        }
-
-        override fun toString(): String {
-            return "NextMedia(id=$id, text=$text, time=$time, thumbnails=$thumbnails, mediaType='$mediaType')"
-        }
-
-
-        companion object CREATOR : Parcelable.Creator<NextMedia> {
-            override fun createFromParcel(parcel: Parcel): NextMedia {
-                return NextMedia(parcel)
-            }
-
-            override fun newArray(size: Int): Array<NextMedia?> {
-                return arrayOfNulls(size)
-            }
-        }
-
-
-
-    }
+//    class NextMedia(
+//        val id : String?,
+//        val text : String?,
+//        val time : String?,
+//        val thumbnails : String?,
+//        val mediaType: String?
+//    ) : Parcelable {
+//        constructor(parcel: Parcel) : this(
+//            parcel.readString(),
+//            parcel.readString(),
+//            parcel.readString(),
+//            parcel.readString(),
+//            parcel.readString()
+//        ) {
+//        }
+//
+//        override fun writeToParcel(parcel: Parcel, flags: Int) {
+//            parcel.writeString(id)
+//            parcel.writeString(text)
+//            parcel.writeString(time)
+//            parcel.writeString(thumbnails)
+//            parcel.writeString(mediaType)
+//        }
+//
+//        override fun describeContents(): Int {
+//            return 0
+//        }
+//
+//        override fun toString(): String {
+//            return "NextMedia(id=$id, text=$text, time=$time, thumbnails=$thumbnails, mediaType='$mediaType')"
+//        }
+//
+//
+//        companion object CREATOR : Parcelable.Creator<NextMedia> {
+//            override fun createFromParcel(parcel: Parcel): NextMedia {
+//                return NextMedia(parcel)
+//            }
+//
+//            override fun newArray(size: Int): Array<NextMedia?> {
+//                return arrayOfNulls(size)
+//            }
+//        }
+//
+//
+//
+//    }
 
 }
 

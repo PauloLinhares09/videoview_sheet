@@ -34,6 +34,7 @@ import com.packapps.videoview.core.ContentData
 import com.packapps.videoview.core.StreamType
 import com.packapps.videoview.models.EmpiricusVideoBusiness
 import com.packapps.videoview.models.Evaluation
+import com.packapps.videoview.models.PublicationImpl
 import com.packapps.videoview.utils.Utils
 import kotlinx.android.synthetic.main.area_video_expanded.*
 import kotlinx.android.synthetic.main.area_video_expanded.view.*
@@ -281,8 +282,8 @@ class PlayerViewSheetFragment : Fragment(){
         mView?.rvPlaylist?.adapter = adapterPlayList
         //Listen events from Adapter list
         adapterPlayList?.listenEvents(object : PlaylistAdapter.PlayListListener {
-            override fun itemClicked(item: ContentData.NextMedia) {
-                Log.i("TAG", "click item: " + item.toString())
+            override fun itemClicked(publication: PublicationImpl) {
+                Log.i("TAG", "click item: " + publication.toString())
                 viewModelVideoPlayer?.buttonClicked?.postValue(R.id.emp_item_playlist)
 
             }
@@ -476,7 +477,7 @@ class PlayerViewSheetFragment : Fragment(){
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
-    fun replacePlayListAssociated(playList: MutableList<ContentData.NextMedia>?) {
+    fun replacePlayListAssociated(playList: MutableList<PublicationImpl>?) {
         //Done search layout animated
         mView?.clSearchMediaAssociated?.visibility = View.GONE
         mView?.clNotThereAreMediaAssociated?.visibility = View.GONE

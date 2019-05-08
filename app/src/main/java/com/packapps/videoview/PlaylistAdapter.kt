@@ -9,10 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.packapps.videoview.core.ContentData
+import com.packapps.videoview.models.PublicationImpl
 import com.packapps.videoview.utils.Utils
 
 class PlaylistAdapter() : RecyclerView.Adapter<PlaylistAdapter.MyHolder>() {
-    var list : MutableList<ContentData.NextMedia> = mutableListOf()
+    var list : MutableList<PublicationImpl> = mutableListOf()
     var listener : PlayListListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
@@ -26,9 +27,9 @@ class PlaylistAdapter() : RecyclerView.Adapter<PlaylistAdapter.MyHolder>() {
     override fun onBindViewHolder(holder: MyHolder, position: Int) {
         val item = list.get(position)
         //populate date on items
-        holder.tvText.text = Utils.truncateText(item.text!!, 45)
-        holder.tvTime.text = item.time
-        Glide.with(holder.itemView.context).load(item.thumbnails).apply(RequestOptions.centerCropTransform()).into(holder.ivThumbnails)
+        holder.tvText.text = Utils.truncateText(item.title!!, 45)
+        holder.tvTime.text = item?.primaryContent?.duration.toString()?:""
+        Glide.with(holder.itemView.context).load(item.thumbnail).apply(RequestOptions.centerCropTransform()).into(holder.ivThumbnails)
 
         //Implement clik item
         holder.itemView.setOnClickListener {
@@ -37,7 +38,7 @@ class PlaylistAdapter() : RecyclerView.Adapter<PlaylistAdapter.MyHolder>() {
     }
 
 
-    fun updateAndNotifyDataSetChanged(list : MutableList<ContentData.NextMedia>){
+    fun updateAndNotifyDataSetChanged(list : MutableList<PublicationImpl>){
         this.list = list
         notifyDataSetChanged()
     }
@@ -47,7 +48,7 @@ class PlaylistAdapter() : RecyclerView.Adapter<PlaylistAdapter.MyHolder>() {
     }
 
     interface PlayListListener{
-        fun itemClicked(item : ContentData.NextMedia)
+        fun itemClicked(item : PublicationImpl)
     }
 
 
