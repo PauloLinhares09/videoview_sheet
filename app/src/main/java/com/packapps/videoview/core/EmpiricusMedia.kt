@@ -11,6 +11,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.packapps.videoview.PlayerViewSheetFragment
 import com.packapps.videoview.R
 import com.packapps.videoview.models.Evaluation
+import com.packapps.videoview.models.Publication
 import com.packapps.videoview.models.PublicationImpl
 
 class EmpiricusMedia{
@@ -59,8 +60,9 @@ class EmpiricusMedia{
 
             //Observer to click in item from playlist
             viewModelVideoPlayer?.itemPlayList?.observe(context as FragmentActivity, Observer {
-                itemClickedContentView?.itemClicked(ActionClick(R.id.emp_item_playlist, it.publicationId))
+                itemClickedContentView?.itemFromPlayList(it)
             })
+
 
 
         }, 800)
@@ -374,4 +376,5 @@ class ActionClick(val viewId : Int, val itemIdCurrent : String?){
 
 interface EmpiricusMediaItemClicked{
     fun itemClicked(id : ActionClick)
+    fun itemFromPlayList(publication : Publication)
 }

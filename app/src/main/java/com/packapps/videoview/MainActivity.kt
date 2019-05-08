@@ -84,6 +84,11 @@ class MainActivity : AppCompatActivity() {
                     }
 
                 }
+
+                override fun itemFromPlayList(publication: Publication) {
+                    Log.i("TAG", "MainActivity item from playlist: ${publication.toString()}")
+                    openMediaPlayer()
+                }
             })
             .build()
 
