@@ -115,7 +115,7 @@ class MainActivity : AppCompatActivity() {
                     "Title content",
                     mutableListOf(PublicationImpl.AuthorImpl("id", "Paulo Linhares", "", "", "", "Desciption for Author")),
                     PublicationImpl.ContentValueImpl(ContentValueType.VIDEO, "video"),
-                    ContentType.VIDEO, 1200
+                    ContentType.VIDEO, 35
                     ),
                 PublicationImpl.TaxonomyImpl(
                     "id-taxonomy",
@@ -140,7 +140,58 @@ class MainActivity : AppCompatActivity() {
                     "Title content",
                     mutableListOf(PublicationImpl.AuthorImpl("id", "Paulo Linhares", "", "", "", "Desciption for Author")),
                     PublicationImpl.ContentValueImpl(ContentValueType.VIDEO, "video"),
-                    ContentType.VIDEO, 1200
+                    ContentType.VIDEO, 80
+                    ),
+                PublicationImpl.TaxonomyImpl(
+                    "id-taxonomy",
+                    "slug-taxonomy",
+                    "name",
+                    null,
+                    mutableListOf(PublicationImpl.AuthorImpl("id", "Paulo Linhares", "", "", "", "Desciption for Author")),
+                    null,
+                    TaxonomyType.LIST,
+                    null,
+                    false
+                ),
+                false
+            )
+            )
+
+            listTest.add(PublicationImpl("id", "slug", "Title here for you",
+                "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.",
+                "https://pbs.twimg.com/profile_images/1112802506902568962/1M4O48vX_400x400.png",
+                false,
+                "11/01/2019", Date(122325454),
+                PublicationImpl.ContentImpl("jskdjs",
+                    "Title content",
+                    mutableListOf(PublicationImpl.AuthorImpl("id", "Paulo Linhares", "", "", "", "Desciption for Author")),
+                    PublicationImpl.ContentValueImpl(ContentValueType.VIDEO, "video"),
+                    ContentType.VIDEO, 3900
+                    ),
+                PublicationImpl.TaxonomyImpl(
+                    "id-taxonomy",
+                    "slug-taxonomy",
+                    "name",
+                    null,
+                    mutableListOf(PublicationImpl.AuthorImpl("id", "Paulo Linhares", "", "", "", "Desciption for Author")),
+                    null,
+                    TaxonomyType.LIST,
+                    null,
+                    false
+                ),
+                false
+            )
+            )
+            listTest.add(PublicationImpl("id", "slug", "Title here for you",
+                "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.",
+                "https://pbs.twimg.com/profile_images/1112802506902568962/1M4O48vX_400x400.png",
+                false,
+                "11/01/2019", Date(122325454),
+                PublicationImpl.ContentImpl("jskdjs",
+                    "Title content",
+                    mutableListOf(PublicationImpl.AuthorImpl("id", "Paulo Linhares", "", "", "", "Desciption for Author")),
+                    PublicationImpl.ContentValueImpl(ContentValueType.VIDEO, "video"),
+                    ContentType.VIDEO, 3933
                     ),
                 PublicationImpl.TaxonomyImpl(
                     "id-taxonomy",

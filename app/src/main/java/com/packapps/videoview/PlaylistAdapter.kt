@@ -28,7 +28,7 @@ class PlaylistAdapter() : RecyclerView.Adapter<PlaylistAdapter.MyHolder>() {
         val item = list.get(position)
         //populate date on items
         holder.tvText.text = Utils.truncateText(item.title!!, 45)
-        holder.tvTime.text = item?.primaryContent?.duration.toString()?:""
+        holder.tvTime.text =  Utils.formatDuration(item?.primaryContent?.duration)
         Glide.with(holder.itemView.context).load(item.thumbnail).apply(RequestOptions.centerCropTransform()).into(holder.ivThumbnails)
 
         //Implement clik item
