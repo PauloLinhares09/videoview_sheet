@@ -284,7 +284,7 @@ class PlayerViewSheetFragment : Fragment(){
         adapterPlayList?.listenEvents(object : PlaylistAdapter.PlayListListener {
             override fun itemClicked(publication: PublicationImpl) {
                 Log.i("TAG", "click item: " + publication.toString())
-                viewModelVideoPlayer?.buttonClicked?.postValue(R.id.emp_item_playlist)
+                viewModelVideoPlayer?.itemPlayList?.postValue(publication)
 
             }
 

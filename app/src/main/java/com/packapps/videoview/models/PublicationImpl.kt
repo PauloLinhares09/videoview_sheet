@@ -212,6 +212,8 @@ class PublicationImpl(
         return 0
     }
 
+
+
     companion object CREATOR : Parcelable.Creator<PublicationImpl> {
         override fun createFromParcel(parcel: Parcel): PublicationImpl {
             return PublicationImpl(parcel)
@@ -220,6 +222,10 @@ class PublicationImpl(
         override fun newArray(size: Int): Array<PublicationImpl?> {
             return arrayOfNulls(size)
         }
+    }
+
+    override fun toString(): String {
+        return "PublicationImpl(publicationId=$publicationId, slug=$slug, title=$title, description=$description, thumbnail=$thumbnail, read=$read, released=$released, releaseDate=$releaseDate, primaryContent=$primaryContent, taxonomy=$taxonomy, hasAudioSecundaryContent=$hasAudioSecundaryContent)"
     }
 
 
