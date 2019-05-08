@@ -6,7 +6,6 @@
         android:layout_width="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
         tools:context=".PlayerViewSheetFragment">
 
     <!--### BottomSheet ###-->
@@ -17,7 +16,7 @@
             style="@style/Widget.MaterialComponents.BottomSheet.Modal"
             app:behavior_peekHeight="0dp"
             app:layout_behavior="@string/bottom_sheet_behavior"
-            android:fitsSystemWindows="true">
+    >
 
         <include layout="@layout/layout_video_view"/>
     </FrameLayout>
