@@ -110,6 +110,8 @@ class PlayerViewSheetFragment : Fragment(){
         return mView
     }
 
+    private val LENGTH_DESCRIPTION: Int = 100
+
     private fun managerClickButtonsContent() {
         //Set item current
         viewModelVideoPlayer?.itemId?.postValue(contentData?.id)
@@ -141,7 +143,7 @@ class PlayerViewSheetFragment : Fragment(){
                 mView?.tvDescription?.text = contentData?.description
                 mView?.emp_show_more?.text = resources.getString(R.string.show_less)
             } else {
-                mView?.tvDescription?.text = Utils.truncateText(contentData?.description ?: "", 100)
+                mView?.tvDescription?.text = Utils.truncateText(contentData?.description ?: "", LENGTH_DESCRIPTION)
                 mView?.emp_show_more?.tag = 0
                 mView?.emp_show_more?.text = resources.getString(R.string.show_more)
             }
@@ -304,6 +306,11 @@ class PlayerViewSheetFragment : Fragment(){
             mView?.tvAuthorName?.text = contentData?.authors?.get(0)?.name ?: ""
             Glide.with(activity!!).load(contentData?.authors?.get(0)?.photoUrl).apply(RequestOptions.circleCropTransform()).into(mView?.ivAuthor!!)
             mView?.tvTimeAgo?.text = contentData?.timeAgoStr ?: ""
+
+            if (contentData?.description?.length!! <= LENGTH_DESCRIPTION)
+                mView?.emp_show_more?.visibility = View.GONE
+            else
+                mView?.emp_show_more?.visibility = View.VISIBLE
         }
     }
 
