@@ -185,7 +185,7 @@ class FullscreenVideoActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         if (Util.SDK_INT <= 23) {
-            releasePlayer()
+//            releasePlayer()
         }
     }
 
@@ -193,7 +193,7 @@ class FullscreenVideoActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         if (Util.SDK_INT > 23) {
-            releasePlayer()
+//            releasePlayer()
         }
     }
 
