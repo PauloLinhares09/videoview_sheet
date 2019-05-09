@@ -374,10 +374,10 @@ class PlayerViewSheetFragment : Fragment(){
 
     override fun onResume() {
         super.onResume()
-//        if ((Util.SDK_INT <= 23 || player == null)) {
-//            if (playbackPosition > 0)
-//                initBottomSheetExpirience()
-//        }
+        if ((Util.SDK_INT <= 23 || player == null)) {
+            if (playbackPosition > 0)
+                initializePlayer()
+        }
     }
 
     override fun onPause() {
