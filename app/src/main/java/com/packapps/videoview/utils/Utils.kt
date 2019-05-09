@@ -18,9 +18,9 @@ object Utils{
         duration?.let {
             if (duration <= 60){
                 if (duration.toString().length == 1)
-                    durationStr = "0:00:0${duration}"
+                    durationStr = "00:0${duration}"
 
-                durationStr = "0:00:${duration}"
+                durationStr = "00:${duration}"
             }
             else if(duration > 60 && duration <= 3600){
                 var minute : String = (duration/60).toInt().toString()
@@ -32,7 +32,7 @@ object Utils{
                 if (second.length == 1)
                     second = "0${second}"
 
-                durationStr = "0:${minute}:${second}"
+                durationStr = "${minute}:${second}"
 
             }else{
                 var hour : String = (duration/3600).toInt().toString()
