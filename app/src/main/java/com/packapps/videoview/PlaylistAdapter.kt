@@ -15,6 +15,7 @@ import com.packapps.videoview.utils.Utils
 class PlaylistAdapter() : RecyclerView.Adapter<PlaylistAdapter.MyHolder>() {
     var list : MutableList<PublicationImpl> = mutableListOf()
     var listener : PlayListListener? = null
+    val ALPHA = 0.3F
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
         val mView  = LayoutInflater.from(parent.context).inflate(R.layout.item_card, parent, false)
@@ -30,6 +31,13 @@ class PlaylistAdapter() : RecyclerView.Adapter<PlaylistAdapter.MyHolder>() {
         holder.tvText.text = Utils.truncateText(item.title!!, 45)
         holder.tvTime.text =  Utils.formatDuration(item?.primaryContent?.duration)
         Glide.with(holder.itemView.context).load(item.thumbnail).apply(RequestOptions.centerCropTransform()).into(holder.ivThumbnails)
+        if (item.read == true) {
+            holder.ivThumbnails.alpha = ALPHA
+            holder.tvText.alpha = ALPHA
+
+        }
+
+
 
         //Implement clik item
         holder.itemView.setOnClickListener {
@@ -55,7 +63,7 @@ class PlaylistAdapter() : RecyclerView.Adapter<PlaylistAdapter.MyHolder>() {
     class MyHolder(view : View) : RecyclerView.ViewHolder(view) {
         val tvText = view.findViewById<TextView>(R.id.tvItemDescription)
         val tvTime = view.findViewById<TextView>(R.id.tvItemTimePreview)
-        val ivThumbnails = view.findViewById<ImageView>(R.id.ivItemThumbnails)
+        var ivThumbnails = view.findViewById<ImageView>(R.id.ivItemThumbnails)
 
     }
 

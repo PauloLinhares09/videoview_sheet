@@ -134,7 +134,7 @@ class MainActivity : AppCompatActivity() {
             listTest.add(PublicationImpl("id", "slug", "Title here for you",
                 "O text grande parav ver se vai quebrar a linha no layout e nao ficar cagado.",
                 "https://pbs.twimg.com/profile_images/1112802506902568962/1M4O48vX_400x400.png",
-                false,
+                true,
                 "11/01/2019", Date(122325454),
                 PublicationImpl.ContentImpl("jskdjs",
                     "Title content",
