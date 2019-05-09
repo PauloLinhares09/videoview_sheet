@@ -32,9 +32,9 @@ class PlaylistAdapter() : RecyclerView.Adapter<PlaylistAdapter.MyHolder>() {
         holder.tvTime.text =  Utils.formatDuration(item?.primaryContent?.duration)
         Glide.with(holder.itemView.context).load(item.thumbnail).apply(RequestOptions.centerCropTransform()).into(holder.ivThumbnails)
         if (item.read == true) {
+            holder.tvBarRead.visibility = View.VISIBLE
             holder.ivThumbnails.alpha = ALPHA
             holder.tvText.alpha = ALPHA
-
         }
 
 
@@ -64,6 +64,7 @@ class PlaylistAdapter() : RecyclerView.Adapter<PlaylistAdapter.MyHolder>() {
         val tvText = view.findViewById<TextView>(R.id.tvItemDescription)
         val tvTime = view.findViewById<TextView>(R.id.tvItemTimePreview)
         var ivThumbnails = view.findViewById<ImageView>(R.id.ivItemThumbnails)
+        var tvBarRead = view.findViewById<TextView>(R.id.tvBarRead)
 
     }
 
