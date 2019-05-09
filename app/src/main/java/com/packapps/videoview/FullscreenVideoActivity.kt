@@ -88,6 +88,8 @@ class FullscreenVideoActivity : AppCompatActivity() {
             val intent = Intent()
             intent.putExtras(bundle)
 
+            releasePlayer()
+
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
@@ -169,7 +171,7 @@ class FullscreenVideoActivity : AppCompatActivity() {
     }
 
     private fun releasePlayer() {
-        if (player != null) {
+        player?.let {
             playbackPosition = player?.getCurrentPosition()!!
             currentWindow = player?.getCurrentWindowIndex()!!
             playWhenReady = player?.getPlayWhenReady()!!
@@ -211,6 +213,17 @@ class FullscreenVideoActivity : AppCompatActivity() {
 
     override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean, newConfig: Configuration?) {
         playerView.useController = !isInPictureInPictureMode
+        if (!isInPictureInPictureMode){
+
+        }
+
+
+    }
+
+
+    override fun onBackPressed() {
+//        super.onBackPressed()
+        playerView.ibFullscreenDisable.performClick()
     }
 
 
