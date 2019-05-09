@@ -105,6 +105,8 @@ class PlayerViewSheetFragment : Fragment(){
 
         playerView = mView?.playerView!!
 
+
+        viewModelVideoPlayer?.stateBottomSheet?.postValue(BottomSheetBehavior.STATE_EXPANDED)
         initBottomSheetExpirience()
 
         return mView
