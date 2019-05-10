@@ -1,9 +1,8 @@
-package com.packapps.videoview
+package br.com.actaholding.mediaplayer
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.packapps.videoview.core.ContentData
-import com.packapps.videoview.models.PublicationImpl
+import br.com.actaholding.mediaplayer.models.PublicationImpl
 
 class ViewModelVideoPlayer() : ViewModel(){
 

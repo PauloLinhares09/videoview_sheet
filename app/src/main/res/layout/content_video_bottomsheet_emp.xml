@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
-        tools:context=".MainActivity">
+        tools:context="br.com.actaholding.mediaplayer.MainActivity">
     <!--tools:showIn="@layout/layout_video_view"-->
 
 <androidx.constraintlayout.widget.ConstraintLayout

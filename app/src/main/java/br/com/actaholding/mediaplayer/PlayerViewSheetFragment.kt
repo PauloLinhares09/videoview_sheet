@@ -1,4 +1,4 @@
-package com.packapps.videoview
+package br.com.actaholding.mediaplayer
 
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
@@ -30,12 +30,13 @@ import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.packapps.videoview.core.ContentData
-import com.packapps.videoview.core.StreamType
-import com.packapps.videoview.models.EmpiricusVideoBusiness
-import com.packapps.videoview.models.Evaluation
-import com.packapps.videoview.models.PublicationImpl
-import com.packapps.videoview.utils.Utils
+import br.com.actaholding.mediaplayer.core.ContentData
+import br.com.actaholding.mediaplayer.core.StreamType
+import br.com.actaholding.mediaplayer.models.EmpiricusVideoBusiness
+import br.com.actaholding.mediaplayer.models.Evaluation
+import br.com.actaholding.mediaplayer.models.PublicationImpl
+import br.com.actaholding.mediaplayer.utils.Utils
+import br.com.actaholding.mediaplayer.R
 import kotlinx.android.synthetic.main.area_video_expanded.*
 import kotlinx.android.synthetic.main.area_video_expanded.view.*
 import kotlinx.android.synthetic.main.content_video_bottomsheet_emp.view.*
@@ -196,7 +197,9 @@ class PlayerViewSheetFragment : Fragment(){
         val intent = Intent(context, FullscreenVideoActivity::class.java)
         intent.putExtras(bundle)
         releasePlayer()
-        startActivityForResult(intent, FullscreenVideoActivity.REQUEST_FULLSCREEN)
+        startActivityForResult(intent,
+            FullscreenVideoActivity.REQUEST_FULLSCREEN
+        )
     }
 
 

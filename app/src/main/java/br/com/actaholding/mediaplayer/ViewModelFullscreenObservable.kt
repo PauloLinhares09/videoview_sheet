@@ -1,4 +1,4 @@
-package com.packapps.videoview
+package br.com.actaholding.mediaplayer
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

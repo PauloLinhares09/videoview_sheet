@@ -1,4 +1,4 @@
-package com.packapps.videoview
+package br.com.actaholding.mediaplayer
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,9 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.packapps.videoview.core.ContentData
-import com.packapps.videoview.models.PublicationImpl
-import com.packapps.videoview.utils.Utils
+import br.com.actaholding.mediaplayer.models.PublicationImpl
+import br.com.actaholding.mediaplayer.utils.Utils
+import br.com.actaholding.mediaplayer.R
 
 class PlaylistAdapter() : RecyclerView.Adapter<PlaylistAdapter.MyHolder>() {
     var list : MutableList<PublicationImpl> = mutableListOf()

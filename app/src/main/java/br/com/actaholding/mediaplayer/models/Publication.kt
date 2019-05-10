@@ -1,6 +1,5 @@
-package com.packapps.videoview.models
+package br.com.actaholding.mediaplayer.models
 
-import android.os.Parcelable
 import java.util.*
 
 interface Publication {

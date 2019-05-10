@@ -1,4 +1,4 @@
-package com.packapps.videoview
+package br.com.actaholding
 
 import org.junit.Test
 

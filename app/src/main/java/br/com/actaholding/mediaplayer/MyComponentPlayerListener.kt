@@ -1,9 +1,6 @@
-package com.packapps.videoview
+package br.com.actaholding.mediaplayer
 
-import android.app.Application
-import android.content.Context
 import android.util.Log
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.analytics.AnalyticsListener

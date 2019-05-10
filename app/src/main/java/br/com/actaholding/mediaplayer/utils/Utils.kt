@@ -1,4 +1,4 @@
-package com.packapps.videoview.utils
+package br.com.actaholding.mediaplayer.utils
 
 import java.lang.Exception
 

@@ -1,4 +1,4 @@
-package com.packapps.videoview.core
+package br.com.actaholding.mediaplayer.core
 
 import android.content.Context
 import android.os.Handler
@@ -8,11 +8,10 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import com.google.android.exoplayer2.util.Util
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.packapps.videoview.PlayerViewSheetFragment
-import com.packapps.videoview.R
-import com.packapps.videoview.models.Evaluation
-import com.packapps.videoview.models.Publication
-import com.packapps.videoview.models.PublicationImpl
+import br.com.actaholding.mediaplayer.PlayerViewSheetFragment
+import br.com.actaholding.mediaplayer.models.Evaluation
+import br.com.actaholding.mediaplayer.models.Publication
+import br.com.actaholding.mediaplayer.models.PublicationImpl
 
 class EmpiricusMedia{
     private var itemClickedContentView: EmpiricusMediaItemClicked? = null
@@ -143,7 +142,7 @@ class EmpiricusMedia{
             empiricusMedia.context = context
         }
 
-        fun containerShowMedia(containerLayout : Int) : Builder{
+        fun containerShowMedia(containerLayout : Int) : Builder {
             empiricusMedia.containerLayout = containerLayout
 
             return this
@@ -156,7 +155,7 @@ class EmpiricusMedia{
             return this
         }
 
-        fun setMediaType(mediaType: MediaType, streamType: StreamType = StreamType.HLS) : Builder{
+        fun setMediaType(mediaType: MediaType, streamType: StreamType = StreamType.HLS) : Builder {
             empiricusMedia.mediaType = mediaType
             empiricusMedia.streamType = streamType
 
@@ -175,18 +174,18 @@ class EmpiricusMedia{
             return this
         }
 
-        fun setPeekHeight(peekHeight : Int) : Builder{
+        fun setPeekHeight(peekHeight : Int) : Builder {
             empiricusMedia.peekHeight = peekHeight
             return this
         }
 
-        fun callBackMediaState(empiricusMediaCallback : EmpiricusMediaStateCallback) : Builder{
+        fun callBackMediaState(empiricusMediaCallback : EmpiricusMediaStateCallback) : Builder {
             empiricusMedia.mediaStateCallback = empiricusMediaCallback
 
             return this
         }
 
-        fun callbackItemFromContentViewClicked(empiricusMediaItemClicked: EmpiricusMediaItemClicked) : Builder{
+        fun callbackItemFromContentViewClicked(empiricusMediaItemClicked: EmpiricusMediaItemClicked) : Builder {
             empiricusMedia.itemClickedContentView = empiricusMediaItemClicked
 
             return this
@@ -198,7 +197,7 @@ class EmpiricusMedia{
 
 
 
-        fun build() : EmpiricusMedia{
+        fun build() : EmpiricusMedia {
             empiricusMedia.execute()
             return empiricusMedia
         }
@@ -236,7 +235,7 @@ class ContentData (
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.createTypedArrayList(Author.CREATOR),
+        parcel.createTypedArrayList(Author),
         parcel.readString(),
         parcel.readString(),
         parcel.createTypedArrayList(PublicationImpl.CREATOR)

@@ -1,10 +1,9 @@
-package com.packapps.videoview
+package br.com.actaholding.mediaplayer
 
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.PictureInPictureParams
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
@@ -12,20 +11,17 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Rational
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.extractor.ts.DefaultTsPayloadReaderFactory
-import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.source.hls.DefaultHlsExtractorFactory
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import com.google.android.exoplayer2.util.Util
-import com.packapps.videoview.utils.Utils
+import br.com.actaholding.mediaplayer.R
 import kotlinx.android.synthetic.main.fragment_fullscreen_video.*
 import kotlinx.android.synthetic.main.layout_controllers_videoplayer.view.cardProgress
 import kotlinx.android.synthetic.main.layout_controllers_videoplayer_fullscreen.*

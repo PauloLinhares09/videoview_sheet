@@ -1,9 +1,10 @@
-package com.packapps.videoview
+package br.com.actaholding.mediaplayer
 
 
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import br.com.actaholding.mediaplayer.R
 import kotlinx.android.synthetic.main.fragment_blank.view.*
 
 
