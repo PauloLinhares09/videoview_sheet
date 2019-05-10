@@ -25,8 +25,10 @@ import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import com.google.android.exoplayer2.util.Util
+import com.packapps.videoview.utils.Utils
 import kotlinx.android.synthetic.main.fragment_fullscreen_video.*
 import kotlinx.android.synthetic.main.layout_controllers_videoplayer.view.cardProgress
+import kotlinx.android.synthetic.main.layout_controllers_videoplayer_fullscreen.*
 import kotlinx.android.synthetic.main.layout_controllers_videoplayer_fullscreen.view.*
 
 
@@ -94,6 +96,10 @@ class FullscreenVideoActivity : AppCompatActivity() {
             finish()
         }
 
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
     }
 
 
@@ -183,19 +189,35 @@ class FullscreenVideoActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (Util.SDK_INT >= Build.VERSION_CODES.N) {
+            if (isInPictureInPictureMode) {
+
+            } else {
+
+            }
+        }
+    }
 
     override fun onPause() {
         super.onPause()
-        if (Util.SDK_INT <= 23) {
-//            releasePlayer()
-        }
+        // If called while in PIP mode, do not pause playback
+        if (Util.SDK_INT >= Build.VERSION_CODES.N) {
+            if (isInPictureInPictureMode) {
+                // Continue playback
+            } else {
+                // Use existing playback logic for paused Activity behavior.
+                exo_pause.performClick()
+            }
+         }
     }
 
 
     override fun onStop() {
         super.onStop()
         if (Util.SDK_INT > 23) {
-//            releasePlayer()
+            releasePlayer()
         }
     }
 
@@ -214,7 +236,7 @@ class FullscreenVideoActivity : AppCompatActivity() {
     override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean, newConfig: Configuration?) {
         playerView.useController = !isInPictureInPictureMode
         if (!isInPictureInPictureMode){
-
+            hideSystemUi()
         }
 
 
