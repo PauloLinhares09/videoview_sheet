@@ -14,14 +14,25 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
     lateinit var playerHomeFragment : PlayerViewSheetFragment
+    var stateSheetEmpiricusMedia : Int = BottomSheetBehavior.STATE_EXPANDED
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
                 testOpenBlankFragment()
+                empiricusMedia?.let{
+                    if (stateSheetEmpiricusMedia == BottomSheetBehavior.STATE_EXPANDED){
+                        empiricusMedia?.stateToCollapsed()
+                    }
+                }
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
+                empiricusMedia?.let{
+                    if (stateSheetEmpiricusMedia == BottomSheetBehavior.STATE_EXPANDED){
+                        empiricusMedia?.stateToCollapsed()
+                    }
+                }
                 testOpenBlankFragment()
 
                 return@OnNavigationItemSelectedListener true
@@ -107,7 +118,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun stateSheetEmpiricusMedia(state: Int) {
-                    var stateSheetEmpiricusMedia = state
+                    stateSheetEmpiricusMedia = state
                 }
             })
             .build()
@@ -337,8 +348,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (empiricusMedia != null){
-            if (empiricusMedia?.stateBottomSheet == BottomSheetBehavior.STATE_EXPANDED){
+        empiricusMedia?.let{
+            if (stateSheetEmpiricusMedia == BottomSheetBehavior.STATE_EXPANDED){
                 empiricusMedia?.stateToCollapsed()
                 return
             }
@@ -368,5 +379,7 @@ class MainActivity : AppCompatActivity() {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
     }
+
+
 
 }

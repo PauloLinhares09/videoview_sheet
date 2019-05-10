@@ -152,6 +152,11 @@ class PlayerViewSheetFragment : Fragment(){
             }
 
         }
+
+        mView?.playerView?.setOnClickListener {
+            if (currentStateBottomSheet == BottomSheetBehavior.STATE_COLLAPSED)
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
     }
 
 

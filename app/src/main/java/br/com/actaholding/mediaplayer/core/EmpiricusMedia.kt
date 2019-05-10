@@ -27,8 +27,6 @@ class EmpiricusMedia{
     private var playerHomeFragment : PlayerViewSheetFragment? = null
     private var peekHeight : Int = 550
 
-    var stateBottomSheet : Int = BottomSheetBehavior.STATE_EXPANDED
-
     private fun execute(){
         //Check the values required TODO
 
