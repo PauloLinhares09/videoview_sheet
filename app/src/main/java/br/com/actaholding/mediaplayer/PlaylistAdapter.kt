@@ -15,7 +15,7 @@ import br.com.actaholding.mediaplayer.R
 class PlaylistAdapter() : RecyclerView.Adapter<PlaylistAdapter.MyHolder>() {
     var list : MutableList<PublicationImpl> = mutableListOf()
     var listener : PlayListListener? = null
-    val ALPHA = 0.3F
+    val ALPHA = 0.5F
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
         val mView  = LayoutInflater.from(parent.context).inflate(R.layout.item_card, parent, false)
