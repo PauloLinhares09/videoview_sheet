@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
 
         val contentData = ContentData(
             "id-here",
+            "Product name",
             "Title dynamic",
             "Description",
             mutableListOf(

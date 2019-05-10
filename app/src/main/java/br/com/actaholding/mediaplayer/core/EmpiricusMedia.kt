@@ -220,6 +220,7 @@ enum class StreamType{
 
 class ContentData (
     val id : String?,
+    val productName : String?,
     val title : String?,
     val description : String?,
     val authors : MutableList<Author>?,
@@ -233,6 +234,7 @@ class ContentData (
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
+        parcel.readString(),
         parcel.createTypedArrayList(Author),
         parcel.readString(),
         parcel.readString(),
@@ -242,6 +244,7 @@ class ContentData (
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
+        parcel.writeString(productName)
         parcel.writeString(title)
         parcel.writeString(description)
         parcel.writeString(thumbnailsFull)

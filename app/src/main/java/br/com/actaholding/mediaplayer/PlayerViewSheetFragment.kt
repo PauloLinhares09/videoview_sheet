@@ -107,7 +107,6 @@ class PlayerViewSheetFragment : Fragment(){
         playerView = mView?.playerView!!
 
 
-        viewModelVideoPlayer?.stateBottomSheet?.postValue(BottomSheetBehavior.STATE_EXPANDED)
         initBottomSheetExpirience()
 
         return mView
@@ -269,6 +268,8 @@ class PlayerViewSheetFragment : Fragment(){
 
         })
 
+        viewModelVideoPlayer?.stateBottomSheet?.postValue(BottomSheetBehavior.STATE_EXPANDED)
+
 
         //Observer to player listener
         observerListenerVideoPlayer()
@@ -314,7 +315,7 @@ class PlayerViewSheetFragment : Fragment(){
             mView?.tvTitle?.text = contentData?.title ?: ""
             mView?.tvTitleCollapsed?.text = Utils.truncateText(contentData?.title!!, 15)
             mView?.tvDescription?.text = Utils.truncateText(contentData?.description!!, 100)
-            mView?.tvAuthorName?.text = contentData?.authors?.get(0)?.name ?: ""
+            mView?.tvAuthorName?.text = contentData?.productName?:""
             Glide.with(activity!!).load(contentData?.authors?.get(0)?.photoUrl).apply(RequestOptions.circleCropTransform()).into(mView?.ivAuthor!!)
             mView?.tvTimeAgo?.text = contentData?.timeAgoStr ?: ""
 
@@ -408,7 +409,7 @@ class PlayerViewSheetFragment : Fragment(){
 
     fun releasePlayer() {
         if (player != null) {
-            viewModelVideoPlayer?.stateBottomSheet?.postValue(-1)
+//            viewModelVideoPlayer?.stateBottomSheet?.postValue(-1)
             playbackPosition = player?.getCurrentPosition()!!
             currentWindow = player?.getCurrentWindowIndex()!!
             playWhenReady = player?.getPlayWhenReady()!!
