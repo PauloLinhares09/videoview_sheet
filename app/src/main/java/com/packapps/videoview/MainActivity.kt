@@ -89,6 +89,10 @@ class MainActivity : AppCompatActivity() {
                     Log.i("TAG", "MainActivity item from playlist: ${publication.toString()}")
                     openMediaPlayer()
                 }
+
+                override fun stateSheetEmpiricusMedia(state: Int) {
+                    var stateSheetEmpiricusMedia = state
+                }
             })
             .build()
 

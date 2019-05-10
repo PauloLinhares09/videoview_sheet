@@ -64,7 +64,7 @@ class PlayerViewSheetFragment : Fragment(){
     private var playWhenReady : Boolean = true
     private var playbackPosition : Long = 0
     private var currentWindow : Int = 0
-    private lateinit var playerListener : MyComponentPlayerListener
+    private var playerListener : MyComponentPlayerListener? = null
     private var uriMedia : String? = null
     private lateinit var streamType: StreamType
     private var contentData: ContentData? = null
@@ -209,7 +209,8 @@ class PlayerViewSheetFragment : Fragment(){
     }
 
     private fun observerListenerVideoPlayer() {
-        viewModelVideoPlayer = playerListener.getObservableViewModel()
+        viewModelVideoPlayer = playerListener?.getObservableViewModel()
+
         viewModelVideoPlayer?.stateVideo?.observe(this, Observer {
             if (it == Player.STATE_IDLE || it == Player.STATE_BUFFERING) {
                 mView?.playerView?.cardProgress?.visibility = View.VISIBLE
@@ -478,8 +479,8 @@ class PlayerViewSheetFragment : Fragment(){
         }
     }
 
-    fun getObservableViewModel(): ViewModelVideoPlayer {
-        return playerListener.getObservableViewModel()
+    fun getObservableViewModel(): ViewModelVideoPlayer? {
+        return playerListener?.getObservableViewModel()
     }
 
     fun bottomSheetToCollapsed() {

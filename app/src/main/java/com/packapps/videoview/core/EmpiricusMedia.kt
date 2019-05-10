@@ -55,7 +55,7 @@ class EmpiricusMedia{
 
             //Observer state bottom Sheet
             viewModelVideoPlayer?.stateBottomSheet?.observe(context as FragmentActivity, Observer {
-                stateBottomSheet = it
+                itemClickedContentView?.stateSheetEmpiricusMedia(it)
             })
 
             //Observer to click in item from playlist
@@ -65,7 +65,7 @@ class EmpiricusMedia{
 
 
 
-        }, 800)
+        }, 500)
 
 
 
@@ -377,4 +377,5 @@ class ActionClick(val viewId : Int, val itemIdCurrent : String?){
 interface EmpiricusMediaItemClicked{
     fun itemClicked(id : ActionClick)
     fun itemFromPlayList(publication : Publication)
+    fun stateSheetEmpiricusMedia(state : Int)
 }
