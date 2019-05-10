@@ -126,6 +126,10 @@ class EmpiricusMedia{
         execute()
     }
 
+    fun fullscreenFromOrientation() {
+        playerHomeFragment?.fullscreenFromScreeRotation()
+    }
+
 
     companion object
 

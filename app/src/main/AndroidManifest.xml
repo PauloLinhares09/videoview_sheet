@@ -15,7 +15,6 @@
         <activity
                 android:name="br.com.actaholding.mediaplayer.MainActivity"
                 android:label="@string/app_name"
-                android:screenOrientation="portrait"
                 android:supportsPictureInPicture="true"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

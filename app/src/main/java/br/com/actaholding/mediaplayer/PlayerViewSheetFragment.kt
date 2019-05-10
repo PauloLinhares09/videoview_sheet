@@ -271,9 +271,6 @@ class PlayerViewSheetFragment : Fragment(){
         viewModelVideoPlayer?.stateBottomSheet?.postValue(BottomSheetBehavior.STATE_EXPANDED)
 
 
-//        //Observer to player listener
-//        observerListenerVideoPlayer()
-
         managerClicksControllesCollapsed()
 
         managerClickButtonsContent()
@@ -641,6 +638,11 @@ class PlayerViewSheetFragment : Fragment(){
         //Observer to player listener
         observerListenerVideoPlayer()
 
+    }
+
+    fun fullscreenFromScreeRotation(){
+//        if (player?.playWhenReady == true)
+        playerView.ibFullscreenEnable.performClick()
     }
 
 

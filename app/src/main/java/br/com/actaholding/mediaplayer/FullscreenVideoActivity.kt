@@ -78,6 +78,14 @@ class FullscreenVideoActivity : AppCompatActivity() {
                 hideSystemUi()
 
             }
+
+            //manager screen orientation for fullscreen video
+//            val orientation = resources.configuration.orientation
+//            when(orientation){
+//                Configuration.ORIENTATION_PORTRAIT -> {
+//                    ibFullscreenDisable.performClick()
+//                }
+//            }
         }
 
 

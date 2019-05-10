@@ -1,7 +1,9 @@
 package br.com.actaholding.mediaplayer
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
+import android.os.PersistableBundle
 import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -378,6 +380,21 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         testOpenBlankFragment()
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
+        //manager screen orientation for fullscreen video
+        val orientation = resources.configuration.orientation
+        when(orientation){
+            Configuration.ORIENTATION_LANDSCAPE -> {
+                empiricusMedia?.let {
+                    it.fullscreenFromOrientation()
+                }
+            }
+        }
+
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
+        super.onSaveInstanceState(outState, outPersistentState)
 
     }
 
