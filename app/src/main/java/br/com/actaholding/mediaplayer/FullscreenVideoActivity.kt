@@ -13,6 +13,7 @@ import android.util.Rational
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.extractor.ts.DefaultTsPayloadReaderFactory
 import com.google.android.exoplayer2.source.MediaSource
@@ -45,6 +46,8 @@ class FullscreenVideoActivity : AppCompatActivity() {
     private var player: SimpleExoPlayer? = null
     private var uri: String? = null
 
+    private lateinit var viewModelVideoPlayer : ViewModelVideoPlayer
+
     private lateinit var playerListener : MyComponentPlayerListener
 //    private lateinit var viewModelObservable : ViewModelFullscreenObservable
 
@@ -54,7 +57,8 @@ class FullscreenVideoActivity : AppCompatActivity() {
 //        viewModelObservable = ViewModelProvider.NewInstanceFactory().create(ViewModelFullscreenObservable::class.java)
 
 
-        playerListener = MyComponentPlayerListener()
+        viewModelVideoPlayer = ViewModelProvider.NewInstanceFactory().create(ViewModelVideoPlayer::class.java)
+        playerListener = MyComponentPlayerListener(viewModelVideoPlayer)
 
         //Receipt data bundle
         Handler().post {
@@ -114,7 +118,6 @@ class FullscreenVideoActivity : AppCompatActivity() {
     }
 
     private fun observerListenerVideoPlayer() {
-        val viewModelVideoPlayer = playerListener.getObservableViewModel()
         viewModelVideoPlayer.stateVideo.observe(this, Observer {
             if (it == Player.STATE_IDLE || it == Player.STATE_BUFFERING) {
                 playerView.cardProgress.visibility = View.VISIBLE

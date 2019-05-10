@@ -14,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
@@ -48,6 +49,7 @@ import java.lang.Exception
 
 class PlayerViewSheetFragment : Fragment(){
 
+
     private val URI_MEDIA : String = "uri_media"
     private val PEEK_HEIGHT : String = "peek_eight"
     private val EMPIRICUS_VIDEO_BUSINESS : String = "empiricus_video_business"
@@ -55,6 +57,7 @@ class PlayerViewSheetFragment : Fragment(){
     private val CONTENT_DATA : String = "content_data"
 
     private var viewModelVideoPlayer: ViewModelVideoPlayer? = null
+
     var mView : View? = null
     lateinit var bottomSheetBehavior : BottomSheetBehavior<View>
     var adapterPlayList : PlaylistAdapter? = null
@@ -67,7 +70,7 @@ class PlayerViewSheetFragment : Fragment(){
     private var currentWindow : Int = 0
     private var playerListener : MyComponentPlayerListener? = null
     private var uriMedia : String? = null
-    private lateinit var streamType: StreamType
+    private var streamType: StreamType? = null
     private var contentData: ContentData? = null
     private var peekHeight : Int = 550
     private var empiricusVideoBusiness: EmpiricusVideoBusiness? = null
@@ -88,7 +91,6 @@ class PlayerViewSheetFragment : Fragment(){
             contentData = this?.getParcelable<ContentData>(CONTENT_DATA)
         }
 
-        playerListener = MyComponentPlayerListener()
     }
 
 
@@ -216,8 +218,6 @@ class PlayerViewSheetFragment : Fragment(){
     }
 
     private fun observerListenerVideoPlayer() {
-        viewModelVideoPlayer = playerListener?.getObservableViewModel()
-
         viewModelVideoPlayer?.stateVideo?.observe(this, Observer {
             if (it == Player.STATE_IDLE || it == Player.STATE_BUFFERING) {
                 mView?.playerView?.cardProgress?.visibility = View.VISIBLE
@@ -271,8 +271,8 @@ class PlayerViewSheetFragment : Fragment(){
         viewModelVideoPlayer?.stateBottomSheet?.postValue(BottomSheetBehavior.STATE_EXPANDED)
 
 
-        //Observer to player listener
-        observerListenerVideoPlayer()
+//        //Observer to player listener
+//        observerListenerVideoPlayer()
 
         managerClicksControllesCollapsed()
 
@@ -488,9 +488,6 @@ class PlayerViewSheetFragment : Fragment(){
         }
     }
 
-    fun getObservableViewModel(): ViewModelVideoPlayer? {
-        return playerListener?.getObservableViewModel()
-    }
 
     fun bottomSheetToCollapsed() {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
@@ -634,6 +631,16 @@ class PlayerViewSheetFragment : Fragment(){
     fun killFragment() {
 //        mView?.imageView?.performClick()
         killThisFragment()
+    }
+
+    fun setPlayerObservable(viewModelVideoPlayer: ViewModelVideoPlayer) {
+        this.viewModelVideoPlayer = viewModelVideoPlayer
+
+        playerListener = MyComponentPlayerListener(this.viewModelVideoPlayer!!)
+
+        //Observer to player listener
+        observerListenerVideoPlayer()
+
     }
 
 

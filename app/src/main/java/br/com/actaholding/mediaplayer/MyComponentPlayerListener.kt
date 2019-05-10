@@ -5,14 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.analytics.AnalyticsListener
 
-class MyComponentPlayerListener : Player.EventListener, AnalyticsListener{
-
-    var viewModelVideoPlayer : ViewModelVideoPlayer
-
-    init {
-        viewModelVideoPlayer = ViewModelProvider.NewInstanceFactory().create(ViewModelVideoPlayer::class.java)
-    }
-
+class MyComponentPlayerListener(val viewModelVideoPlayer : ViewModelVideoPlayer) : Player.EventListener, AnalyticsListener{
 
 
     override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
@@ -41,8 +34,6 @@ class MyComponentPlayerListener : Player.EventListener, AnalyticsListener{
         }
         Log.d("TAG", "changed state to $stateString playWhenReady: $playWhenReady")
     }
-
-    fun getObservableViewModel(): ViewModelVideoPlayer = viewModelVideoPlayer
 
 
 

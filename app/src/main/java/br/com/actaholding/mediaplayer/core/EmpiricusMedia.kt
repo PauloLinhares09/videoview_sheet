@@ -6,9 +6,11 @@ import android.os.Parcel
 import android.os.Parcelable
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.exoplayer2.util.Util
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import br.com.actaholding.mediaplayer.PlayerViewSheetFragment
+import br.com.actaholding.mediaplayer.ViewModelVideoPlayer
 import br.com.actaholding.mediaplayer.models.Evaluation
 import br.com.actaholding.mediaplayer.models.Publication
 import br.com.actaholding.mediaplayer.models.PublicationImpl
@@ -36,35 +38,31 @@ class EmpiricusMedia{
         t.replace(containerLayout!!, playerHomeFragment!!, PlayerViewSheetFragment::class.java.simpleName)
         t.commit()
 
+        val viewModelVideoPlayer = ViewModelProvider.NewInstanceFactory().create(ViewModelVideoPlayer::class.java)
+        playerHomeFragment?.setPlayerObservable(viewModelVideoPlayer)
+
         //Get observable for listen media callback state
-        Handler().postDelayed({
-            val viewModelVideoPlayer = playerHomeFragment?.getObservableViewModel()
-            //### Observer state Media
-            viewModelVideoPlayer?.stateVideo?.observe(context as FragmentActivity, Observer {
-                mediaStateCallback?.stateFromMedia(it)
 
-            })
-            //### Observer click item on contentView
-            viewModelVideoPlayer?.buttonClicked?.observe(context as FragmentActivity, Observer {
-                itemClickedContentView?.itemClicked(ActionClick(it, contentData?.id))
+        //### Observer state Media
+        viewModelVideoPlayer?.stateVideo?.observe(context as FragmentActivity, Observer {
+            mediaStateCallback?.stateFromMedia(it)
 
-            })
+        })
+        //### Observer click item on contentView
+        viewModelVideoPlayer?.buttonClicked?.observe(context as FragmentActivity, Observer {
+            itemClickedContentView?.itemClicked(ActionClick(it, contentData?.id))
 
-            //Observer state bottom Sheet
-            viewModelVideoPlayer?.stateBottomSheet?.observe(context as FragmentActivity, Observer {
-                itemClickedContentView?.stateSheetEmpiricusMedia(it)
-            })
+        })
 
-            //Observer to click in item from playlist
-            viewModelVideoPlayer?.itemPlayList?.observe(context as FragmentActivity, Observer {
-                itemClickedContentView?.itemFromPlayList(it)
-            })
+        //Observer state bottom Sheet
+        viewModelVideoPlayer?.stateBottomSheet?.observe(context as FragmentActivity, Observer {
+            itemClickedContentView?.stateSheetEmpiricusMedia(it)
+        })
 
-
-
-        }, 500)
-
-
+        //Observer to click in item from playlist
+        viewModelVideoPlayer?.itemPlayList?.observe(context as FragmentActivity, Observer {
+            itemClickedContentView?.itemFromPlayList(it)
+        })
 
 
 
