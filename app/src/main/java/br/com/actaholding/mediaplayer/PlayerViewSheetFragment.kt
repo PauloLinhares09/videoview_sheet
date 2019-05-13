@@ -161,6 +161,10 @@ class PlayerViewSheetFragment : Fragment(){
 
         }
 
+        mView?.constraintContainer?.setOnClickListener {
+            if (currentStateBottomSheet == BottomSheetBehavior.STATE_COLLAPSED)
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
         mView?.playerView?.setOnClickListener {
             if (currentStateBottomSheet == BottomSheetBehavior.STATE_COLLAPSED)
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED

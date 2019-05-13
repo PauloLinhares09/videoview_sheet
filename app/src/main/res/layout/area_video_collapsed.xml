@@ -8,6 +8,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintContainer"
+            android:clickable="true"
             android:layout_width="155dp"
             android:layout_height="88dp"
             app:layout_constraintStart_toStartOf="parent"
