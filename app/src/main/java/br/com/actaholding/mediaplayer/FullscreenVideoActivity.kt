@@ -54,8 +54,6 @@ class FullscreenVideoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_fullscreen_video)
-//        viewModelObservable = ViewModelProvider.NewInstanceFactory().create(ViewModelFullscreenObservable::class.java)
-
 
         viewModelVideoPlayer = ViewModelProvider.NewInstanceFactory().create(ViewModelVideoPlayer::class.java)
         playerListener = MyComponentPlayerListener(viewModelVideoPlayer)
@@ -78,14 +76,6 @@ class FullscreenVideoActivity : AppCompatActivity() {
                 hideSystemUi()
 
             }
-
-            //manager screen orientation for fullscreen video
-//            val orientation = resources.configuration.orientation
-//            when(orientation){
-//                Configuration.ORIENTATION_PORTRAIT -> {
-//                    ibFullscreenDisable.performClick()
-//                }
-//            }
         }
 
 
@@ -102,6 +92,11 @@ class FullscreenVideoActivity : AppCompatActivity() {
 
             setResult(Activity.RESULT_OK, intent)
             finish()
+        }
+
+        //manager screen orientation for fullscreen video
+        if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT){
+            playerView.ibFullscreenDisable.performClick()
         }
 
     }

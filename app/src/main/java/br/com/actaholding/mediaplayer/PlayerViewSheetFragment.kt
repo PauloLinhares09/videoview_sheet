@@ -3,6 +3,7 @@ package br.com.actaholding.mediaplayer
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -89,6 +90,12 @@ class PlayerViewSheetFragment : Fragment(){
                 streamType = streamTypeAux as StreamType
             }
             contentData = this?.getParcelable<ContentData>(CONTENT_DATA)
+        }
+
+
+        //Look for screen orientation
+        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
+            openActivityFullScreen()
         }
 
     }
