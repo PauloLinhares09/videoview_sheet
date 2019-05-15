@@ -23,7 +23,6 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import br.com.actaholding.mediaplayer.R
-import br.com.actaholding.mediaplayer.utils.TransparentCustomView
 import kotlinx.android.synthetic.main.fragment_fullscreen_video.*
 import kotlinx.android.synthetic.main.layout_controllers_videoplayer.view.cardProgress
 import kotlinx.android.synthetic.main.layout_controllers_videoplayer_fullscreen.*
