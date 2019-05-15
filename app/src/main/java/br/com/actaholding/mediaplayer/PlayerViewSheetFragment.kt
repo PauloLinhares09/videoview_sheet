@@ -135,9 +135,9 @@ class PlayerViewSheetFragment : Fragment(){
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putLong(FullscreenVideoActivity.PLAYBACK_POSITION, player?.currentPosition ?: 0)
-        outState.putInt(FullscreenVideoActivity.CURRENT_WINDOW, player?.currentWindowIndex ?: 0)
-        outState.putBoolean(FullscreenVideoActivity.PLAY_WHEN_READY, playWhenReady)
+        outState.putLong(FullscreenVideoActivity.PLAYBACK_POSITION, player?.currentPosition ?: playbackPosition)
+        outState.putInt(FullscreenVideoActivity.CURRENT_WINDOW, player?.currentWindowIndex ?: currentWindow)
+        outState.putBoolean(FullscreenVideoActivity.PLAY_WHEN_READY, playWhenReady)?: playWhenReady
         outState.putString(FullscreenVideoActivity.URI, uriMedia)
 
         super.onSaveInstanceState(outState)
@@ -145,10 +145,10 @@ class PlayerViewSheetFragment : Fragment(){
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-        playbackPosition = savedInstanceState?.getLong(FullscreenVideoActivity.PLAYBACK_POSITION)?:0
-        currentWindow = savedInstanceState?.getInt(FullscreenVideoActivity.CURRENT_WINDOW)?:0
-        playWhenReady = savedInstanceState?.getBoolean(FullscreenVideoActivity.PLAY_WHEN_READY)?: false
-        uriMediaAux = savedInstanceState?.getString(FullscreenVideoActivity.URI)
+        playbackPosition = savedInstanceState?.getLong(FullscreenVideoActivity.PLAYBACK_POSITION)?:playbackPosition
+        currentWindow    = savedInstanceState?.getInt(FullscreenVideoActivity.CURRENT_WINDOW)?:currentWindow
+        playWhenReady    = savedInstanceState?.getBoolean(FullscreenVideoActivity.PLAY_WHEN_READY)?:playWhenReady
+        uriMediaAux      = savedInstanceState?.getString(FullscreenVideoActivity.URI)?:uriMedia
 
     }
 
@@ -229,8 +229,8 @@ class PlayerViewSheetFragment : Fragment(){
         }
         playerView.ibFullscreenEnable.setOnClickListener {
             if (player != null) {
-                openActivityFullScreen()
                 releasePlayer()
+                openActivityFullScreen()
             }
         }
 
@@ -244,7 +244,7 @@ class PlayerViewSheetFragment : Fragment(){
         bundle.putString(FullscreenVideoActivity.URI, uriMediaAux?:uriMedia)
         val intent = Intent(context, FullscreenVideoActivity::class.java)
         intent.putExtras(bundle)
-        releasePlayer()
+
         startActivityForResult(intent,
             FullscreenVideoActivity.REQUEST_FULLSCREEN
         )
