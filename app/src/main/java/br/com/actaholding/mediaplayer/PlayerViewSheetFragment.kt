@@ -7,6 +7,7 @@ import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -39,6 +40,7 @@ import br.com.actaholding.mediaplayer.models.Evaluation
 import br.com.actaholding.mediaplayer.models.PublicationImpl
 import br.com.actaholding.mediaplayer.utils.Utils
 import br.com.actaholding.mediaplayer.R
+import br.com.actaholding.mediaplayer.utils.TransparentCustomView
 import kotlinx.android.synthetic.main.area_video_expanded.*
 import kotlinx.android.synthetic.main.area_video_expanded.view.*
 import kotlinx.android.synthetic.main.content_video_bottomsheet_emp.view.*
@@ -93,11 +95,6 @@ class PlayerViewSheetFragment : Fragment(){
         }
 
 
-        //Look for screen orientation
-        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
-            openActivityFullScreen()
-        }
-
     }
 
 
@@ -117,6 +114,18 @@ class PlayerViewSheetFragment : Fragment(){
 
 
         initBottomSheetExpirience()
+
+        //listener orientation changes
+        val transpCustom  = mView?.transparentCustom
+        transpCustom?.setListenerToListenOrientation(object : TransparentCustomView.OnOrientationListener{
+            override fun onMeasureCalled() {
+                if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
+                    openActivityFullScreen()
+                }
+
+            }
+
+        })
 
         return mView
     }
