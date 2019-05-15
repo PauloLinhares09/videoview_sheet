@@ -40,7 +40,6 @@ import br.com.actaholding.mediaplayer.models.Evaluation
 import br.com.actaholding.mediaplayer.models.PublicationImpl
 import br.com.actaholding.mediaplayer.utils.Utils
 import br.com.actaholding.mediaplayer.R
-import br.com.actaholding.mediaplayer.utils.TransparentCustomView
 import kotlinx.android.synthetic.main.area_video_expanded.*
 import kotlinx.android.synthetic.main.area_video_expanded.view.*
 import kotlinx.android.synthetic.main.content_video_bottomsheet_emp.view.*
@@ -83,7 +82,6 @@ class PlayerViewSheetFragment : Fragment(){
     private var peekHeight : Int = 550
     private var empiricusVideoBusiness: EmpiricusVideoBusiness? = null
     private var currentStateBottomSheet : Int = BottomSheetBehavior.STATE_EXPANDED
-    private var viewListenOrientation : TransparentCustomView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -117,20 +115,6 @@ class PlayerViewSheetFragment : Fragment(){
 
         playerView = mView?.playerView!!
         initBottomSheetExpirience()
-
-        //listener orientation changes
-        viewListenOrientation  = mView?.transparentCustom
-        viewListenOrientation?.setListenerToListenOrientation(object : TransparentCustomView.OnOrientationListener{
-            override fun onMeasureCalled() {
-                if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
-                    releasePlayer()
-                    openActivityFullScreen()
-
-                }
-            }
-
-        })
-
 
         return mView
     }
@@ -238,7 +222,6 @@ class PlayerViewSheetFragment : Fragment(){
     }
 
     private fun openActivityFullScreen() {
-        viewListenOrientation?.removeListener()
         val bundle = Bundle()
         bundle.putLong(FullscreenVideoActivity.PLAYBACK_POSITION, playbackPosition)
         bundle.putInt(FullscreenVideoActivity.CURRENT_WINDOW, currentWindow)

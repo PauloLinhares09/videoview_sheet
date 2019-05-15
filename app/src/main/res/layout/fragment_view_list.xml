@@ -21,10 +21,4 @@
         <include layout="@layout/layout_video_view"/>
     </FrameLayout>
 
-
-    <br.com.actaholding.mediaplayer.utils.TransparentCustomView
-            android:id="@+id/transparentCustom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
