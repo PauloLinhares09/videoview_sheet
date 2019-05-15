@@ -21,9 +21,15 @@ class TransparentCustomView @JvmOverloads constructor(
         this.listener = listener
     }
 
+    fun removeListener(){
+        this.listener = null
+    }
+
 
     interface OnOrientationListener{
         fun onMeasureCalled()
     }
+
+
 
 }

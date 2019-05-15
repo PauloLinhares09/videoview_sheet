@@ -83,7 +83,7 @@ class PlayerViewSheetFragment : Fragment(){
     private var peekHeight : Int = 550
     private var empiricusVideoBusiness: EmpiricusVideoBusiness? = null
     private var currentStateBottomSheet : Int = BottomSheetBehavior.STATE_EXPANDED
-
+    private var viewListenOrientation : TransparentCustomView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -119,16 +119,17 @@ class PlayerViewSheetFragment : Fragment(){
         initBottomSheetExpirience()
 
         //listener orientation changes
-//        val transpCustom  = mView?.transparentCustom
-//        transpCustom?.setListenerToListenOrientation(object : TransparentCustomView.OnOrientationListener{
-//            override fun onMeasureCalled() {
-//                if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
-//                    openActivityFullScreen()
-//                    releasePlayer()
-//                }
-//            }
-//
-//        })
+        viewListenOrientation  = mView?.transparentCustom
+        viewListenOrientation?.setListenerToListenOrientation(object : TransparentCustomView.OnOrientationListener{
+            override fun onMeasureCalled() {
+                if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
+                    releasePlayer()
+                    openActivityFullScreen()
+
+                }
+            }
+
+        })
 
 
         return mView
@@ -237,6 +238,7 @@ class PlayerViewSheetFragment : Fragment(){
     }
 
     private fun openActivityFullScreen() {
+        viewListenOrientation?.removeListener()
         val bundle = Bundle()
         bundle.putLong(FullscreenVideoActivity.PLAYBACK_POSITION, playbackPosition)
         bundle.putInt(FullscreenVideoActivity.CURRENT_WINDOW, currentWindow)
