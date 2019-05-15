@@ -204,15 +204,15 @@ class FullscreenVideoActivity : AppCompatActivity() {
 
 
         //listener orientation changes
-        transparentCustom?.setListenerToListenOrientation(object : TransparentCustomView.OnOrientationListener{
-            override fun onMeasureCalled() {
-                if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT){
-                    goBackFromFullscreen()
-                }
-
-            }
-
-        })
+//        transparentCustom?.setListenerToListenOrientation(object : TransparentCustomView.OnOrientationListener{
+//            override fun onMeasureCalled() {
+//                if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT){
+//                    goBackFromFullscreen()
+//                }
+//
+//            }
+//
+//        })
     }
 
     override fun onPause() {

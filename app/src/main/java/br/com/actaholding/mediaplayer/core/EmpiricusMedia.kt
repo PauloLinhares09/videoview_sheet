@@ -198,7 +198,7 @@ class EmpiricusMedia{
 
 
         fun build() : EmpiricusMedia {
-            empiricusMedia.execute()
+//            empiricusMedia.execute()
             return empiricusMedia
         }
 
