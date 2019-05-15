@@ -23,6 +23,7 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import br.com.actaholding.mediaplayer.R
+import br.com.actaholding.mediaplayer.utils.TransparentCustomView
 import kotlinx.android.synthetic.main.fragment_fullscreen_video.*
 import kotlinx.android.synthetic.main.layout_controllers_videoplayer.view.cardProgress
 import kotlinx.android.synthetic.main.layout_controllers_videoplayer_fullscreen.*
@@ -81,24 +82,24 @@ class FullscreenVideoActivity : AppCompatActivity() {
 
         //Click closed fullscreen
         playerView.ibFullscreenDisable.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putLong(PLAYBACK_POSITION, player?.currentPosition?:0)
-            bundle.putInt(CURRENT_WINDOW, player?.currentWindowIndex?:0)
-            bundle.putBoolean(PLAY_WHEN_READY, player?.playWhenReady?:true)
-            val intent = Intent()
-            intent.putExtras(bundle)
-
-            releasePlayer()
-
-            setResult(Activity.RESULT_OK, intent)
-            finish()
+            goBackFromFullscreen()
         }
 
-        //manager screen orientation for fullscreen video
-        if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT){
-            playerView.ibFullscreenDisable.performClick()
-        }
 
+    }
+
+    private fun goBackFromFullscreen() {
+        val bundle = Bundle()
+        bundle.putLong(PLAYBACK_POSITION, player?.currentPosition ?: 0)
+        bundle.putInt(CURRENT_WINDOW, player?.currentWindowIndex ?: 0)
+        bundle.putBoolean(PLAY_WHEN_READY, player?.playWhenReady ?: true)
+        val intent = Intent()
+        intent.putExtras(bundle)
+
+        releasePlayer()
+
+        setResult(Activity.RESULT_OK, intent)
+        finish()
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -197,9 +198,21 @@ class FullscreenVideoActivity : AppCompatActivity() {
             if (isInPictureInPictureMode) {
 
             } else {
-
+                releasePlayer()
             }
         }
+
+
+        //listener orientation changes
+        transparentCustom?.setListenerToListenOrientation(object : TransparentCustomView.OnOrientationListener{
+            override fun onMeasureCalled() {
+                if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT){
+                    goBackFromFullscreen()
+                }
+
+            }
+
+        })
     }
 
     override fun onPause() {
@@ -210,7 +223,7 @@ class FullscreenVideoActivity : AppCompatActivity() {
                 // Continue playback
             } else {
                 // Use existing playback logic for paused Activity behavior.
-                exo_pause.performClick()
+                releasePlayer()
             }
          }
     }
