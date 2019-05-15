@@ -59,6 +59,10 @@ class PlayerViewSheetFragment : Fragment(){
     private val STREAM_TYPE : String = "stream_type"
     private val CONTENT_DATA : String = "content_data"
 
+    //For sabe state with fullscreen
+    private val CURRENT_TIME = "CURRENT_TIME"
+    private val PLAY_WHEN = "PLAY_WHEN"
+
     private var viewModelVideoPlayer: ViewModelVideoPlayer? = null
 
     var mView : View? = null
@@ -73,6 +77,7 @@ class PlayerViewSheetFragment : Fragment(){
     private var currentWindow : Int = 0
     private var playerListener : MyComponentPlayerListener? = null
     private var uriMedia : String? = null
+    private var uriMediaAux : String? = null
     private var streamType: StreamType? = null
     private var contentData: ContentData? = null
     private var peekHeight : Int = 550
@@ -84,7 +89,7 @@ class PlayerViewSheetFragment : Fragment(){
         super.onCreate(savedInstanceState)
 
         arguments.apply {
-            uriMedia = this?.getString(URI_MEDIA)
+            uriMedia = this?.getString(URI_MEDIA)?: uriMedia
             peekHeight = this?.getInt(PEEK_HEIGHT)?:peekHeight
             empiricusVideoBusiness = this?.getParcelable(EMPIRICUS_VIDEO_BUSINESS)
             val streamTypeAux = this?.getSerializable(STREAM_TYPE)
@@ -111,23 +116,40 @@ class PlayerViewSheetFragment : Fragment(){
 //        }
 
         playerView = mView?.playerView!!
-
-
         initBottomSheetExpirience()
 
         //listener orientation changes
-        val transpCustom  = mView?.transparentCustom
-        transpCustom?.setListenerToListenOrientation(object : TransparentCustomView.OnOrientationListener{
-            override fun onMeasureCalled() {
-                if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
-                    openActivityFullScreen()
-                }
+//        val transpCustom  = mView?.transparentCustom
+//        transpCustom?.setListenerToListenOrientation(object : TransparentCustomView.OnOrientationListener{
+//            override fun onMeasureCalled() {
+//                if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
+//                    openActivityFullScreen()
+//                    releasePlayer()
+//                }
+//            }
+//
+//        })
 
-            }
-
-        })
 
         return mView
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putLong(FullscreenVideoActivity.PLAYBACK_POSITION, player?.currentPosition ?: 0)
+        outState.putInt(FullscreenVideoActivity.CURRENT_WINDOW, player?.currentWindowIndex ?: 0)
+        outState.putBoolean(FullscreenVideoActivity.PLAY_WHEN_READY, playWhenReady)
+        outState.putString(FullscreenVideoActivity.URI, uriMedia)
+
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        playbackPosition = savedInstanceState?.getLong(FullscreenVideoActivity.PLAYBACK_POSITION)?:0
+        currentWindow = savedInstanceState?.getInt(FullscreenVideoActivity.CURRENT_WINDOW)?:0
+        playWhenReady = savedInstanceState?.getBoolean(FullscreenVideoActivity.PLAY_WHEN_READY)?: false
+        uriMediaAux = savedInstanceState?.getString(FullscreenVideoActivity.URI)
+
     }
 
     private val LENGTH_DESCRIPTION: Int = 100
@@ -216,10 +238,10 @@ class PlayerViewSheetFragment : Fragment(){
 
     private fun openActivityFullScreen() {
         val bundle = Bundle()
-        bundle.putLong(FullscreenVideoActivity.PLAYBACK_POSITION, player?.currentPosition ?: 0)
-        bundle.putInt(FullscreenVideoActivity.CURRENT_WINDOW, player?.currentWindowIndex ?: 0)
+        bundle.putLong(FullscreenVideoActivity.PLAYBACK_POSITION, playbackPosition)
+        bundle.putInt(FullscreenVideoActivity.CURRENT_WINDOW, currentWindow)
         bundle.putBoolean(FullscreenVideoActivity.PLAY_WHEN_READY, playWhenReady)
-        bundle.putString(FullscreenVideoActivity.URI, uriMedia)
+        bundle.putString(FullscreenVideoActivity.URI, uriMediaAux?:uriMedia)
         val intent = Intent(context, FullscreenVideoActivity::class.java)
         intent.putExtras(bundle)
         releasePlayer()

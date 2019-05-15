@@ -382,14 +382,14 @@ class MainActivity : AppCompatActivity() {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         //manager screen orientation for fullscreen video
-        val orientation = resources.configuration.orientation
-        when(orientation){
-            Configuration.ORIENTATION_LANDSCAPE -> {
-                empiricusMedia?.let {
-                    it.fullscreenFromOrientation()
-                }
-            }
-        }
+//        val orientation = resources.configuration.orientation
+//        when(orientation){
+//            Configuration.ORIENTATION_LANDSCAPE -> {
+//                empiricusMedia?.let {
+//                    it.fullscreenFromOrientation()
+//                }
+//            }
+//        }
 
     }
 
