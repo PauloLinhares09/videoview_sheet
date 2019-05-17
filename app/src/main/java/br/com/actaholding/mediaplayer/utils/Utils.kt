@@ -53,12 +53,12 @@ object Utils{
         return durationStr
     }
 
-//    fun fromHtml(desc: String): Spanned? {
-//        return HtmlCompat.fromHtml(desc, HtmlCompat.FROM_HTML_MODE_LEGACY)
-//    }
-
-    fun fromHtml(desc: String): String {
-        return desc
+    fun fromHtml(desc: String): Spanned? {
+        return HtmlCompat.fromHtml(desc, HtmlCompat.FROM_HTML_MODE_LEGACY)
     }
+
+//    fun fromHtml(desc: String): String {
+//        return desc
+//    }
 
 }
