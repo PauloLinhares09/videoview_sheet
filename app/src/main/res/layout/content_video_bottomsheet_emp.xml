@@ -165,6 +165,7 @@
                     android:id="@+id/tvDescription" app:layout_constraintStart_toStartOf="@+id/ivAuthor"
                     android:layout_marginTop="16dp"
                     android:autoLink="web"
+                    android:textColorLink="@android:color/holo_blue_light"
                     android:textSize="18sp"
                     app:layout_constraintTop_toBottomOf="@+id/tvTimeAgo" app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="16dp"/>

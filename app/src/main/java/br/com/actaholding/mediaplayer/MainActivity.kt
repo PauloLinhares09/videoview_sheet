@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
             "id-here",
             "Product name",
             "Title dynamic",
-            "MINHA DESCRIÇÃO DE TESTES \\n- https://empiricus.com.br/ Os juros caíram \\n não está mais tão atrativa... \\n Agora, e se você comprar um título de renda fixa, super seguro, que hoje pode te dar um rendimento de renda variável, de ações?",
+            "<b>MINHA DESCRIÇÃO DE TESTES</b> \n\n- https://empiricus.com.br/ Os juros caíram \n não está mais tão atrativa... \n Agora, e se você comprar um título de renda fixa, super seguro, que hoje pode te dar um rendimento de renda variável, de ações?",
             mutableListOf(
                 ContentData.Author(
                     "",
