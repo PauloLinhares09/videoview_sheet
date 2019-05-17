@@ -1,5 +1,7 @@
 package br.com.actaholding.mediaplayer.utils
 
+import android.text.Spanned
+import androidx.core.text.HtmlCompat
 import java.lang.Exception
 
 object Utils{
@@ -49,6 +51,10 @@ object Utils{
         }
 
         return durationStr
+    }
+
+    fun fromHtml(desc: String): Spanned? {
+        return HtmlCompat.fromHtml(desc, HtmlCompat.FROM_HTML_SEPARATOR_LINE_BREAK_PARAGRAPH)
     }
 
 }

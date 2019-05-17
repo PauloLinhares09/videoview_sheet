@@ -8,6 +8,8 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.text.method.LinkMovementMethod
+import android.text.method.MovementMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -165,14 +167,17 @@ class PlayerViewSheetFragment : Fragment(){
         }
         mView?.emp_show_more?.setOnClickListener {
             val tag: String = mView?.emp_show_more?.tag.toString()
-            if (tag.equals("0")) {
-                mView?.emp_show_more?.tag = 1
-                mView?.tvDescription?.text = contentData?.description
-                mView?.emp_show_more?.text = resources.getString(R.string.show_less)
-            } else {
-                mView?.tvDescription?.text = Utils.truncateText(contentData?.description ?: "", LENGTH_DESCRIPTION)
-                mView?.emp_show_more?.tag = 0
-                mView?.emp_show_more?.text = resources.getString(R.string.show_more)
+            contentData?.description?.let { desc ->
+
+                if (tag.equals("0")) {
+                    mView?.emp_show_more?.tag = 1
+                    mView?.tvDescription?.text = Utils.fromHtml(desc)
+                    mView?.emp_show_more?.text = resources.getString(R.string.show_less)
+                } else {
+                    mView?.tvDescription?.text = Utils.fromHtml(Utils.truncateText(desc, LENGTH_DESCRIPTION))
+                    mView?.emp_show_more?.tag = 0
+                    mView?.emp_show_more?.text = resources.getString(R.string.show_more)
+                }
             }
 
         }
@@ -338,7 +343,7 @@ class PlayerViewSheetFragment : Fragment(){
         contentData?.let {
             mView?.tvTitle?.text = contentData?.title ?: ""
             mView?.tvTitleCollapsed?.text = Utils.truncateText(contentData?.title!!, 15)
-            mView?.tvDescription?.text = Utils.truncateText(contentData?.description!!, 100)
+            mView?.tvDescription?.text = Utils.fromHtml(Utils.truncateText(contentData?.description!!, 100))
             mView?.tvAuthorName?.text = contentData?.productName?:""
             Glide.with(activity!!).load(contentData?.authors?.get(0)?.photoUrl).apply(RequestOptions.circleCropTransform()).into(mView?.ivAuthor!!)
             mView?.tvTimeAgo?.text = contentData?.timeAgoStr ?: ""
