@@ -343,15 +343,19 @@ class PlayerViewSheetFragment : Fragment(){
         contentData?.let {
             mView?.tvTitle?.text = contentData?.title ?: ""
             mView?.tvTitleCollapsed?.text = Utils.truncateText(contentData?.title!!, 15)
-            mView?.tvDescription?.text = Utils.fromHtml(Utils.truncateText(contentData?.description!!, 100))
+            contentData?.description?.let {desc->
+                mView?.tvDescription?.text = Utils.fromHtml(Utils.truncateText(desc, 100))
+
+                if (desc.length <= LENGTH_DESCRIPTION)
+                    mView?.emp_show_more?.visibility = View.GONE
+                else
+                    mView?.emp_show_more?.visibility = View.VISIBLE
+            }
             mView?.tvAuthorName?.text = contentData?.productName?:""
             Glide.with(activity!!).load(contentData?.authors?.get(0)?.photoUrl).apply(RequestOptions.circleCropTransform()).into(mView?.ivAuthor!!)
             mView?.tvTimeAgo?.text = contentData?.timeAgoStr ?: ""
 
-            if (contentData?.description?.length!! <= LENGTH_DESCRIPTION)
-                mView?.emp_show_more?.visibility = View.GONE
-            else
-                mView?.emp_show_more?.visibility = View.VISIBLE
+
         }
     }
 
