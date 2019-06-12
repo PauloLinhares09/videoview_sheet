@@ -35,6 +35,4 @@ class MyComponentPlayerListener(val viewModelVideoPlayer : ViewModelVideoPlayer)
         Log.d("TAG", "changed state to $stateString playWhenReady: $playWhenReady")
     }
 
-
-
 }
