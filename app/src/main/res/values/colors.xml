@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#F44336</color>
     <color name="bg_video_controllers">#AE000000</color>
+
+    <color name="gray_light">#CCCCCC</color>
 </resources>
