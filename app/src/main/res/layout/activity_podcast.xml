@@ -24,7 +24,7 @@
                 android:layout_height="match_parent"
                 app:toolbarId="@+id/toolbar"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:contentScrim="@android:color/transparent">
+                app:contentScrim="@color/colorAccent">
 
             <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -33,8 +33,18 @@
                     app:layout_collapseMode="pin"
                     app:navigationIcon="@drawable/ic_arrow_left_circle"
                     android:elevation="1dp"
-                    android:background="@android:color/transparent"
-                    app:popupTheme="@style/AppTheme.PopupOverlay"/>
+                    android:background="@color/colorPrimary"
+                    app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:text="MoneyCall"
+                        android:textSize="18sp"
+                />
+
+            </androidx.appcompat.widget.Toolbar>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

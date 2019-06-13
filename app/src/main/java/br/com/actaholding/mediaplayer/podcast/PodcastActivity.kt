@@ -21,12 +21,9 @@ class PodcastActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListene
 
 
         collapsingToolbar.setExpandedTitleColor(ActivityCompat.getColor(this, android.R.color.transparent))
-        collapsingToolbar.setCollapsedTitleTextColor(ActivityCompat.getColor(this, android.R.color.transparent))
+        collapsingToolbar.setCollapsedTitleTextColor(ActivityCompat.getColor(this, android.R.color.white))
 
         app_bar.addOnOffsetChangedListener(this)
-
-
-
 
     }
 
@@ -39,12 +36,14 @@ class PodcastActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListene
                 if (mCurrentState != State.EXPANDED) {
                     toolbar.elevation = 5F
                     containerControlls.elevation = 0F
+                    collapsingToolbar.title = ""
                 }
                 mCurrentState = State.EXPANDED
             } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
                 if (mCurrentState != State.COLLAPSED) {
                     toolbar.elevation = 0F
                     containerControlls.elevation = 10F
+                    collapsingToolbar.title = "MoneyCall"
                 }
                 mCurrentState = State.COLLAPSED
             } else {
