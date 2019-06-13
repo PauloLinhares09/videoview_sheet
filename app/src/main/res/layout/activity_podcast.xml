@@ -11,16 +11,17 @@
     <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
             android:fitsSystemWindows="true"
-            android:layout_height="390"
+            android:layout_height="390dp"
             android:layout_width="match_parent"
             android:theme="@style/AppTheme.AppBarOverlay">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/toolbar_layout"
+                android:id="@+id/collapsingToolbar"
                 android:fitsSystemWindows="true"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:toolbarId="@+id/toolbar"
+                app:expandedTitleTextAppearance="@android:color/transparent"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:contentScrim="?attr/colorPrimary">
 
@@ -34,6 +35,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
+                <include layout="@layout/area_banner_timebar"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -51,8 +54,6 @@
             app:layout_anchor="@id/app_bar"
             android:background="@android:color/black"
             app:layout_anchorGravity="bottom|end">
-
-
         <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" app:srcCompat="@drawable/exo_controls_fastforward"
