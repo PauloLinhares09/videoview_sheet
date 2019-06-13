@@ -26,6 +26,10 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:contentScrim="@color/colorAccent">
 
+            <include
+                    app:layout_collapseMode="parallax"
+                    layout="@layout/area_banner_timebar"/>
+
             <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_height="?attr/actionBarSize"
@@ -46,13 +50,9 @@
 
             </androidx.appcompat.widget.Toolbar>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
-                <include layout="@layout/area_banner_timebar"/>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
