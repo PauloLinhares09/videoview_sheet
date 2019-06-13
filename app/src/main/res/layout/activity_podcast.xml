@@ -12,6 +12,8 @@
             android:id="@+id/app_bar"
             android:fitsSystemWindows="true"
             android:layout_height="475dp"
+            app:elevation="0dp"
+            app:background="@null"
             android:layout_width="match_parent"
             android:theme="@style/AppTheme.AppBarOverlay">
 
@@ -22,7 +24,7 @@
                 android:layout_height="match_parent"
                 app:toolbarId="@+id/toolbar"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:contentScrim="?attr/colorPrimary">
+                app:contentScrim="@android:color/transparent">
 
             <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -30,7 +32,8 @@
                     android:layout_width="match_parent"
                     app:layout_collapseMode="pin"
                     app:navigationIcon="@drawable/ic_arrow_left_circle"
-                    android:elevation="10dp"
+                    android:elevation="1dp"
+                    android:background="@android:color/transparent"
                     app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
