@@ -7,7 +7,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "br.com.actaholding.mediaplayer"
+        applicationId "br.com.actaholding.mediaplayer1"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
