@@ -34,22 +34,19 @@ class PodcastActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListene
 
             if (verticalOffset == 0) {
                 if (mCurrentState != State.EXPANDED) {
-                    toolbar.elevation = 5F
-                    containerControlls.elevation = 0F
-                    collapsingToolbar.title = ""
+                    tvSubTitleCollapsed.visibility = View.GONE
                 }
                 mCurrentState = State.EXPANDED
             } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
                 if (mCurrentState != State.COLLAPSED) {
-                    toolbar.elevation = 5F
-                    containerControlls.elevation = 0F
-                    collapsingToolbar.title = "MoneyCall"
+                    tvSubTitleCollapsed.visibility = View.VISIBLE
+
                 }
                 mCurrentState = State.COLLAPSED
             } else {
                 if (mCurrentState != State.IDLE) {
-                    toolbar.elevation = 5F
-                    containerControlls.elevation = 0F
+//                    toolbar.elevation = 5F
+//                    containerControlls.elevation = 0F
                 }
                 mCurrentState = State.IDLE
             }

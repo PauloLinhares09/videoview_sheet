@@ -40,13 +40,33 @@
                     android:background="@color/colorPrimary"
                     app:popupTheme="@style/AppTheme.PopupOverlay">
 
-                <TextView
+                <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@android:color/white"
-                        android:text="MoneyCall"
-                        android:textSize="18sp"
-                />
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:gravity="center|left"
+                >
+                    <TextView
+                            android:id="@+id/tvTitleProduct"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@android:color/white"
+                            android:text="MoneyCall"
+                            android:textSize="18sp"
+                    />
+
+                    <TextView
+                            android:id="@+id/tvSubTitleCollapsed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/gray_light"
+                            android:text="Episódio 71 - O fim..."
+                            android:textSize="13sp"
+                            android:paddingLeft="16dp"
+                            android:visibility="gone"
+                    />
+                </LinearLayout>
+
 
             </androidx.appcompat.widget.Toolbar>
 
