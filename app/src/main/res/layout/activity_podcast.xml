@@ -24,7 +24,7 @@
                 android:layout_height="match_parent"
                 app:toolbarId="@+id/toolbar"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:contentScrim="@color/colorAccent">
+                app:contentScrim="@color/colorPrimary">
 
             <include
                     app:layout_collapseMode="parallax"
