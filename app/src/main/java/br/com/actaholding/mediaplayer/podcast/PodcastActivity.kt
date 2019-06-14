@@ -41,8 +41,8 @@ class PodcastActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListene
                 mCurrentState = State.EXPANDED
             } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
                 if (mCurrentState != State.COLLAPSED) {
-                    toolbar.elevation = 0F
-                    containerControlls.elevation = 10F
+                    toolbar.elevation = 5F
+                    containerControlls.elevation = 0F
                     collapsingToolbar.title = "MoneyCall"
                 }
                 mCurrentState = State.COLLAPSED
