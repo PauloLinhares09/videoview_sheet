@@ -11,7 +11,7 @@
     <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
             android:fitsSystemWindows="true"
-            android:layout_height="515dp"
+            android:layout_height="475dp"
             app:elevation="0dp"
             app:background="@null"
             android:layout_width="match_parent"
@@ -67,12 +67,7 @@
                     />
                 </LinearLayout>
 
-
             </androidx.appcompat.widget.Toolbar>
-
-
-
-
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
