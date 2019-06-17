@@ -26,7 +26,7 @@ class PodcastActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListene
 
         Log.i("TAG", "densidade: ${Utils.getDensityDPIFromDevice(resources)}")
 
-        if (Utils.getDensityDPIFromDevice(resources)  == 480)
+        if (Utils.getDensityDPIFromDevice(resources)  == Utils.DENSITY_DEVICE.DPI_480.density)
             applyShaderGradient(399F)
         else{
             applyShaderGradient(599F)

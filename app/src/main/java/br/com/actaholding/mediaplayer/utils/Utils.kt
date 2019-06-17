@@ -64,12 +64,24 @@ object Utils{
 //    }
 
 
-
+    /**
+     *
+     */
     fun getDensityDPIFromDevice(resources : Resources): Int {
         val metrics = resources.displayMetrics
         Log.i("TAG", "densidade densityDpi: ${metrics.densityDpi}")
         Log.i("TAG", "densidade scaledDensity: ${metrics.scaledDensity}")
         return metrics.densityDpi
+    }
+
+    enum class DENSITY_DEVICE(val density: Int){
+        DPI_120(120),
+        DPI_160(160),
+        DPI_213(213),
+        DPI_240(240),
+        DPI_320(320),
+        DPI_480(480),
+        DPI_560(560)
     }
 
 }
