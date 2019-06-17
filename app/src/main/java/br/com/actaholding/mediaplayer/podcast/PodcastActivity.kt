@@ -9,6 +9,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import br.com.actaholding.mediaplayer.R
+import br.com.actaholding.mediaplayer.utils.Utils
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.activity_podcast.*
 import kotlinx.android.synthetic.main.content_podcast.*
@@ -23,7 +24,13 @@ class PodcastActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListene
         setContentView(R.layout.activity_podcast)
         setSupportActionBar(toolbar)
 
-        applyShaderGradient(399F)
+        Log.i("TAG", "densidade: ${Utils.getDensityDPIFromDevice(resources)}")
+
+        if (Utils.getDensityDPIFromDevice(resources)  == 480)
+            applyShaderGradient(399F)
+        else{
+            applyShaderGradient(599F)
+        }
 
         collapsingToolbar.setExpandedTitleColor(ActivityCompat.getColor(this, android.R.color.transparent))
         collapsingToolbar.setCollapsedTitleTextColor(ActivityCompat.getColor(this, android.R.color.white))
@@ -42,13 +49,13 @@ class PodcastActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListene
             if (verticalOffset == 0) {
                 if (mCurrentState != State.EXPANDED) {
                     tvSubTitleCollapsed.visibility = View.GONE
-                    applyShaderGradient(399F)
+                    applyShaderGradient(599F)
                 }
                 mCurrentState = State.EXPANDED
             } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
                 if (mCurrentState != State.COLLAPSED) {
                     tvSubTitleCollapsed.visibility = View.VISIBLE
-                    applyShaderGradient(0F)
+                    applyShaderGradient(null)
 
                 }
                 mCurrentState = State.COLLAPSED
@@ -56,7 +63,7 @@ class PodcastActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListene
                 if (mCurrentState != State.IDLE) {
 //                    toolbar.elevation = 5F
 //                    containerControlls.elevation = 0F
-                    applyShaderGradient(0F)
+                    applyShaderGradient(null)
                 }
                 mCurrentState = State.IDLE
             }
@@ -64,13 +71,13 @@ class PodcastActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListene
     }
 
 
-    private fun applyShaderGradient(y1: Float) {
+    private fun applyShaderGradient(y1: Float?) {
         val shader: Shader = LinearGradient(
             0F,
             0F,
             0F,
-            y1,
-            intArrayOf(Color.WHITE, Color.TRANSPARENT),
+            y1?:0F,
+            intArrayOf(Color.WHITE, if (y1 != null) Color.TRANSPARENT else Color.WHITE),
             floatArrayOf(0F, 1F),
             Shader.TileMode.CLAMP
         )

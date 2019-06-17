@@ -1,6 +1,8 @@
 package br.com.actaholding.mediaplayer.utils
 
+import android.content.res.Resources
 import android.text.Spanned
+import android.util.Log
 import androidx.core.text.HtmlCompat
 import java.lang.Exception
 
@@ -60,5 +62,14 @@ object Utils{
 //    fun fromHtml(desc: String): String {
 //        return desc
 //    }
+
+
+
+    fun getDensityDPIFromDevice(resources : Resources): Int {
+        val metrics = resources.displayMetrics
+        Log.i("TAG", "densidade densityDpi: ${metrics.densityDpi}")
+        Log.i("TAG", "densidade scaledDensity: ${metrics.scaledDensity}")
+        return metrics.densityDpi
+    }
 
 }
